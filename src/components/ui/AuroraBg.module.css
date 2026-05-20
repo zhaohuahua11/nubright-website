@@ -1,0 +1,245 @@
+/* ───── 弥散渐变背景 ───── */
+
+/* Full-width anchor layer that sits over the hero */
+.shell {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+/* Side masks — solid white 50%, inner edges aligned with the outer grid lines.
+   Width = viewport gutter + container-padding, matching GridOverlay exactly. */
+.shell::before,
+.shell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(max(0px, (100% - var(--container-max)) / 2) + var(--container-padding));
+  background: rgba(250, 250, 248, 0.35);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.shell::before { left: 0; }
+.shell::after  { right: 0; }
+
+.shellNoMask::before,
+.shellNoMask::after { display: none; }
+
+/* Centered canvas — positions blobs relative to the inner grid zone,
+   but allows them to bleed outward (hero's overflow:hidden is the outer clip). */
+.canvas {
+  position: relative;
+  width: calc(100% - 2 * var(--container-padding));
+  max-width: calc(var(--container-max) - 2 * var(--container-padding));
+}
+
+/* Blob layer — expands -12% within the canvas */
+.root {
+  position: absolute;
+  inset: -12%;
+  filter: blur(85px) saturate(115%);
+  /* hide until parent overflow:hidden is guaranteed to be applied */
+  opacity: 0;
+  animation: rootFadeIn 0s 80ms forwards;
+}
+
+@keyframes rootFadeIn {
+  to { opacity: var(--aurora-opacity, 1); }
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* ── Vivid blobs ── */
+.b1 {
+  width: 480px; height: 480px;
+  left: -10%; top: -20%;
+  background: radial-gradient(circle, #ff3d8b 0%, rgba(255,61,139,0) 60%);
+  opacity: .7;
+  animation: morph1 8s ease-in-out infinite;
+}
+.b2 {
+  width: 820px; height: 820px;
+  left: -10%; bottom: -26%;
+  background: radial-gradient(circle, #6c2bff 0%, rgba(108,43,255,0) 60%);
+  opacity: .95;
+  animation: morph2 10s ease-in-out infinite;
+}
+.b3 {
+  width: 820px; height: 820px;
+  right: -14%; top: -12%;
+  background: radial-gradient(circle, #ffaa00 0%, rgba(255,170,0,0) 60%);
+  opacity: 0;
+  animation: morph3 11s ease-in-out infinite, b3FadeIn 2.5s 0.3s ease-out forwards;
+}
+
+@keyframes b3FadeIn {
+  to { opacity: .45; }
+}
+.b4 {
+  width: 840px; height: 840px;
+  right: -14%; bottom: -22%;
+  background: radial-gradient(circle, #00c2ff 0%, rgba(0,194,255,0) 62%);
+  opacity: 0;
+  animation: morph4 9s ease-in-out infinite, b4FadeIn 2.5s 0.5s ease-out forwards;
+}
+
+@keyframes b4FadeIn {
+  to { opacity: .95; }
+}
+.b5 {
+  width: 540px; height: 540px;
+  left: 50%; top: -12%;
+  background: radial-gradient(circle, #ffe066 0%, rgba(255,224,102,0) 60%);
+  opacity: .45;
+  animation: morph5 10.5s ease-in-out infinite;
+}
+.b6 {
+  width: 540px; height: 540px;
+  left: 30%; top: 10%;
+  background: radial-gradient(circle, #ff3a2a 0%, rgba(255,58,42,0) 60%);
+  opacity: .6;
+  animation: morph6 12s ease-in-out infinite;
+}
+
+/* ── White blobs — soften + center readability ── */
+.w1 {
+  width: 680px; height: 680px;
+  left: 50%; top: -22%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 62%);
+  opacity: .9;
+  animation: morphW1 9.5s ease-in-out infinite;
+}
+.w2 {
+  width: 640px; height: 640px;
+  right: -18%; top: 42%;
+  background: radial-gradient(circle, rgba(255,255,255,.92) 0%, rgba(255,255,255,0) 62%);
+  opacity: .85;
+  animation: morphW2 11s ease-in-out infinite;
+}
+.w3 {
+  width: 760px; height: 760px;
+  left: 50%; bottom: -26%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 62%);
+  opacity: .9;
+  animation: morphW3 10s ease-in-out infinite;
+}
+.w4 {
+  width: 640px; height: 640px;
+  left: -18%; top: 42%;
+  background: radial-gradient(circle, rgba(255,255,255,.92) 0%, rgba(255,255,255,0) 62%);
+  opacity: .85;
+  animation: morphW4 12s ease-in-out infinite;
+}
+
+/* ── Center veil — brand mark arch shape ── */
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: block;
+  overflow: visible;
+  transform-origin: 50% 50%;
+  /* hide until veilBreathe has had one frame to apply its blur */
+  opacity: 0;
+  animation: veilBreathe 14s ease-in-out infinite, veilFadeIn 0s 80ms forwards;
+}
+
+@keyframes veilFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes veilBreathe {
+  0%,100% { transform: translateY(14%) scale(0.90); filter: blur(60px); }
+  33%     { transform: translateY(12%) scale(0.95); filter: blur(36px); }
+  66%     { transform: translateY(16%) scale(0.87); filter: blur(48px); }
+}
+
+@keyframes veilEllipseBreathe {
+  0%,100% { filter: blur(60px); }
+  33%     { filter: blur(36px); }
+  66%     { filter: blur(48px); }
+}
+
+/* ── Keyframes ── */
+@keyframes morph1 {
+  0%,100% { transform: translate(0,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(560px,320px) rotate(80deg) scale(2.4,.45); }
+  66%     { transform: translate(220px,620px) rotate(-45deg) scale(.4,2.2); }
+}
+@keyframes morph2 {
+  0%,100% { transform: translate(0,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(-460px,-360px) rotate(-90deg) scale(.4,2.3); }
+  66%     { transform: translate(-660px,260px) rotate(70deg) scale(2.3,.45); }
+}
+@keyframes morph3 {
+  0%,100% { transform: translate(0,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(-600px,460px) rotate(110deg) scale(2.3,.45); }
+  66%     { transform: translate(-280px,-440px) rotate(-65deg) scale(.45,2.2); }
+}
+@keyframes morph4 {
+  0%,100% { transform: translate(0,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(420px,-540px) rotate(-100deg) scale(.4,2.3); }
+  66%     { transform: translate(-320px,-300px) rotate(85deg) scale(2.2,.45); }
+}
+@keyframes morph5 {
+  0%,100% { transform: translate(0,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(-400px,-520px) rotate(130deg) scale(2.5,.4); }
+  66%     { transform: translate(580px,-220px) rotate(-55deg) scale(.4,2.3); }
+}
+@keyframes morph6 {
+  0%,100% { transform: translate(0,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(540px,440px) rotate(-120deg) scale(2.3,.45); }
+  66%     { transform: translate(-480px,260px) rotate(95deg) scale(.4,2.3); }
+}
+@keyframes morphW1 {
+  0%,100% { transform: translate(-50%,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(calc(-50% + 280px),200px) rotate(60deg) scale(2.2,.5); }
+  66%     { transform: translate(calc(-50% - 240px),320px) rotate(-40deg) scale(.5,2); }
+}
+@keyframes morphW2 {
+  0%,100% { transform: translate(0,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(-360px,260px) rotate(-70deg) scale(.5,2.1); }
+  66%     { transform: translate(-220px,-340px) rotate(55deg) scale(2.1,.5); }
+}
+@keyframes morphW3 {
+  0%,100% { transform: translate(-50%,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(calc(-50% - 320px),-240px) rotate(-65deg) scale(2.2,.5); }
+  66%     { transform: translate(calc(-50% + 280px),-360px) rotate(50deg) scale(.5,2.1); }
+}
+@keyframes morphW4 {
+  0%,100% { transform: translate(0,0) rotate(0) scale(1,1); }
+  33%     { transform: translate(380px,-280px) rotate(75deg) scale(.5,2.1); }
+  66%     { transform: translate(260px,320px) rotate(-50deg) scale(2.1,.5); }
+}
+
+.veilEllipse {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(250,250,248,0.95) 0%, rgba(250,250,248,0) 100%);
+  filter: blur(60px);
+  animation: veilEllipseBreathe 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob, .veil, .veilEllipse { animation: none; }
+}

@@ -1,0 +1,32 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Centered container — matches every section's .container exactly.
+   At viewport > 1320px the lines stay inside the content zone, blank gutters on both sides.
+   grid-template-columns count MUST match COLS in GridOverlay.jsx (both = 4). */
+.grid {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.col {
+  height: 100%;
+  border-right: 1px solid var(--color-grid-line);
+}
+
+.col:first-child {
+  border-left: 1px solid var(--color-grid-line);
+}
+
+.col:not(:last-child) {
+  border-right: 1px dashed var(--color-grid-line);
+}

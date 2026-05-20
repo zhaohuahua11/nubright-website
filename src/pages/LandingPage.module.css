@@ -1,0 +1,116 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: calc(var(--section-padding-y) * 1.6) var(--container-padding);
+  text-align: center;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 5;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.heroBadge {
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text-label);
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-1-5) var(--space-4);
+}
+
+.heroHeading {
+  font-size: clamp(52px, 7.5vw, 72px);
+  color: var(--color-text-heading);
+  white-space: pre;
+}
+
+.heroSub {
+  font-size: 14px;
+  font-weight: var(--fw-light);
+  line-height: 1.5;
+  color: var(--color-text-body);
+  max-width: 580px;
+  white-space: pre-line;
+}
+
+.heroCTAs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.heroBtnPrimary {
+  font-family: var(--font-sans);
+  font-feature-settings: var(--font-features-default);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-btn-primary-text);
+  background: var(--color-btn-primary-bg);
+  border: 1px solid var(--color-btn-primary-bg);
+  border-radius: var(--radius-xl);
+  padding: 12px var(--space-8);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.heroBtnPrimary:hover {
+  background: var(--color-btn-primary-hover);
+  border-color: var(--color-btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+.heroBtnPrimary:active {
+  transform: translateY(0);
+}
+
+.heroBtnGhost {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-heading);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 12px var(--space-8);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.heroBtnGhost:hover {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-text-body);
+}
+
+/* Placeholder sections */
+.placeholder {
+  padding: var(--space-16) var(--container-padding);
+  border-top: 1px dashed var(--color-border);
+}
+
+.placeholderText {
+  font-size: 13px;
+  color: var(--color-text-body);
+  font-style: italic;
+  text-align: center;
+  padding: var(--space-10);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}

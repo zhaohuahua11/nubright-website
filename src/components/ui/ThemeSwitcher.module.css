@@ -1,0 +1,45 @@
+.switcher {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  display: flex;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 100px;
+  padding: 4px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.1),
+    0 1px 4px rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+}
+
+.btn {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748d;
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast, 150ms) ease,
+    color var(--duration-fast, 150ms) ease;
+}
+
+.btn:hover:not(.active) {
+  color: #061b31;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.active {
+  color: #ffffff;
+  background: #061b31;
+}

@@ -1,0 +1,62 @@
+/* ═══════════════════════════════════════════════════
+   tokens.css — SHARED ONLY
+   Theme-specific values (colors, radius, shadows,
+   fonts) live in src/styles/themes/theme-*.css
+   ═══════════════════════════════════════════════════ */
+:root {
+  /* ── Spacing: Sub-scale ── */
+  --space-px:   1px;
+  --space-0-5:  2px;
+  --space-1:    4px;
+  --space-1-5:  6px;
+  --space-2:    8px;
+  --space-2-5:  10px;
+  --space-2-75: 11px;
+  --space-3:    12px;
+  --space-3-5:  14px;
+  --space-4:    16px;
+  --space-4-5:  18px;
+  --space-5:    20px;
+
+  /* ── Spacing: Standard scale ── */
+  --space-6:    24px;
+  --space-8:    32px;
+  --space-10:   40px;
+  --space-12:   48px;
+  --space-16:   64px;
+  --space-20:   80px;
+  --space-24:   96px;
+  --space-32:   128px;
+
+  /* ── Layout ── */
+  --section-padding-y: clamp(64px, 8vw, 120px);
+  --container-max:     1320px;
+  --container-lg:      1360px;
+  --container-xl:      1440px;
+  --container-padding: clamp(20px, 4vw, 60px);
+
+  /* ── Motion ── */
+  --ease-out:    cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-instant: 100ms;
+  --duration-fast:    150ms;
+  --duration-normal:  200ms;
+  --duration-slow:    300ms;
+  --duration-enter:   500ms;
+
+  /* ── Font Features ── */
+  --font-features-default: 'liga' 1, 'calt' 1, 'cv05' 1, 'cv08' 1;
+  --font-features-tabular: 'tnum' 1, 'liga' 0;
+
+  /* ── Font Weight Scale ── */
+  --fw-light:   350;
+  --fw-heading: 350;
+}
+
+/* CJK fallback fonts (PingFang SC, Microsoft YaHei) render too thin at 300/350.
+   Bump to Regular/Medium when the page language is Traditional Chinese. */
+html[lang="zh-Hant"] {
+  --fw-light:   400;
+  --fw-heading: 500;
+}

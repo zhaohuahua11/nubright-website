@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# macOS
+.DS_Store
+
+# Claude Code
+.claude/
+
+# Design drafts (not needed for deployment)
+CONTENT.md
+CONTENT-ZH.md
+aurora-bg.html
+design-system.html
+stripe-DESIGN-merged.md
+awesome-design-md-main/
+pnpm-lock.yaml
+pnpm-workspace.yaml

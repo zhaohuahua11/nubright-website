@@ -1,0 +1,82 @@
+/* ═══════════════════════════════════════════════════
+   Demo 1 — Stripe Style
+   Applied via: :root (default) + html[data-theme="stripe"]
+   ═══════════════════════════════════════════════════ */
+:root,
+html[data-theme="stripe"] {
+  /* ── Brand Colors ── */
+  --color-purple:         #533afd;
+  --color-heading:        #061b31;
+  --color-white:          #ffffff;
+  --color-brand-dark:     #1c1e54;
+  --color-dark-navy:      #0d253d;
+
+  /* ── Interactive States ── */
+  --color-purple-hover:   #4434d4;
+  --color-purple-deep:    #2e2b8c;
+  --color-purple-light:   #b9b9f9;
+  --color-purple-mid:     #665efd;
+
+  /* ── Text ── */
+  --color-text-heading:   #061b31;
+  --color-text-label:     #273951;
+  --color-text-body:      #64748d;
+
+  /* ── Accent (decorative only) ── */
+  --color-ruby:           #ea2261;
+  --color-magenta:        #f96bee;
+  --color-magenta-light:  #ffd7ef;
+
+  /* ── Semantic ── */
+  --color-success:        #15be53;
+  --color-success-text:   #108c3d;
+  --color-lemon:          #9b6829;
+  --color-info:           #2874ad;
+
+  /* ── Surfaces & Borders ── */
+  --color-border:         #e5edf5;
+  --color-border-purple:  #b9b9f9;
+  --color-border-soft:    #d6d9fc;
+  --color-border-dashed:  #362baa;
+  --color-border-on-dark: rgba(255, 255, 255, 0.12);
+  --color-bg:             #ffffff;
+  --color-bg-subtle:      #f6f9fc;
+
+  /* ── Semantic Button Tokens ── */
+  --color-btn-primary-bg:    #061b31;
+  --color-btn-primary-hover: #0d253d;
+  --color-btn-primary-text:  #ffffff;
+
+  /* ── Component Tokens ── */
+  --color-nav-bg:   rgba(255, 255, 255, 0.92);
+  --color-grid-line: rgba(6, 27, 49, 0.06);
+
+  /* ── Shadows ── */
+  --shadow-l1: rgba(23, 23, 23, 0.06) 0px 3px 6px;
+  --shadow-l2: rgba(23, 23, 23, 0.08) 0px 15px 35px 0px;
+  --shadow-l3:
+    rgba(50, 50, 93, 0.25) 0px 30px 45px -30px,
+    rgba(0, 0, 0, 0.1) 0px 18px 36px -18px;
+  --shadow-l4:
+    rgba(3, 3, 39, 0.25) 0px 14px 21px -14px,
+    rgba(0, 0, 0, 0.1) 0px 8px 17px -8px;
+  --shadow-sticky:    rgba(0, 55, 112, 0.08) 0px -1px 0px inset;
+  --shadow-card:      rgba(23, 23, 23, 0.08) 0px 15px 35px 0px;
+  --shadow-card-hover:
+    rgba(50, 50, 93, 0.25) 0px 30px 45px -30px,
+    rgba(0, 0, 0, 0.1) 0px 18px 36px -18px;
+
+  /* ── Border Radius ── */
+  --radius-micro: 1px;
+  --radius-xs:    2px;
+  --radius-sm:    4px;
+  --radius-md:    5px;
+  --radius-lg:    6px;
+  --radius-xl:    8px;
+
+  /* ── Typography ── */
+  --font-sans:           'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:           'Source Code Pro', 'SFMono-Regular', 'Fira Code', monospace;
+  --font-display:        'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading-weight: 350;
+}

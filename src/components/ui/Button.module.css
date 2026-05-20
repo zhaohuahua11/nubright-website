@@ -1,0 +1,101 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-feature-settings: var(--font-features-default);
+  font-weight: 400;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
+  border: 1px solid transparent;
+}
+
+/* Sizes */
+.size-md {
+  font-size: 16px;
+  padding: var(--space-2) var(--space-4);
+}
+
+.size-sm {
+  font-size: 14px;
+  padding: 6px var(--space-4);
+}
+
+.size-lg {
+  font-size: 16px;
+  padding: 12px var(--space-6);
+}
+
+/* Variants */
+.primary {
+  background: var(--color-btn-primary-bg);
+  color: var(--color-btn-primary-text);
+  border-color: var(--color-btn-primary-bg);
+}
+
+.primary:hover {
+  background: var(--color-btn-primary-hover);
+  border-color: var(--color-btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+.primary:active {
+  transform: translateY(0);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-text-heading);
+  border-color: var(--color-border);
+}
+
+.ghost:hover {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-text-body);
+}
+
+.ghost-purple {
+  background: transparent;
+  color: var(--color-purple);
+  border-color: var(--color-border-purple);
+}
+
+.ghost-purple:hover {
+  background: rgba(83, 58, 253, 0.05);
+}
+
+.dark {
+  background: var(--color-white);
+  color: var(--color-brand-dark);
+  border-color: var(--color-white);
+}
+
+.dark:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.dark:active {
+  transform: translateY(0);
+}
+
+/* Disabled */
+.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-purple);
+  outline-offset: 2px;
+}

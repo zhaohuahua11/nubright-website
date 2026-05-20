@@ -1,0 +1,192 @@
+{
+  "navbar": {
+    "technology": "Technology",
+    "aboutUs": "About Us",
+    "clientPortals": "Client Portals",
+    "getIn": "Get In Touch"
+  },
+  "hero": {
+    "badge": "Fund Administrator · Est. Hong Kong",
+    "heading": "Bright, Brilliant,\nBoundless.",
+    "sub": "More than just a fund administrator, NuBright serves as an extension of your team. We help clients achieve steady AUM growth and optimized investor relations, turning administrative service into a virtuous cycle with investment value.",
+    "cta": "Get In Touch"
+  },
+  "timeline": {
+    "badge": "Our Services",
+    "heading": "With you, at every stage.",
+    "sub": "From inception to exit, we are with you every step of the way.",
+    "phase": "PHASE",
+    "s1": {
+      "title": "Fund Formation",
+      "sub": "With you, when you lay the foundation.",
+      "quote": "The foundation laid in the first year determines the height that can be built in the tenth.",
+      "i1": "Jurisdiction & structure design",
+      "i2": "Term drafting & document review",
+      "i3": "Service provider ecosystem matching",
+      "i3exp": "We help you identify, evaluate, and onboard the right combination of fund administrators, auditors, legal counsel, and technology providers — creating an ecosystem calibrated to your fund's strategy, size, and investor base."
+    },
+    "s2": {
+      "title": "Fundraising",
+      "sub": "With you, when you earn their trust.",
+      "quote": "Raising capital is a process, not a single event. We make sure your back office never becomes the bottleneck.",
+      "i1": "Investor admission & due diligence",
+      "i2": "Investor tax compliance",
+      "i3": "Investor risk profile assessment"
+    },
+    "s3": {
+      "title": "Investment & Post-Investment\nManagement Period",
+      "sub": "With you, when you focus on the vision.",
+      "quote": "Good governance and clear reporting builds investor trust that can withstand a bad quarter.",
+      "i1": "Payment review & processing",
+      "i1exp": "We review and process all fund-level payments — capital calls, distributions, management fees, and expense reimbursements — with full audit trails and dual-control procedures to ensure accuracy and compliance at every step.",
+      "i2": "Fee & performance calculation",
+      "i3": "NAV calculation & reconciliation",
+      "i4": "Implementation of side letter special provisions",
+      "i5": "Document management & record keeping"
+    },
+    "s4": {
+      "title": "Reporting & Exit Period",
+      "sub": "With you, when you deliver the legacy.",
+      "quote": "A clean exit is your final promise to your investors. We help you keep it.",
+      "i1": "Periodic investor reporting",
+      "i2": "Annual regulatory filings",
+      "i3": "Financial statement & audit support",
+      "i3exp": "We prepare and review fund financial statements in accordance with applicable accounting standards, coordinate with external auditors, and manage the full audit process — from fieldwork support to final sign-off — so your investors receive accurate, timely reports.",
+      "i4": "Final exit support"
+    }
+  },
+  "whyNuBright": {
+    "badge": "Why NuBright",
+    "heading": "Built different, on purpose.",
+    "sub": "Proven expertise and institutional rigour, powered by technology built for the way funds actually operate.",
+    "t1": {
+      "label": "A Team That Understands Entrepreneurs",
+      "title": "A Team That Understands Entrepreneurs",
+      "body": "We know every detail of funds, and we have an even deeper understanding of every challenge entrepreneurs face. Our team has been deeply involved in the complete journey of more than 1,000 funds — from 0 to 1 and from 1 to 100.",
+      "dark": {
+        "value": "20+",
+        "label": "Years of experience",
+        "sub": "Our core team has over 20 years of deep industry experience, navigating full market cycles and witnessing the rise of domestic USD funds."
+      },
+      "light": {
+        "value": "1,000+",
+        "label": "Funds navigated from 0 to 1",
+        "sub": "We have been deeply involved in the complete journey of more than 1,000 funds — from 0 to 1 and from 1 to 100."
+      }
+    },
+    "t2": {
+      "label": "Rigorous Operational Standards",
+      "title": "Rigorous Operational Standards",
+      "body": "20 years of process expertise encoded into repeatable, auditable workflows that every team member executes identically. Consistent quality, not dependent on individuals.",
+      "illus1": "Every Process Validated",
+      "illus2": "Every Permission Traceable",
+      "illus3": "Every Data Exchange Secured"
+    },
+    "t3": {
+      "label": "Digital-Intelligent System Support",
+      "title": "Digital-Intelligent System Support",
+      "body": "Two platforms built from the ground up for the reality of fund administration. Full visibility, no black boxes. Investors and fund managers can access real-time data, documents, and status updates — anytime, without asking us.",
+      "link": "View more details",
+      "leftLabel": "Manager Portal",
+      "rightLabel": "Investor Portal",
+      "desc": "Built on the synergy of two platforms – \"Manager Portal\" and \"Investor Portal\". Data-centric, breaking down silos across clients, products, processes, and risks.",
+      "topLeft": "Fund Compliance",
+      "bottomLeft": "Fee & Settlement",
+      "topRight": "Real-time Reports",
+      "bottomRight": "Self-service Access"
+    }
+  },
+  "cta": {
+    "line1": "With You. With Us.",
+    "line2": "Our Light. Your Legacy.",
+    "sub": "Let's talk about your fund. No pitch decks — just a real conversation about what you're building.",
+    "btn": "Contact Us to Partner with NuBright"
+  },
+  "investorPortal": {
+    "badge": "Investor Portal",
+    "title": "7×24 All-Day Service Portal",
+    "sub": "Investors get round-the-clock access to their portfolio data, documents, and capital activity — no waiting, no chasing, no black boxes.",
+    "cardDesc": "Dedicated one-stop subscription/redemption application and information inquiry — Access portfolio holdings, fund NAVs, transaction records, periodic reports, and income details anytime, anywhere. Delivers a fully transparent, always-on investment service experience.",
+    "cardBtn": "Talk to Us",
+    "f1": { "title": "Easy Onboarding", "body": "Complete your profile and submit required documents digitally via the \"My Profile\" section—quick, secure, and entirely paperless." },
+    "f2": { "title": "Streamlined Transactions", "body": "Initiate subscription and redemption requests online at your convenience, with a simple and guided process." },
+    "f3": { "title": "Full Transparency", "body": "Track the status of your subscription or redemption in real time—from submission through to registration—and monitor the fund's performance and key documents anytime." }
+  },
+  "managerPortal": {
+    "badge": "Manager Portal",
+    "title": "One-Stop Digital Operations Workbench",
+    "sub": "A unified command centre for fund managers to oversee operations, track performance, and manage investors — all from a single, real-time platform.",
+    "f1": { "title": "Panoramic Data View & Real-Time Query", "body": "Deeply integrates multi-dimensional operational data including funds, valuations, and investors. Centralized, real-time query for comprehensive visibility into fund operations." },
+    "f2": { "title": "Business Process Digitalization", "body": "Supports online submission, review, and confirmation of core operations such as valuation confirmation and TA processing. Achieves end-to-end digital workflows with full traceability, significantly improving efficiency and enhancing internal control transparency." },
+    "f3": { "title": "Digital Document Management", "body": "Electronically archives fund legal, operational, financial, and investor documents for one-click access. Ensures unified, secure, and traceable filing, supporting rapid response to audits and regulatory requests." },
+    "wip": "Under active development — launching soon."
+  },
+  "technologyHero": {
+    "badge": "Our Technology",
+    "line1": "Dual–Platform Synergy,",
+    "line2": "Full–Chain Digitalization.",
+    "sub": "We didn't build these systems to look impressive. We built them because we refused to let service quality depend on individual performance. Every workflow is standardized, every action is traceable.",
+    "leftLabel": "Manager Portal",
+    "rightLabel": "Investor Portal"
+  },
+  "aboutHero": {
+    "badge": "About NuBright",
+    "heading": "Choice reveals Taste.",
+    "sub": "Every decision we've made — about how we hire, how we work, how we build our systems — is a reflection of what we believe great service actually means."
+  },
+  "ourSpirits": {
+    "title": "Our Spirits",
+    "sub": "Three beliefs — our starting point, our way of working, and what we're building toward.",
+    "s1": {
+      "eyebrow": "Our Starting Point",
+      "heading": "Boutique Soul, Institutional Strength.",
+      "body": "With the heart of a craftsman, we build institutional-grade instruments. We approach every system as a work of art — built to stand the test of time. Small enough to care, rigorous enough to be trusted."
+    },
+    "s2": {
+      "eyebrow": "How We Work",
+      "heading": "Master the Fine Details. See the Big Picture.",
+      "body": "Precision in the small, direction in the large. Every number can stand scrutiny, every decision sees the road ahead. We never treat accuracy and perspective as a trade-off."
+    },
+    "s3": {
+      "eyebrow": "What We're Building Toward",
+      "heading": "Visionary in Thinking, Grounded in Action.",
+      "body": "Forward-looking vision paired with down-to-earth execution. We turn two decades of experience into reusable, systemic wisdom — so the next generation of funds can stand on firmer ground."
+    }
+  },
+  "ourDailyLife": {
+    "title": "Our Daily Life",
+    "sub": "We asked our team to draw what a real day at NuBright looks like. No stock photos — just honest moments from people who take their work seriously.",
+    "bookLabel": "Our Daily Life · NuBright Team",
+    "coverAuthor": "By NuBright Team",
+    "backLabel": "NuBright",
+    "flipHint": "Drag corners or ← → to flip"
+  },
+  "contact": {
+    "label": "Get In Touch",
+    "title": "Let's talk about your fund.",
+    "lastName": { "label": "Last Name", "placeholder": "Your last name" },
+    "firstName": { "label": "First Name", "placeholder": "Your first name" },
+    "email": { "label": "Email", "placeholder": "you@company.com" },
+    "phone": { "label": "Phone Number", "placeholder": "+1 (XXX) XXX-XXXX" },
+    "company": { "label": "Fund / Company / Organization", "placeholder": "Fund name or company" },
+    "message": { "label": "Message", "placeholder": "Tell us about your fund and what you're looking for..." },
+    "submit": "Send Message"
+  },
+  "statsBar": {
+    "yearsExp":  "Years of experience",
+    "fundsNav":  "Active Funds Under Administration",
+    "stages":    "Assets Under Administration",
+    "platforms": "Annual AUA Growth"
+  },
+  "footer": {
+    "contactHeading": "Contact Us",
+    "phone": "+852 6236 7088",
+    "email": "info@nubright.com",
+    "address": "1 Trans Am Plaza Drive, Suite 400\nOakbrook Terrace, IL 60181",
+    "legalHeading": "Legal",
+    "terms": "Terms and Conditions",
+    "dataProtection": "Data Protection Policy",
+    "copyright": "Copyright © 2025 NuBright Fund Services Limited",
+    "backToTop": "Back to Top ↑"
+  }
+}

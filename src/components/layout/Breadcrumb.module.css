@@ -1,0 +1,41 @@
+.breadcrumb {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-3) var(--container-padding);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sep {
+  font-size: 13px;
+  color: var(--color-text-body);
+  opacity: 0.5;
+}
+
+.link {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-body);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--color-text-heading);
+}
+
+.current {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-heading);
+}

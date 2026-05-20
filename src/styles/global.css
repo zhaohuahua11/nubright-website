@@ -1,0 +1,123 @@
+@import './tokens.css';
+@import './themes/theme-stripe.css';
+@import './themes/theme-carta.css';
+@import './themes/theme-handdrawn.css';
+
+/* ── Font Registration ── */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/InterVariable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/InterVariable-Italic.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: var(--font-features-default);
+  font-weight: var(--fw-light);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--color-text-body);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-heading);
+  font-family: var(--font-display, var(--font-sans));
+  font-weight: var(--font-heading-weight, 300);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ── Layout Utilities ── */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* ── Scroll-triggered Entrance Animation ── */
+.animate-on-enter {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--duration-enter) var(--ease-out),
+    transform var(--duration-enter) var(--ease-out);
+}
+
+.animate-on-enter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-on-enter:nth-child(2) { transition-delay: 80ms; }
+.animate-on-enter:nth-child(3) { transition-delay: 160ms; }
+.animate-on-enter:nth-child(4) { transition-delay: 240ms; }
+
+/* ── Tabular Numbers ── */
+.tabular-nums {
+  font-feature-settings: var(--font-features-tabular);
+}
+
+/* ── Type Scale Classes ── */
+.text-display-2xl    { font-size: 72px; font-weight: 420; line-height: 1.05; letter-spacing: -1.8px; }
+.text-display-xl     { font-size: 64px; font-weight: var(--fw-heading); line-height: 1.00; letter-spacing: -1.6px; }
+.text-display-hero   { font-size: 56px; font-weight: var(--fw-heading); line-height: 1.03; letter-spacing: -1.4px; }
+.text-display-lg     { font-size: 48px; font-weight: var(--fw-heading); line-height: 1.15; letter-spacing: -0.96px; }
+.text-heading-section{ font-size: 32px; font-weight: var(--fw-heading); line-height: 1.10; letter-spacing: -0.64px; }
+.text-heading-lg     { font-size: 26px; font-weight: var(--fw-heading); line-height: 1.12; letter-spacing: -0.26px; }
+.text-heading-md     { font-size: 22px; font-weight: var(--fw-heading); line-height: 1.10; letter-spacing: -0.22px; }
+.text-body-lg        { font-size: 18px; font-weight: var(--fw-light); line-height: 1.40; }
+.text-body           { font-size: 16px; font-weight: var(--fw-light); line-height: 1.40; }
+.text-button         { font-size: 16px; font-weight: 400; line-height: 1.00; }
+.text-button-sm      { font-size: 14px; font-weight: 400; line-height: 1.00; }
+.text-nav            { font-size: 14px; font-weight: 400; line-height: 1.00; }
+.text-caption        { font-size: 13px; font-weight: 400; }
+.text-caption-sm     { font-size: 12px; font-weight: 400; line-height: 1.40; }
+.text-caption-num    { font-size: 12px; font-weight: 400; line-height: 1.33; letter-spacing: -0.36px; font-feature-settings: var(--font-features-tabular); }
+.text-code           { font-family: var(--font-mono); font-size: 12px; font-weight: 500; line-height: 2.00; }
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
