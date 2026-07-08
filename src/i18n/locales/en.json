@@ -1,7 +1,5 @@
 {
   "navbar": {
-    "technology": "Technology",
-    "aboutUs": "About Us",
     "clientPortals": "Client Portals",
     "getIn": "Get In Touch"
   },
@@ -53,47 +51,6 @@
       "i3": "Financial statement & audit support",
       "i3exp": "We prepare and review fund financial statements in accordance with applicable accounting standards, coordinate with external auditors, and manage the full audit process — from fieldwork support to final sign-off — so your investors receive accurate, timely reports.",
       "i4": "Final exit support"
-    }
-  },
-  "whyNuBright": {
-    "badge": "Why NuBright",
-    "heading": "Built different, on purpose.",
-    "sub": "Proven expertise and institutional rigour, powered by technology built for the way funds actually operate.",
-    "t1": {
-      "label": "A Team That Understands Entrepreneurs",
-      "title": "A Team That Understands Entrepreneurs",
-      "body": "We know every detail of funds, and we have an even deeper understanding of every challenge entrepreneurs face. Our team has been deeply involved in the complete journey of more than 1,000 funds — from 0 to 1 and from 1 to 100.",
-      "dark": {
-        "value": "20+",
-        "label": "Years of experience",
-        "sub": "Our core team has over 20 years of deep industry experience, navigating full market cycles and witnessing the rise of domestic USD funds."
-      },
-      "light": {
-        "value": "1,000+",
-        "label": "Funds navigated from 0 to 1",
-        "sub": "We have been deeply involved in the complete journey of more than 1,000 funds — from 0 to 1 and from 1 to 100."
-      }
-    },
-    "t2": {
-      "label": "Rigorous Operational Standards",
-      "title": "Rigorous Operational Standards",
-      "body": "20 years of process expertise encoded into repeatable, auditable workflows that every team member executes identically. Consistent quality, not dependent on individuals.",
-      "illus1": "Every Process Validated",
-      "illus2": "Every Permission Traceable",
-      "illus3": "Every Data Exchange Secured"
-    },
-    "t3": {
-      "label": "Digital-Intelligent System Support",
-      "title": "Digital-Intelligent System Support",
-      "body": "Two platforms built from the ground up for the reality of fund administration. Full visibility, no black boxes. Investors and fund managers can access real-time data, documents, and status updates — anytime, without asking us.",
-      "link": "View more details",
-      "leftLabel": "Manager Portal",
-      "rightLabel": "Investor Portal",
-      "desc": "Built on the synergy of two platforms – \"Manager Portal\" and \"Investor Portal\". Data-centric, breaking down silos across clients, products, processes, and risks.",
-      "topLeft": "Fund Compliance",
-      "bottomLeft": "Fee & Settlement",
-      "topRight": "Real-time Reports",
-      "bottomRight": "Self-service Access"
     }
   },
   "cta": {
@@ -152,14 +109,6 @@
       "heading": "Visionary in Thinking, Grounded in Action.",
       "body": "Forward-looking vision paired with down-to-earth execution. We turn two decades of experience into reusable, systemic wisdom — so the next generation of funds can stand on firmer ground."
     }
-  },
-  "ourDailyLife": {
-    "title": "Our Daily Life",
-    "sub": "We asked our team to draw what a real day at NuBright looks like. No stock photos — just honest moments from people who take their work seriously.",
-    "bookLabel": "Our Daily Life · NuBright Team",
-    "coverAuthor": "By NuBright Team",
-    "backLabel": "NuBright",
-    "flipHint": "Drag corners or ← → to flip"
   },
   "contact": {
     "label": "Get In Touch",

@@ -15,25 +15,6 @@
   overflow: hidden;
 }
 
-.heroGlass {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 56%;
-  max-width: 620px;
-  pointer-events: none;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.00) 0px,
-    rgba(255, 255, 255, 0.60) 8px,
-    rgba(255, 255, 255, 0.00) 44px
-  );
-}
-
 .heroBg {
   position: absolute;
   bottom: -80px;
@@ -63,8 +44,6 @@
 .heroMask {
   grid-column: 2 / 4;
   background: transparent;
-  /* backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px); */
 }
 
 .heroGrid {
@@ -125,19 +104,4 @@
   color: var(--color-text-body);
   max-width: 580px;
   white-space: pre-line;
-}
-
-.placeholder {
-  padding: var(--space-16) var(--container-padding);
-  border-top: 1px dashed var(--color-border);
-}
-
-.placeholderText {
-  font-size: 13px;
-  color: var(--color-text-body);
-  font-style: italic;
-  text-align: center;
-  padding: var(--space-10);
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-md);
 }

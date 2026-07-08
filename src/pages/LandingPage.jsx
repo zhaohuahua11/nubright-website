@@ -3,14 +3,18 @@ import Footer from '../components/layout/Footer'
 import CTASection from '../components/sections/CTASection'
 import StatsBar from '../components/sections/StatsBar'
 import LifecycleTimeline from '../components/sections/LifecycleTimeline'
-import WhyNuBright from '../components/sections/WhyNuBright'
+import AboutHero from '../components/sections/AboutHero'
+import OurSpirits from '../components/sections/OurSpirits'
+import TechnologyHero from '../components/sections/TechnologyHero'
+import InvestorPortal from '../components/sections/InvestorPortal'
+import ManagerPortal from '../components/sections/ManagerPortal'
 import AuroraBg from '../components/ui/AuroraBg'
 import styles from './LandingPage.module.css'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { useTheme } from '../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 
-export default function LandingPage({ onContactClick }) {
+export default function LandingPage({ onContactClick, onDemoClick }) {
   const heroRef = useScrollAnimation()
   const { theme } = useTheme()
   const { t } = useTranslation()
@@ -43,11 +47,19 @@ export default function LandingPage({ onContactClick }) {
       {/* Stats Bar */}
       <StatsBar />
 
-      {/* Full Lifecycle Coverage */}
+      {/* Our Services */}
       <LifecycleTimeline />
 
-      {/* Why NuBright */}
-      <WhyNuBright />
+      {/* About (moved from the former About Us page) */}
+      <AboutHero />
+
+      <OurSpirits />
+
+      {/* Technology (moved from the former Technology page) */}
+      <TechnologyHero />
+
+      <InvestorPortal onContactClick={onDemoClick || onContactClick} />
+      <ManagerPortal />
 
       <CTASection onContactClick={onContactClick} />
       <Footer />

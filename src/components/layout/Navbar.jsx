@@ -32,20 +32,7 @@ export default function Navbar({ onContactClick }) {
           <img src="/Logo.svg" alt="NuBright" width={80} height={80} />
         </Link>
 
-        <div className={styles.links}>
-          <Link
-            to="/technology"
-            className={`${styles.link} ${pathname === '/technology' ? styles.linkActive : ''}`}
-          >
-            {t('navbar.technology')}
-          </Link>
-          <Link
-            to="/about"
-            className={`${styles.link} ${pathname === '/about' ? styles.linkActive : ''}`}
-          >
-            {t('navbar.aboutUs')}
-          </Link>
-        </div>
+        <div className={styles.links} />
 
         <div className={styles.actions}>
           <Select

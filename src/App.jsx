@@ -7,8 +7,6 @@ import ScrollToTop from './components/layout/ScrollToTop'
 import ContactModal from './components/ui/ContactModal'
 import ThemeSwitcher from './components/ui/ThemeSwitcher'
 import LandingPage from './pages/LandingPage'
-import TechnologyPage from './pages/TechnologyPage'
-import AboutUsPage from './pages/AboutUsPage'
 import DataProtectionPolicyPage from './pages/DataProtectionPolicyPage'
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage'
 
@@ -32,9 +30,7 @@ export default function App() {
         <GridOverlay />
         <div style={{ position: 'relative', zIndex: 1 }}>
           <Routes>
-            <Route path="/" element={<LandingPage onContactClick={openContact} />} />
-            <Route path="/technology" element={<TechnologyPage onContactClick={openContact} onDemoClick={openDemo} />} />
-            <Route path="/about" element={<AboutUsPage onContactClick={openContact} />} />
+            <Route path="/" element={<LandingPage onContactClick={openContact} onDemoClick={openDemo} />} />
             <Route path="/data-protection-policy" element={<DataProtectionPolicyPage onContactClick={openContact} />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditionsPage onContactClick={openContact} />} />
           </Routes>
