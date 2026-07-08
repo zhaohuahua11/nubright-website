@@ -1,4 +1,3 @@
-import { lazy, Suspense } from 'react'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import CTASection from '../components/sections/CTASection'
@@ -11,11 +10,9 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { useTheme } from '../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 
-const MeshGradient = lazy(() => import('../components/ui/MeshGradient'))
-
 export default function LandingPage({ onContactClick }) {
   const heroRef = useScrollAnimation()
-  const { theme, bgStyle } = useTheme()
+  const { theme } = useTheme()
   const { t } = useTranslation()
 
   return (
@@ -24,12 +21,7 @@ export default function LandingPage({ onContactClick }) {
 
       {/* Hero */}
       <section className={styles.hero} ref={heroRef}>
-        {theme === 'stripe' && bgStyle === 'aurora' && <AuroraBg veilShape="ellipse" />}
-        {theme === 'stripe' && bgStyle === 'mesh' && (
-          <Suspense fallback={null}>
-            <MeshGradient />
-          </Suspense>
-        )}
+        {theme === 'stripe' && <AuroraBg veilShape="ellipse" />}
         <div className={styles.heroInner}>
           <span className={styles.heroBadge}>{t('hero.badge')}</span>
           <h1 className={`text-display-2xl ${styles.heroHeading} animate-on-enter`}>
