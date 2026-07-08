@@ -10,7 +10,7 @@ import styles from './TechnologyPage.module.css'
 import { useRef } from 'react'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
-export default function TechnologyPage({ onContactClick }) {
+export default function TechnologyPage({ onContactClick, onDemoClick }) {
   const { t } = useTranslation()
   const heroRef = useScrollAnimation()
   const heroTextRef = useRef(null)
@@ -44,7 +44,7 @@ export default function TechnologyPage({ onContactClick }) {
         </div>
       </section>
 
-      <InvestorPortal onContactClick={onContactClick} />
+      <InvestorPortal onContactClick={onDemoClick || onContactClick} />
       <ManagerPortal />
 
       <CTASection onContactClick={onContactClick} />

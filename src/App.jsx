@@ -13,7 +13,10 @@ import DataProtectionPolicyPage from './pages/DataProtectionPolicyPage'
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage'
 
 export default function App() {
-  const [showModal, setShowModal] = useState(false)
+  const [modalVariant, setModalVariant] = useState(null)
+  const showModal = modalVariant !== null
+  const openContact = () => setModalVariant('contact')
+  const openDemo = () => setModalVariant('demo')
 
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.08, smoothWheel: true })
@@ -29,15 +32,15 @@ export default function App() {
         <GridOverlay />
         <div style={{ position: 'relative', zIndex: 1 }}>
           <Routes>
-            <Route path="/" element={<LandingPage onContactClick={() => setShowModal(true)} />} />
-            <Route path="/technology" element={<TechnologyPage onContactClick={() => setShowModal(true)} />} />
-            <Route path="/about" element={<AboutUsPage onContactClick={() => setShowModal(true)} />} />
-            <Route path="/data-protection-policy" element={<DataProtectionPolicyPage onContactClick={() => setShowModal(true)} />} />
-            <Route path="/terms-and-conditions" element={<TermsAndConditionsPage onContactClick={() => setShowModal(true)} />} />
+            <Route path="/" element={<LandingPage onContactClick={openContact} />} />
+            <Route path="/technology" element={<TechnologyPage onContactClick={openContact} onDemoClick={openDemo} />} />
+            <Route path="/about" element={<AboutUsPage onContactClick={openContact} />} />
+            <Route path="/data-protection-policy" element={<DataProtectionPolicyPage onContactClick={openContact} />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditionsPage onContactClick={openContact} />} />
           </Routes>
         </div>
-        {showModal && <ContactModal onClose={() => setShowModal(false)} />}
-        {/* <ThemeSwitcher /> */}
+        {showModal && <ContactModal onClose={() => setModalVariant(null)} variant={modalVariant} />}
+        <ThemeSwitcher />
       </BrowserRouter>
     </ThemeProvider>
   )

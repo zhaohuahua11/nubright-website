@@ -1,0 +1,15 @@
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0) 100%);
+  filter: blur(60px);
+  animation: veilBreathe 14s ease-in-out infinite;
+}
+
+@keyframes veilBreathe {
+  0%,100% { filter: blur(60px); }
+  33%     { filter: blur(36px); }
+  66%     { filter: blur(48px); }
+}

@@ -10,13 +10,13 @@ i18n
       en:        { translation: en },
       'zh-Hant': { translation: zhHant },
     },
-    lng: 'zh-Hant',
+    lng: 'en',
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
   })
 
 // Keep html[lang] in sync so CSS :lang() / [lang="zh-Hant"] selectors fire correctly
-document.documentElement.lang = 'zh-Hant'
+document.documentElement.lang = 'en'
 i18n.on('languageChanged', (lng) => {
   document.documentElement.lang = lng
 })
