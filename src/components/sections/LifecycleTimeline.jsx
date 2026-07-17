@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styles from './LifecycleTimeline.module.css'
 import { useScrollAnimation } from '../../hooks/useScrollAnimation'
@@ -19,9 +18,10 @@ import icon12 from '../../assets/four stage/12.svg'
 import icon13 from '../../assets/four stage/13.svg'
 import icon14 from '../../assets/four stage/14.svg'
 import icon15 from '../../assets/four stage/15.svg'
-import expandIcon from '../../assets/four stage/expand.svg'
 
-/* ── Structure (icons + expand flags; text comes from i18n) ── */
+/* ── Structure (icons only; text comes from i18n).
+   Each phase now has 5 items. The first 15 slots use icons 01–15;
+   phase 04 reuses icons 01–05 as placeholders until new icons are added. ── */
 const STAGES = [
   {
     num: '01',
@@ -29,37 +29,42 @@ const STAGES = [
     items: [
       { icon: icon01, itemKey: 'i1' },
       { icon: icon02, itemKey: 'i2' },
-      { icon: icon03, itemKey: 'i3', expand: true, expKey: 'i3exp' },
+      { icon: icon03, itemKey: 'i3' },
+      { icon: icon04, itemKey: 'i4' },
+      { icon: icon05, itemKey: 'i5' },
     ],
   },
   {
     num: '02',
     key: 's2',
     items: [
-      { icon: icon04, itemKey: 'i1' },
-      { icon: icon05, itemKey: 'i2' },
-      { icon: icon06, itemKey: 'i3' },
+      { icon: icon06, itemKey: 'i1' },
+      { icon: icon07, itemKey: 'i2' },
+      { icon: icon08, itemKey: 'i3' },
+      { icon: icon09, itemKey: 'i4' },
+      { icon: icon10, itemKey: 'i5' },
     ],
   },
   {
     num: '03',
     key: 's3',
     items: [
-      { icon: icon07, itemKey: 'i1', expand: true, expKey: 'i1exp' },
-      { icon: icon08, itemKey: 'i2' },
-      { icon: icon09, itemKey: 'i3' },
-      { icon: icon10, itemKey: 'i4' },
-      { icon: icon11, itemKey: 'i5' },
+      { icon: icon11, itemKey: 'i1' },
+      { icon: icon12, itemKey: 'i2' },
+      { icon: icon13, itemKey: 'i3' },
+      { icon: icon14, itemKey: 'i4' },
+      { icon: icon15, itemKey: 'i5' },
     ],
   },
   {
     num: '04',
     key: 's4',
     items: [
-      { icon: icon12, itemKey: 'i1' },
-      { icon: icon13, itemKey: 'i2' },
-      { icon: icon14, itemKey: 'i3', expand: true, expKey: 'i3exp' },
-      { icon: icon15, itemKey: 'i4' },
+      { icon: icon01, itemKey: 'i1' },
+      { icon: icon02, itemKey: 'i2' },
+      { icon: icon03, itemKey: 'i3' },
+      { icon: icon04, itemKey: 'i4' },
+      { icon: icon05, itemKey: 'i5' },
     ],
   },
 ]
@@ -74,14 +79,15 @@ function Lines({ text }) {
 export default function LifecycleTimeline() {
   const sectionRef = useScrollAnimation()
   const { t } = useTranslation()
-  const [expandedKey, setExpandedKey] = useState(null)
-
-  const toggleExpand = (key) => {
-    setExpandedKey(prev => prev === key ? null : key)
-  }
 
   return (
-    <section className={styles.section} ref={sectionRef}>
+    <section id="our-services" className={styles.section} ref={sectionRef}>
+      {/* 顶部让中间 3 条网格线自上而下淡入的遮罩 */}
+      <div className={styles.gridFadeMask} aria-hidden="true">
+        <div className={styles.gridFadeMaskCols}>
+          <span /><span /><span /><span />
+        </div>
+      </div>
       <div className={styles.container}>
 
         {/* Section header */}
@@ -98,7 +104,9 @@ export default function LifecycleTimeline() {
           {STAGES.map(s => (
             <div key={s.num} className={styles.numCell}>
               <span className={styles.stepNum}>{t('timeline.phase')} {s.num}</span>
-              <p className={styles.stepSub}><Lines text={t(`timeline.${s.key}.sub`)} /></p>
+              <h3 className={styles.stepTitle}>
+                <Lines text={t(`timeline.${s.key}.title`)} />
+              </h3>
             </div>
           ))}
         </div>
@@ -111,41 +119,30 @@ export default function LifecycleTimeline() {
           <div className={styles.barSeg} data-stage="4" />
         </div>
 
+        {/* Ruler tick strip — same grid as the bar so ticks + separators align */}
+        <div className={styles.ruler}>
+          <div className={styles.rulerSeg} />
+          <div className={styles.rulerSeg} />
+          <div className={styles.rulerSeg} />
+          <div className={styles.rulerSeg} />
+        </div>
+
         {/* Content columns */}
         <div className={styles.columns}>
           {STAGES.map((stage, i) => (
             <div key={stage.num} className={styles.col} data-stage={i + 1}>
-              <h3 className={styles.colTitle}>
-                <Lines text={t(`timeline.${stage.key}.title`)} />
-              </h3>
-              <p className={styles.colQuote}>{t(`timeline.${stage.key}.quote`)}</p>
+              <p className={styles.colQuote}><span>{`“${t(`timeline.${stage.key}.quote`)}”`}</span></p>
               <ul className={styles.items}>
                 {stage.items.map((item, j) => {
-                  const key = `${stage.num}-${j}`
-                  const isExpanded = expandedKey === key
                   const label = t(`timeline.${stage.key}.${item.itemKey}`)
-                  const explanation = item.expKey ? t(`timeline.${stage.key}.${item.expKey}`) : null
                   return (
-                    <li
-                      key={j}
-                      className={`${styles.item} ${isExpanded ? styles.itemExpanded : ''}`}
-                      onClick={item.expand ? () => toggleExpand(key) : undefined}
-                      style={item.expand ? { cursor: 'pointer' } : undefined}
-                    >
+                    <li key={j} className={styles.item}>
                       <span className={styles.itemIcon}>
                         <img src={item.icon} width="18" height="18" alt="" />
                       </span>
                       <div className={styles.itemContent}>
                         <span>{label}</span>
-                        {explanation && (
-                          <div className={styles.itemExplanation}>
-                            <p className={styles.itemExplanationText}>{explanation}</p>
-                          </div>
-                        )}
                       </div>
-                      {item.expand && (
-                        <img src={expandIcon} width="14" height="14" alt="" className={styles.expandIcon} />
-                      )}
                     </li>
                   )
                 })}
@@ -153,6 +150,12 @@ export default function LifecycleTimeline() {
             </div>
           ))}
         </div>
+
+        {/* Scope boundary statement */}
+        <p className={styles.boundary}>
+          <span className={styles.boundaryLabel}>{t('timeline.boundaryLabel')}</span>
+          {t('timeline.boundary')}
+        </p>
 
       </div>
     </section>

@@ -3,10 +3,10 @@ import { useCountUp } from '../../hooks/useCountUp'
 import styles from './StatsBar.module.css'
 
 const STATS = [
-  { raw: 20,  prefix: '',  suffix: '+',  key: 'yearsExp' },
-  { raw: 200, prefix: '',  suffix: '+',  key: 'fundsNav' },
-  { raw: 10,  prefix: '$', suffix: 'B+', key: 'stages' },
-  { raw: 15,  prefix: '',  suffix: '%',  key: 'platforms' },
+  { raw: 250, prefix: '',  suffix: '+',  key: 'yearsExp' },
+  { raw: 6,   prefix: '$', suffix: 'B+', key: 'fundsNav' },
+  { raw: 98,  prefix: '',  suffix: '%+', key: 'stages' },
+  { raw: 10,  prefix: '',  suffix: 'Y+', key: 'platforms' },
 ]
 
 function StatItem({ raw, prefix, suffix, label }) {

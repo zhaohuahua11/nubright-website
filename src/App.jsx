@@ -5,7 +5,6 @@ import { ThemeProvider } from './context/ThemeContext'
 import GridOverlay from './components/layout/GridOverlay'
 import ScrollToTop from './components/layout/ScrollToTop'
 import ContactModal from './components/ui/ContactModal'
-import ThemeSwitcher from './components/ui/ThemeSwitcher'
 import LandingPage from './pages/LandingPage'
 import DataProtectionPolicyPage from './pages/DataProtectionPolicyPage'
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage'
@@ -36,7 +35,6 @@ export default function App() {
           </Routes>
         </div>
         {showModal && <ContactModal onClose={() => setModalVariant(null)} variant={modalVariant} />}
-        <ThemeSwitcher />
       </BrowserRouter>
     </ThemeProvider>
   )

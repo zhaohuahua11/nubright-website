@@ -2,17 +2,13 @@ import { useTranslation } from 'react-i18next'
 import Badge from '../ui/Badge'
 import { useScrollAnimation } from '../../hooks/useScrollAnimation'
 import styles from './AboutHero.module.css'
-import heroBgImg from '../../assets/about-us-bg.png'
 
 export default function AboutHero() {
   const { t } = useTranslation()
   const heroRef = useScrollAnimation()
 
   return (
-    <section className={styles.hero} ref={heroRef}>
-      <div className={styles.heroBgClip}>
-        <img src={heroBgImg} alt="" className={styles.heroBg} />
-      </div>
+    <section id="about" className={styles.hero} ref={heroRef}>
       <div className={styles.heroMaskGrid} aria-hidden="true">
         <div className={styles.heroMask} />
       </div>

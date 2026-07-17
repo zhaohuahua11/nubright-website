@@ -29,6 +29,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* sticky 导航高度，锚点滚动时留出 */
 }
 
 body {

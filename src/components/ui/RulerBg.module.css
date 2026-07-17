@@ -1,0 +1,241 @@
+/* 绝对定位的包含块 = hero 的 padding box（hero 无 border）= hero 整宽 = 内容区宽度
+   （不含滚动条）。所以直接 left/right:0 即可铺满内容区，无需负外插、也不用 100vw。 */
+.ruler {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 520px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* 分层：矮排(row1-3)在小球下面，高排(row4-5)在小球上面 ⇒ 小球藏到更高的“墙”后面，不糊刻度 */
+.rulerBack  { z-index: 0; }
+.rulerFront { z-index: 2; }
+
+/* 与 GridOverlay .grid 完全一致的盒模型：max-width + margin auto + padding，
+   这样它的 content-box（内框 L0..L4）与那 5 条竖线用同一套布局取整，逐像素对齐。 */
+.frame {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* content-box 本体 = L0..L4，作为刻度 SVG 的定位参考 */
+.inner {
+  position: relative;
+  height: 100%;
+}
+
+/* 每排的包裹盒：用 calc 明确尺寸（避免 <svg> 百分比尺寸不可靠）。
+   与 viewBox 同比例向两侧各放大 EXT（-0.75×inner 起、2.5×inner 宽），
+   容器 [0,2400] 仍精确映射到 L0..L4，gutter 的线落在 viewBox 内、无需 overflow。 */
+.rowBox {
+  position: absolute;
+  /* 相对 .inner（= 容器内框 L0..L4）：-0.75×inner 起、2.5×inner 宽。
+     .rowBox 是 <div>，百分比可靠；容器 [0,2400] 仍精确映射到 L0..L4。 */
+  left: -75%;
+  width: 250%;
+}
+
+.rowSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- 从下往上 5 排：紧贴堆叠、无间隙、互不重叠，端点齐平（无上下淡出） ---- */
+.row1 { bottom: 0;    height: 90px; }
+.row2 { bottom: 90px;  height: 90px; }
+.row3 { bottom: 180px; height: 90px; }
+.row4 { bottom: 270px; height: 90px; }
+.row5 { bottom: 360px; height: 90px; }
+
+/* ───────────── 入场「校准扫描」动画 ───────────── */
+
+/* 可动画的光色：随扫描位置在刻度彩虹渐变里过渡（左蓝→右金） */
+@property --sweepColor {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #0953BA;
+}
+
+/* 扫描光带（.ruler 的兄弟，不被 .ruler 的 clip-path 裁掉）。
+   覆盖刻度带（底部 0..450px），默认隐藏，仅在允许动效时显示。 */
+.sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 450px;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+  display: none;
+}
+
+/* 移动的发光竖条：右缘最亮（贴着刻度显现边缘），向左拖尾渐隐。
+   transform 常量把竖条右缘对齐到 left 处；left 0→100% 与刻度显现同步。 */
+.sweepBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  transform: translateX(-50px);
+  /* 光带用当前光色 --sweepColor 构建：向左拖尾渐隐，右缘最亮（混白提亮） */
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--sweepColor) 0%, transparent) 0%,
+    color-mix(in srgb, var(--sweepColor) 6%, transparent) 60%,
+    color-mix(in srgb, var(--sweepColor) 16%, transparent) 88%,
+    color-mix(in srgb, var(--sweepColor) 24%, transparent) 100%
+  );
+}
+
+/* 落定脉冲：扫到最右端，右缘一条亮线闪一下 */
+.sweepLock {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 3px;
+  height: 450px;
+  background: linear-gradient(to top, rgba(255, 214, 130, 0), rgba(255, 240, 200, 0.85));
+  opacity: 0;
+  transform-origin: right center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 刻度自左向右擦出显现 */
+  .ruler {
+    animation: rulerReveal 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  .sweep {
+    display: block;
+  }
+  .sweepBar {
+    animation:
+      rulerSweepBar 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) both,
+      rulerSweepColor 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  .sweepLock {
+    animation: rulerLock 0.9s ease-out 1.45s both;
+  }
+}
+
+@keyframes rulerReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes rulerSweepBar {
+  from { left: 0;    opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  to   { left: 100%; opacity: 0; }
+}
+
+/* 光色随位置在刻度调色板里过渡（同一缓动 ⇒ 颜色与所处 x 的刻度色一致） */
+@keyframes rulerSweepColor {
+  0%   { --sweepColor: #0953BA; }
+  25%  { --sweepColor: #8E5CFB; }
+  50%  { --sweepColor: #FF99ED; }
+  75%  { --sweepColor: #FF562E; }
+  100% { --sweepColor: #FFC662; }
+}
+
+@keyframes rulerLock {
+  0%   { opacity: 0; transform: scaleX(1); }
+  25%  { opacity: 1; transform: scaleX(2.2); }
+  100% { opacity: 0; transform: scaleX(1); }
+}
+
+/* ───────────── 小球沿刻度顶端滚动 ───────────── */
+
+/* 小球轨道层：与容器同盒模型，content-box = L0..L4，作为小球 left% 的参考。
+   底边贴 hero 底（= 刻度底），小球 bottom 用刻度顶端高度定位。 */
+.roller {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 520px;
+  z-index: 1;
+  pointer-events: none;
+  display: none;
+}
+
+.rollerInner {
+  position: relative;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* 小球：left 百分比在 [L0, L4] 间移动（margin 负半径 ⇒ left% 指球心），
+   bottom 跟随刻度顶端 3 级台阶（270 / 360 / 450），transform 旋转形成滚动。 */
+.ball {
+  position: absolute;
+  left: 0;
+  bottom: 270px;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  border-radius: 50%;
+  background: #d6d6d6;
+  opacity: 0;
+}
+
+/* 小球上方的读数：0→1，精度随所骑的排递增。位置/内容由 JS 每帧更新。 */
+.readout {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: var(--fw-light);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: #b0b0b0;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .roller {
+    display: block;
+  }
+  .ball {
+    animation: ballRoll 2.4s cubic-bezier(0.12, 0.6, 0.3, 1) 0s forwards;
+  }
+}
+
+/* 像被从屏幕外踢进来、摩擦减速后停在 row3 顶端（bottom:270）：
+   起点在视口左缘之外（calc(-50vw - padding)，各宽度都离屏），
+   一条 ease-out 从屏外滚到停点（左侧快、逐渐减速停下），不依赖任何视口相关的墙位置。
+   transform 旋转与位移同向，形成真实滚动。 */
+@keyframes ballRoll {
+  0%   { opacity: 1; left: calc(-50vw - var(--container-padding)); bottom: 270px; transform: rotate(0deg); }
+  100% { opacity: 1; left: 15%; bottom: 270px; transform: rotate(2400deg); }
+}
+
+/* 窄屏时刻度过密会糊成一团，先隐藏，后面再定制 */
+@media (max-width: 720px) {
+  .ruler {
+    display: none;
+  }
+  .sweep {
+    display: none;
+  }
+  .roller {
+    display: none;
+  }
+}

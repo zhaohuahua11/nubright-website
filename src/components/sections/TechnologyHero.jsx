@@ -11,7 +11,7 @@ export default function TechnologyHero() {
   const heroTextRef = useRef(null)
 
   return (
-    <section className={styles.hero} ref={heroRef}>
+    <section id="technology" className={styles.hero} ref={heroRef}>
       <DotGrid skipRef={heroTextRef} />
       <div className={styles.heroInner}>
         <div className={styles.heroText} ref={heroTextRef}>

@@ -19,12 +19,12 @@ const FEATURES = [
   { key: 'f3', bg: bg3, icon: icon1 },
 ]
 
-export default function InvestorPortal({ onContactClick }) {
+export default function InvestorPortal({ onContactClick, embedded = false }) {
   const { t } = useTranslation()
   const sectionRef = useScrollAnimation()
   const replayRef = useRef(null)
   return (
-    <section className={styles.section} ref={sectionRef}>
+    <section className={`${styles.section} ${embedded ? styles.embedded : ''}`} ref={sectionRef}>
       <div className={styles.container}>
 
         {/* Header */}
@@ -32,6 +32,7 @@ export default function InvestorPortal({ onContactClick }) {
           <p className={`${styles.eyebrow} animate-on-enter`}><Badge variant="label">{t('investorPortal.badge')}</Badge></p>
           <h2 className={`${styles.title} animate-on-enter`}>{t('investorPortal.title')}</h2>
           <p className={`${styles.headerSub} animate-on-enter`}>{t('investorPortal.sub')}</p>
+          <button className={`${styles.cardBtn} animate-on-enter`} onClick={onContactClick}>{t('investorPortal.cardBtn')}</button>
         </header>
 
         {/* Main card */}
@@ -40,11 +41,6 @@ export default function InvestorPortal({ onContactClick }) {
           <div className={styles.uiPlaceholder}>
             <InvestorPortalDemoStyle2 replayRef={replayRef} />
           </div>
-        </div>
-
-        <div className={styles.cardDescRow}>
-          <p className={styles.cardDesc}>{t('investorPortal.cardDesc')}</p>
-          <button className={styles.cardBtn} onClick={onContactClick}>{t('investorPortal.cardBtn')}</button>
         </div>
 
         {/* Feature cards */}

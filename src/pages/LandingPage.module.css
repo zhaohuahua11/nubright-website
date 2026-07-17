@@ -2,15 +2,78 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding: calc(var(--section-padding-y) * 1.6) var(--container-padding);
+  padding: calc(var(--section-padding-y) * 0.8) 0 calc(var(--section-padding-y) * 1.8);
   text-align: center;
+}
+
+/* 贴刻度右端（最密处 = 我们）上方的点题注释：右对齐、小字、克制。 */
+.rulerCaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 195px; /* 落在刻度带中部（叠在刻度上） */
+  z-index: 5;
+  pointer-events: none;
+}
+
+.rulerCaptionInner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  text-align: center;
+}
+
+/* 只包住文字的磨砂容器：半透明白底 + 背景模糊，压在刻度上也清晰 */
+.rulerCaptionText {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  font-size: 13px;
+  font-weight: var(--fw-light);
+  color: var(--color-text-body);
+}
+
+/* 用背景色遮条盖住 hero 内的中间 3 条竖线（L1/L2/L3）。
+   与 GridOverlay .grid 相同盒模型 ⇒ 列边界完全对齐；只画内侧 3 条，外侧不画。
+   z-index 0：在 fixed GridOverlay 之上、但在刻度层与文案之下（刻度会覆盖在遮条上照常显示）。 */
+.heroGridMask {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heroGridMaskCols {
+  max-width: var(--container-max);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  box-sizing: border-box;
+}
+
+/* 盖住全部 5 条竖线（含两侧 L0/L4）：右边框盖 L1..L4，首格左边框盖 L0。
+   遮罩在 hero 内 z-index 低于刻度层 ⇒ 刻度照常显示在其上，只有底下的灰色网格线被盖掉。 */
+.heroGridMaskCols > span {
+  border-right: 2px solid var(--color-bg);
+}
+
+.heroGridMaskCols > span:first-child {
+  border-left: 2px solid var(--color-bg);
 }
 
 .heroInner {
   position: relative;
   z-index: 5;
-  max-width: 1000px;
+  max-width: var(--container-max);
   margin: 0 auto;
+  padding: 0 var(--container-padding);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,12 +98,14 @@
 }
 
 .heroSub {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: var(--fw-light);
   line-height: 1.5;
-  color: var(--color-text-body);
-  max-width: 580px;
+  color: var(--color-text-heading);
+  max-width: 750px;
   white-space: pre-line;
+  /* 在 heroInner 统一 gap 之外，单独加大 heading→副标题、副标题→按钮两处间距 */
+  margin: var(--space-3) 0;
 }
 
 .heroCTAs {

@@ -1,10 +1,43 @@
 /* ── Section wrapper ── */
 .section {
-  padding: var(--section-padding-y) 0;
-  border-top: 1px solid var(--color-border);
+  position: relative;
+  padding: calc(var(--section-padding-y) * 1.8) 0 var(--section-padding-y);
+}
+
+/* 顶部让中间 3 条网格线（L1/L2/L3）自上而下淡入：
+   用背景色竖条盖住这 3 条线，再用 mask 竖向渐变让遮盖从上（实）到下（透）消失。
+   与 GridOverlay .grid 相同盒模型 ⇒ 列边界精确对齐；只盖内侧 3 条，外侧 L0/L4 不动。 */
+.gridFadeMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  /* 卡片顶部以上保持实心遮住，只在下边缘一小段（~430→480px）做柔和过渡 */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 430px, transparent 480px);
+  mask-image: linear-gradient(to bottom, #000 0, #000 430px, transparent 480px);
+}
+
+.gridFadeMaskCols {
+  max-width: var(--container-max);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  box-sizing: border-box;
+}
+
+.gridFadeMaskCols > span:not(:last-child) {
+  border-right: 2px solid var(--color-bg);
 }
 
 .container {
+  position: relative;
+  z-index: 1;
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--container-padding);
@@ -41,15 +74,16 @@
 .numRow {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-3);
 }
 
 .numCell {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 2px;
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-1);
 }
 
 .stepNum {
@@ -57,6 +91,15 @@
   font-weight: var(--fw-light);
   color: var(--color-text-body);
   letter-spacing: 0.04em;
+}
+
+.stepTitle {
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: var(--fw-heading);
+  color: var(--color-text-heading);
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+  margin: 2px 0 0;
 }
 
 .stepSub {
@@ -76,12 +119,12 @@
 
 .barSeg {
   height: 12px;
-  border-radius: 2px;
+  border-radius: 0;
   position: relative;
 }
 
-.barSeg:first-child { margin-left: var(--space-4); }
-.barSeg:last-child  { margin-right: var(--space-4); }
+.barSeg:first-child { margin-left: 0; }
+.barSeg:last-child  { margin-right: 0; }
 
 .barSeg[data-stage="1"] { background: linear-gradient(90deg, #FFC662 0%, #FF562E 100%); }
 .barSeg[data-stage="2"] { background: linear-gradient(90deg, #FF562E 0%, #FF99ED 100%); }
@@ -91,42 +134,26 @@
 .barSeg:not(:last-child)::after {
   content: '';
   position: absolute;
-  right: -3px;
-  top: calc(100% + var(--space-0-5));
-  width: 3px;
-  height: var(--space-2-5);
-  border-radius: 1px;
+  right: -4px;
+  top: 100%;
+  width: 4px;
+  height: calc(var(--space-0-5) + var(--space-2-5));
+  border-radius: 0;
 }
 
 .barSeg[data-stage="1"]::after { background: #FF562E; }
 .barSeg[data-stage="2"]::after { background: #CC7CF4; }
 .barSeg[data-stage="3"]::after { background: #6B6AF0; }
 
-/* ── Ruler tick marks ── */
-
-/* ── 4-column content grid ── */
-.columns {
+/* ── Ruler tick marks — mirrors the bar grid so both share one coordinate system ── */
+.ruler {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-top: var(--space-0-5);
 }
 
-.col {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-10) var(--space-4) var(--space-6);
-  border-radius: 0;
-  background: transparent;
-  transition: background var(--duration-normal) var(--ease-out);
-  cursor: default;
-}
-
-.col::before {
-  content: '';
-  position: absolute;
-  top: var(--space-0-5);
-  left: 0;
-  right: 0;
+.rulerSeg {
   height: var(--space-2-5);
   background-image: linear-gradient(
     90deg,
@@ -134,17 +161,62 @@
     var(--color-text-body) 1px,
     transparent 1px
   );
-  background-size: 2.5% 100%;
+  background-size: 2% 100%;
   background-repeat: repeat-x;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0 1.5%, black 1.5% 100%);
-  mask-image: linear-gradient(90deg, transparent 0 1.5%, black 1.5% 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0 1%, black 1% 99%, transparent 99% 100%);
+  mask-image: linear-gradient(90deg, transparent 0 1%, black 1% 99%, transparent 99% 100%);
   opacity: 0.3;
   pointer-events: none;
 }
 
+.rulerSeg:first-child { margin-left: 0; }
+.rulerSeg:last-child  { margin-right: 0; }
 
-.col:first-child::before { left: var(--space-4); }
-.col:last-child::before  { right: var(--space-4); }
+/* ── Scope boundary statement — thin full-width gray band ── */
+.boundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin: var(--space-8) 0 0;
+  padding: 3px var(--space-6);
+  background: rgba(71, 85, 105, 0.12);
+  font-size: 10px;
+  font-weight: var(--fw-light);
+  color: var(--color-text-body);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.boundaryLabel {
+  flex-shrink: 0;
+  padding-right: var(--space-3);
+  border-right: 1px solid var(--color-border);
+  font-size: 9px;
+  font-weight: var(--fw-medium, 500);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-body);
+  opacity: 0.7;
+}
+
+/* ── 4-column content grid ── */
+.columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
+}
+
+.col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3) var(--space-1) var(--space-6);
+  border-radius: 0;
+  background: transparent;
+  transition: background var(--duration-normal) var(--ease-out);
+  cursor: default;
+}
 
 .col:hover {
   background: var(--stage-gradient);
@@ -152,25 +224,25 @@
 
 /* ── Per-stage accent colors (via data-stage attribute) ── */
 .col[data-stage="1"] {
-  --stage-bg:         rgba(255, 86, 46, 0.04);
+  --stage-bg:         #FFF8F1;
   --stage-color:      rgba(220, 80, 40, 0.8);
   --stage-gradient:   linear-gradient(to bottom, rgba(255, 86, 46, 0.03) 0%, rgba(255, 86, 46, 0) 100%);
   --stage-item-hover: linear-gradient(90deg, rgba(255, 104, 50, 0.12) 0%, rgba(255, 86, 46, 0.04) 100%);
 }
 .col[data-stage="2"] {
-  --stage-bg:         rgba(249, 107, 238, 0.05);
+  --stage-bg:         #FFF4F7;
   --stage-color:      rgba(200, 60, 190, 0.8);
   --stage-gradient:   linear-gradient(to bottom, rgba(249, 107, 238, 0.03) 0%, rgba(249, 107, 238, 0) 100%);
   --stage-item-hover: linear-gradient(90deg, rgba(255, 85, 184, 0.12) 0%, rgba(249, 107, 238, 0.05) 100%);
 }
 .col[data-stage="3"] {
-  --stage-bg:         rgba(142, 92, 251, 0.05);
+  --stage-bg:         #F7F4FF;
   --stage-color:      rgba(100, 70, 220, 0.8);
   --stage-gradient:   linear-gradient(to bottom, rgba(142, 92, 251, 0.03) 0%, rgba(142, 92, 251, 0) 100%);
   --stage-item-hover: linear-gradient(90deg, rgba(125, 88, 243, 0.12) 0%, rgba(142, 92, 251, 0.05) 100%);
 }
 .col[data-stage="4"] {
-  --stage-bg:         rgba(59, 73, 212, 0.05);
+  --stage-bg:         #EFF3FF;
   --stage-color:      rgba(59, 73, 212, 0.8);
   --stage-gradient:   linear-gradient(to bottom, rgba(59, 73, 212, 0.03) 0%, rgba(59, 73, 212, 0) 100%);
   --stage-item-hover: linear-gradient(90deg, rgba(59, 73, 212, 0.12) 0%, rgba(59, 73, 212, 0.05) 100%);
@@ -188,11 +260,22 @@
 
 /* ── Client quote ── */
 .colQuote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92px;
+  min-height: 0;
+  box-sizing: border-box;
   font-size: 13px;
   font-weight: var(--fw-light);
+  font-style: italic;
   color: var(--color-text-body);
   line-height: 1.6;
-  margin: 0;
+  text-align: center;
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin: 0 0 var(--space-4);
 }
 
 /* ── Column subtitle ── */
@@ -203,26 +286,39 @@
   line-height: 1.5;
 }
 
+@media (max-width: 1100px) {
+  .colQuote {
+    height: 132px;
+  }
+}
+
 /* ── Items list — pushed to column bottom ── */
 .items {
   list-style: none;
   padding: 0;
   margin: 0;
-  margin-top: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  flex: 1;
+  display: grid;
+  grid-template-rows:
+    minmax(clamp(52px, 3.8vw, 60px), 0.9fr)
+    minmax(clamp(52px, 3.8vw, 60px), 0.9fr)
+    minmax(clamp(52px, 3.8vw, 60px), 0.9fr)
+    minmax(clamp(66px, 4.8vw, 78px), 1.08fr)
+    minmax(clamp(72px, 5.2vw, 86px), 1.18fr);
+  gap: var(--space-2);
 }
 
 /* ── Service card ── */
 .item {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: center;
   gap: var(--space-3);
   position: relative;
   background: var(--stage-bg);
   border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-4);
+  min-height: 0;
+  padding: 6px clamp(var(--space-3), 1.2vw, var(--space-4));
   font-size: 13px;
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
@@ -253,6 +349,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .itemExplanation {
@@ -299,7 +398,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1px;
+}
+
+/* Normalize the SVG artwork to one accent color per column. */
+.col[data-stage="1"] .itemIcon img {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(95%) saturate(3221%) hue-rotate(344deg) brightness(102%) contrast(102%);
+}
+
+.col[data-stage="2"] .itemIcon img {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(96%) saturate(1551%) hue-rotate(294deg) brightness(103%) contrast(101%);
+}
+
+.col[data-stage="3"] .itemIcon img {
+  filter: brightness(0) saturate(100%) invert(41%) sepia(85%) saturate(2365%) hue-rotate(236deg) brightness(100%) contrast(91%);
+}
+
+.col[data-stage="4"] .itemIcon img {
+  filter: brightness(0) saturate(100%) invert(31%) sepia(97%) saturate(1900%) hue-rotate(218deg) brightness(84%) contrast(95%);
 }
 
 /* ── Responsive ── */

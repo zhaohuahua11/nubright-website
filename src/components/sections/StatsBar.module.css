@@ -1,18 +1,39 @@
+/* 叠在 hero 刻度带之上。
+   加大上方间距会把「数字 + 底部的刻度层」整块一起下移、并自动撑高 hero。 */
 .bar {
-  border-top: 1px solid var(--color-border);
-  background: var(--color-bg-subtle);
+  position: relative;
+  z-index: 2;
+  margin-top: 160px;
+  /* top 只做视觉偏移、不占文档流 → hero 高度不变、刻度层不动，仅数字下移 */
+  top: 125px;
 }
 
 .inner {
+  position: relative;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-10) var(--container-padding);
+  padding: 0 var(--container-padding);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-8);
 }
 
+/* 整条磨砂带：覆盖四个数字所在的父容器，背景模糊 + 白色微透（浅、透）。 */
+.inner::before {
+  content: '';
+  position: absolute;
+  /* 左右按百分比内收，避免盖住最外侧的细线；用百分比而非固定 px，
+     这样窄屏（无 gutter）也能留出同比例的空隙。 */
+  inset: -16px 7%;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  pointer-events: none;
+}
+
 .stat {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

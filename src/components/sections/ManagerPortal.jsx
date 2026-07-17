@@ -12,11 +12,11 @@ const FEATURES = [
   { key: 'f3', img: f3Img },
 ]
 
-export default function ManagerPortal() {
+export default function ManagerPortal({ embedded = false }) {
   const { t } = useTranslation()
   const sectionRef = useScrollAnimation()
   return (
-    <section className={styles.section} ref={sectionRef}>
+    <section className={`${styles.section} ${embedded ? styles.embedded : ''}`} ref={sectionRef}>
       <div className={styles.container}>
 
         {/* Header */}

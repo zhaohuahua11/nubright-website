@@ -4,53 +4,63 @@
     "getIn": "Get In Touch"
   },
   "hero": {
-    "badge": "Fund Administrator · Est. Hong Kong",
-    "heading": "Bright, Brilliant,\nBoundless.",
-    "sub": "More than just a fund administrator, NuBright serves as an extension of your team. We help clients achieve steady AUM growth and optimized investor relations, turning administrative service into a virtuous cycle with investment value.",
-    "cta": "Get In Touch"
+    "badge": "Fund Administration · Hong Kong",
+    "heading": "Architected with care.\nStewarded with pride.",
+    "sub": "Behind every enduring portfolio is an operation that works so soundly, no one notices it. We built NuBright for managers who treat operational rigor as a competitive advantage.",
+    "cta": "Schedule a Conversation",
+    "rulerCaption": "From 0 to 1, we hold ourselves to the most rigorous measure."
+  },
+  "bridges": {
+    "services": "Explore our approach across every chapter of your fund",
+    "about": "See who we are, and how we deliver on that promise",
+    "technology": "See the engine behind the numbers"
   },
   "timeline": {
     "badge": "Our Services",
-    "heading": "With you, at every stage.",
-    "sub": "From inception to exit, we are with you every step of the way.",
-    "phase": "PHASE",
+    "heading": "From launch to wind-down.",
+    "sub": "No handoffs. No gaps. No surprises. We serve both open-end and closed-end structures—with the same standard of thoroughness, from day one to the very end.",
+    "phase": "# Chapter",
+    "boundaryLabel": "Statement",
+    "boundary": "We DO NOT give investment advice. We DO NOT manage assets. We DO NOT provide legal or tax opinions. We calculate. We reconcile. We report.",
     "s1": {
       "title": "Fund Formation",
       "sub": "With you, when you lay the foundation.",
-      "quote": "The foundation laid in the first year determines the height that can be built in the tenth.",
-      "i1": "Jurisdiction & structure design",
-      "i2": "Term drafting & document review",
-      "i3": "Service provider ecosystem matching",
-      "i3exp": "We help you identify, evaluate, and onboard the right combination of fund administrators, auditors, legal counsel, and technology providers — creating an ecosystem calibrated to your fund's strategy, size, and investor base."
+      "quote": "The first year determines the tenth.",
+      "i1": "Assess and recommend optimal jurisdiction",
+      "i2": "Coordinate and review legal documents",
+      "i3": "Vet and onboard service providers",
+      "i4": "Map launch timeline and manage execution",
+      "i5": "Establish fund accounting framework and chart of accounts"
     },
     "s2": {
-      "title": "Fundraising",
+      "title": "Capital Formation",
       "sub": "With you, when you earn their trust.",
-      "quote": "Raising capital is a process, not a single event. We make sure your back office never becomes the bottleneck.",
-      "i1": "Investor admission & due diligence",
-      "i2": "Investor tax compliance",
-      "i3": "Investor risk profile assessment"
+      "quote": "Raising capital is hard enough. We keep the back office out of your critical path.",
+      "i1": "Clear and onboard investors with KYC/AML rigor",
+      "i2": "Validate and track subscription documents",
+      "i3": "Process capital calls and notify with clarity",
+      "i4": "Set up investor communication and reporting",
+      "i5": "Maintain investor register and capital account records"
     },
     "s3": {
-      "title": "Investment & Post-Investment\nManagement Period",
+      "title": "Fund Operations",
       "sub": "With you, when you focus on the vision.",
-      "quote": "Good governance and clear reporting builds investor trust that can withstand a bad quarter.",
-      "i1": "Payment review & processing",
-      "i1exp": "We review and process all fund-level payments — capital calls, distributions, management fees, and expense reimbursements — with full audit trails and dual-control procedures to ensure accuracy and compliance at every step.",
-      "i2": "Fee & performance calculation",
-      "i3": "NAV calculation & reconciliation",
-      "i4": "Implementation of side letter special provisions",
-      "i5": "Document management & record keeping"
+      "quote": "We calculate. We verify. We document. You review.",
+      "i1": "Calculate NAV and reconcile positions",
+      "i2": "Compute fees and performance allocations",
+      "i3": "Process expenses and payments",
+      "i4": "Interpret and implement side letter provisions",
+      "i5": "Coordinate annual audits and AEOI filings"
     },
     "s4": {
-      "title": "Reporting & Exit Period",
+      "title": "Liquidity & Exit",
       "sub": "With you, when you deliver the legacy.",
-      "quote": "A clean exit is your final promise to your investors. We help you keep it.",
-      "i1": "Periodic investor reporting",
-      "i2": "Annual regulatory filings",
-      "i3": "Financial statement & audit support",
-      "i3exp": "We prepare and review fund financial statements in accordance with applicable accounting standards, coordinate with external auditors, and manage the full audit process — from fieldwork support to final sign-off — so your investors receive accurate, timely reports.",
-      "i4": "Final exit support"
+      "quote": "The final stage matters as much as the first.",
+      "i1": "Calculate final NAV and distributions",
+      "i2": "Reconcile and close all investor capital accounts",
+      "i3": "Issue final investor statements and distribute remaining capital",
+      "i4": "Close out all service provider accounts and terminate third-party agreements",
+      "i5": "File final regulatory returns, dissolution documents, and archive fund records"
     }
   },
   "cta": {
@@ -61,53 +71,53 @@
   },
   "investorPortal": {
     "badge": "Investor Portal",
-    "title": "7×24 All-Day Service Portal",
-    "sub": "Investors get round-the-clock access to their portfolio data, documents, and capital activity — no waiting, no chasing, no black boxes.",
+    "title": "24/7 access. One secure gateway. Full visibility.",
+    "sub": "Investors get round-the-clock access to their portfolio data, documents, and capital activity.",
     "cardDesc": "Dedicated one-stop subscription/redemption application and information inquiry — Access portfolio holdings, fund NAVs, transaction records, periodic reports, and income details anytime, anywhere. Delivers a fully transparent, always-on investment service experience.",
-    "cardBtn": "Request Demo",
-    "f1": { "title": "Easy Onboarding", "body": "Complete your profile and submit required documents digitally via the \"My Profile\" section—quick, secure, and entirely paperless." },
-    "f2": { "title": "Streamlined Transactions", "body": "Initiate subscription and redemption requests online at your convenience, with a simple and guided process." },
-    "f3": { "title": "Full Transparency", "body": "Track the status of your subscription or redemption in real time—from submission through to registration—and monitor the fund's performance and key documents anytime." }
+    "cardBtn": "Book a Live Walkthrough",
+    "f1": { "title": "Easy Onboarding", "body": "Complete your profile and submit required documents digitally via \"My Profile,\" powered by dynamic KYC/AML workflows. Quick, secure, entirely paperless, and fully compliant from the first touchpoint." },
+    "f2": { "title": "Streamlined Transactions", "body": "Initiate subscription and redemption requests online with a simple, guided process. Track request status in real time, from submission through to registration." },
+    "f3": { "title": "Full Transparency", "body": "Access portfolio holdings, NAVs, transaction records, periodic reports, and fund documents — anytime, anywhere." }
   },
   "managerPortal": {
     "badge": "Manager Portal",
-    "title": "One-Stop Digital Operations Workbench",
-    "sub": "A unified command centre for fund managers to oversee operations, track performance, and manage investors — all from a single, real-time platform.",
-    "f1": { "title": "Panoramic Data View & Real-Time Query", "body": "Deeply integrates multi-dimensional operational data including funds, valuations, and investors. Centralized, real-time query for comprehensive visibility into fund operations." },
-    "f2": { "title": "Business Process Digitalization", "body": "Supports online submission, review, and confirmation of core operations such as valuation confirmation and TA processing. Achieves end-to-end digital workflows with full traceability, significantly improving efficiency and enhancing internal control transparency." },
-    "f3": { "title": "Digital Document Management", "body": "Electronically archives fund legal, operational, financial, and investor documents for one-click access. Ensures unified, secure, and traceable filing, supporting rapid response to audits and regulatory requests." },
-    "wip": "Under active development — launching soon."
+    "title": "One Platform. Full Control.",
+    "sub": "A unified command centre for fund managers to oversee operations, track performance, and manage investors — all in one place, in real time. The same data your investors see. The control you need to act.",
+    "f1": { "title": "Integrated Data View & Real-Time Queries", "body": "Aggregates fund, valuation, and investor data in a single, unified view. Real-time dashboards provide a single source of truth for fund performance and investor capital activity, enabling proactive decision-making with complete visibility into every aspect of fund operations." },
+    "f2": { "title": "Digital Workflows & Internal Controls", "body": "Online submission, review, and approval for NAV calculations, investor servicing, and compliance checks. End-to-end digital workflows with full traceability. Enhances internal control transparency and audit readiness." },
+    "f3": { "title": "Digital Document Management", "body": "Securely archives all fund legal, operational, financial, and investor documents in one centralized repository with granular permission controls. Unified, secure, and fully traceable filing. Enables rapid response to audits and regulatory requests while ensuring that sensitive information is accessible only to those with proper authorization." },
+    "wip": "Launching soon"
   },
   "technologyHero": {
     "badge": "Our Technology",
-    "line1": "Dual–Platform Synergy,",
-    "line2": "Full–Chain Digitalization.",
-    "sub": "We didn't build these systems to look impressive. We built them because we refused to let service quality depend on individual performance. Every workflow is standardized, every action is traceable.",
+    "line1": "End-to-End Digitalization,",
+    "line2": "Powered by Dual–Platform Synergy.",
+    "sub": "We didn't build these systems to look impressive. We built them because we refused to let service quality depend on individual performance. Every workflow is standardized. Every action is traceable.",
     "leftLabel": "Manager Portal",
     "rightLabel": "Investor Portal"
   },
   "aboutHero": {
     "badge": "About NuBright",
-    "heading": "Choice reveals Taste.",
-    "sub": "Every decision we've made — about how we hire, how we work, how we build our systems — is a reflection of what we believe great service actually means."
+    "heading": "Founded 2019.\nCore team together since 2013.",
+    "sub": "We knew fund administration could be done better. So we built our own firm. Three beliefs still guide us."
   },
   "ourSpirits": {
     "title": "Our Spirits",
     "sub": "Three beliefs — our starting point, our way of working, and what we're building toward.",
     "s1": {
       "eyebrow": "Our Starting Point",
-      "heading": "Boutique Soul, Institutional Strength.",
-      "body": "With the heart of a craftsman, we build institutional-grade instruments. We approach every system as a work of art — built to stand the test of time. Small enough to care, rigorous enough to be trusted."
+      "heading": "Start with the craft.",
+      "body": "We are intentionally sized so every client gets the attention of someone who knows your fund. Small enough to care. Rigorous enough to be trusted. We don't just assign a relationship manager; we assign a dedicated team that knows your fund's DNA."
     },
     "s2": {
       "eyebrow": "How We Work",
-      "heading": "Master the Fine Details. See the Big Picture.",
-      "body": "Precision in the small, direction in the large. Every number can stand scrutiny, every decision sees the road ahead. We never treat accuracy and perspective as a trade-off."
+      "heading": "Master the details. See the whole.",
+      "body": "Accuracy and perspective are not trade-offs. The small things make the big picture right. We make sure both are."
     },
     "s3": {
       "eyebrow": "What We're Building Toward",
-      "heading": "Visionary in Thinking, Grounded in Action.",
-      "body": "Forward-looking vision paired with down-to-earth execution. We turn two decades of experience into reusable, systemic wisdom — so the next generation of funds can stand on firmer ground."
+      "heading": "Build for the long term.",
+      "body": "We built our own technology—for managers and for their investors. This is not a black box. Our source of truth is transparent, and your data is never a byproduct. No licensing gaps. No vendor lock-in. Our architecture is built with a zero-trust security model, ensuring your data's integrity and confidentiality at every layer. Our team has worked together for over a decade, and our systems are growing with us. We are not building for this year; we are building for the next twenty."
     }
   },
   "contact": {
@@ -139,10 +149,10 @@
     "successBtn": "Close"
   },
   "statsBar": {
-    "yearsExp":  "Years of experience",
-    "fundsNav":  "Active Funds Under Administration",
-    "stages":    "Assets Under Administration",
-    "platforms": "Annual AUA Growth"
+    "yearsExp":  "Active Funds Under Administration",
+    "fundsNav":  "Assets Under Administration",
+    "stages":    "Client Retention Rate",
+    "platforms": "Core team together since 2013"
   },
   "footer": {
     "contactHeading": "Contact Us",

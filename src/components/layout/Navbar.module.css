@@ -6,7 +6,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: none;
-  box-shadow: var(--shadow-sticky);
+  box-shadow: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 

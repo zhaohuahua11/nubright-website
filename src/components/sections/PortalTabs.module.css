@@ -1,0 +1,66 @@
+.section {
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--section-padding-y) var(--container-padding);
+}
+
+/* 下划线式 tab 栏 */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-10);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-12);
+}
+
+.tab {
+  position: relative;
+  padding: 0 var(--space-1) var(--space-4);
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: var(--fw-light);
+  color: var(--color-text-body);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--color-text-heading);
+  transform: scaleX(0);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.tab:hover {
+  color: var(--color-text-heading);
+}
+
+.tabActive {
+  color: var(--color-text-heading);
+}
+
+.tabActive::after {
+  transform: scaleX(1);
+}
+
+/* 切换时淡入上移 */
+.panel {
+  animation: portalFade 0.3s var(--ease-out);
+}
+
+@keyframes portalFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
