@@ -3,11 +3,23 @@
    Faithfully mirrors the Figma "Investor Demo" design (node 489:3304)
 ───────────────────────────────────────── */
 
+/* demo 按 1000x560 固定尺寸设计，窄屏下整体等比缩小（不重排）。
+   --demo-scale 由组件内的 ResizeObserver 写入，桌面端为 1。
+   viewport 的尺寸跟着缩放走，否则缩小后底部会留大片空白。 */
+.viewport {
+  position: relative;
+  width: calc(1000px * var(--demo-scale, 1));
+  height: calc(560px * var(--demo-scale, 1));
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .wrap {
   position: relative;
-  height: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
+  width: 1000px;
+  height: 560px;
+  transform: scale(var(--demo-scale, 1));
+  transform-origin: top left;
   user-select: none;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-feature-settings: 'liga' 1, 'calt' 1, 'ss01' 1;
@@ -417,6 +429,101 @@
 .codeInput[data-active='true'] {
   border-color: #6366f1;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+/* ── 基金选择器（替代原 Fund Access Code 输入框）────────────────── */
+
+.fundSelectWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fundSelectChevron {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.codeInput[data-active='true'] .fundSelectChevron {
+  transform: rotate(180deg);
+}
+
+.fundSelectValue {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 400;
+  color: #273951;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fundDropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  /* 比选择框(260px)宽：最长的基金名单行放不下 260px */
+  width: 300px;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(6, 27, 49, 0.12);
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+/* 分组标题：说明下面列的是"已持有"的基金 */
+.fundGroupLabel {
+  padding: 6px 10px 4px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.fundOption {
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #061b31;
+  line-height: 1.3;
+  white-space: nowrap;
+  transition: background 0.18s ease;
+}
+
+.fundOption[data-hover='true'] {
+  background: #f1f5f9;
+}
+
+/* 底部入口：认购尚未持有的基金 */
+.fundDropdownFooter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 9px 10px;
+  border-top: 1px solid #eef1f5;
+  font-size: 12px;
+  font-weight: 400;
+  color: #4f46e5;
+  line-height: 1.3;
+}
+
+.fundFooterPlus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 3px;
+  background: rgba(79, 70, 229, 0.1);
+  font-size: 12px;
+  line-height: 1;
 }
 
 .codeInputPlaceholder {

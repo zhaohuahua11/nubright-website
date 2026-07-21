@@ -4,9 +4,17 @@ import styles from './InvestorPortalDemoStyle2.module.css'
 import img1 from '../../assets/inverstor portal-ui-dashboard-1.webp'
 import img2 from '../../assets/inverstor portal-ui-dashboard-2.webp'
 import iconSecurity from '../../assets/code-security.svg'
-import iconEyeOff from '../../assets/eye-off.svg'
 import iconCheck from '../../assets/check.svg'
 import imgSuccess from '../../assets/inverstor portal-ui-success.webp'
+
+// 下拉里列出的是投资者「可直接认购」的基金（账户初始无持仓，不能写成已持有）。
+// 第 2 项是 demo 中被选中的那只，与下方 dataSection 的 Fund Name 对应。
+const FUND_OPTIONS = [
+  'NuBright Absolute Return Class A SP',
+  'NuBright Fixed Income SP',
+  'NuBright Global Macro Opportunities Fund SP',
+]
+const SELECTED_FUND_INDEX = 1
 
 const EC_COLORS = ['#7c3aed', '#3b82f6', '#0ea5e9', '#14b8a6', '#22c55e']
 const EC_FUND_DATA = [
@@ -53,6 +61,8 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
   const timers      = useRef([])
   const hasPlayed   = useRef(false)
   const echartsRef  = useRef(null)
+  const rafIds      = useRef([])  // 平滑滚动的 rAF 句柄，重播时需取消
+  const viewportRef = useRef(null)
 
   const q = useCallback((key) =>
     wrapRef.current?.querySelector(`[data-demo="${key}"]`), [])
@@ -60,6 +70,14 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
   const after = useCallback((fn, ms) => {
     const id = setTimeout(fn, ms)
     timers.current.push(id)
+    return id
+  }, [])
+
+  // 与 after() 对称：登记 rAF 句柄，重播时统一取消。
+  // 平滑滚动是逐帧写 scrollTop 的循环，不取消会覆盖掉 resetAll() 的归零。
+  const raf = useCallback((fn) => {
+    const id = requestAnimationFrame(fn)
+    rafIds.current.push(id)
     return id
   }, [])
 
@@ -78,18 +96,24 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
     const btn = q('subscribeBtn')
     if (btn) delete btn.dataset.pressed
 
-    const codeInput   = q('codeInput')
-    const placeholder = q('codePlaceholder')
-    const dots        = q('codeDots')
+    const fundSelect  = q('fundSelect')
+    const placeholder = q('fundSelectPlaceholder')
+    const selValue    = q('fundSelectValue')
+    const dropdown    = q('fundDropdown')
     const badge       = q('verifyBadge')
     const spinner     = q('verifySpinner')
     const badgeText   = q('verifyText')
-    if (codeInput)   delete codeInput.dataset.active
+    if (fundSelect)  delete fundSelect.dataset.active
     if (placeholder) { placeholder.style.display = ''; placeholder.style.opacity = '1' }
-    if (dots)        { dots.style.display = 'none'; dots.style.opacity = '0'; dots.textContent = '' }
+    if (selValue)    { selValue.style.display = 'none'; selValue.textContent = '' }
+    if (dropdown)    { dropdown.style.display = 'none'; dropdown.style.opacity = '0' }
+    FUND_OPTIONS.forEach((_, i) => {
+      const opt = q(`fundOption${i}`)
+      if (opt) delete opt.dataset.hover
+    })
     if (badge)       { badge.style.opacity = '0'; delete badge.dataset.state }
     if (spinner)     delete spinner.dataset.check
-    if (badgeText)   badgeText.textContent = 'Verifying...'
+    if (badgeText)   badgeText.textContent = 'Loading...'
 
     const skelSection = q('skeletonSection')
     const dataSect    = q('dataSection')
@@ -168,6 +192,8 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
   const playDemo = useCallback(() => {
     timers.current.forEach(clearTimeout)
     timers.current = []
+    rafIds.current.forEach(cancelAnimationFrame)
+    rafIds.current = []
 
     const wrap   = wrapRef.current
     const cursor = cursorRef.current
@@ -175,24 +201,40 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
     if (!wrap || !cursor || !replay) return
 
     replay.onclick = () => playDemo()
+
+    // wrap 带 transform: scale()，getBoundingClientRect() 返回的是缩放后的视觉尺寸，
+    // 而光标的 translate 写在被缩放的元素内部会再缩放一次（变成 s²）。
+    // 这里把量到的值除回布局坐标系；relRect 返回的 x/y/w/h 均已消除缩放。
+    const scaleOf = () => (wrap.getBoundingClientRect().width / wrap.offsetWidth) || 1
+    const relRect = (el) => {
+      const wr0 = wrap.getBoundingClientRect()
+      const r   = el.getBoundingClientRect()
+      const s   = scaleOf()
+      return { x: (r.left - wr0.left) / s, y: (r.top - wr0.top) / s, w: r.width / s, h: r.height / s }
+    }
+
     resetAll()
     cursor.style.transition = 'none'
     cursor.style.opacity    = '0'
 
     requestAnimationFrame(() => {
       const btn = q('subscribeBtn')
-      const ci  = q('codeInput')
+      const ci  = q('fundSelect')
       if (!btn || !ci) return
 
-      const wr = wrap.getBoundingClientRect()
-      const br = btn.getBoundingClientRect()
-      const tx = br.left - wr.left + br.width  / 2
-      const ty = br.top  - wr.top  + br.height / 2
+      const R = relRect(btn)
 
-      // codeInput position (computable now even though screen2 is hidden)
-      const cr  = ci.getBoundingClientRect()
-      const cx  = cr.left - wr.left + cr.width  * 0.35
-      const cy  = cr.top  - wr.top  + cr.height / 2
+      const tx = R.x + R.w / 2
+
+      const ty = R.y + R.h / 2
+
+      // 基金选择器位置（screen2 虽隐藏，此时仍可计算）
+      const CR  = relRect(ci)
+      const cx  = CR.x + CR.w * 0.62
+      const cy  = CR.y + CR.h / 2
+      // 光标入场点：选择框右下方（相对其自身尺寸，不写死像素）
+      const enterX = CR.x + CR.w * 0.72
+      const enterY = cy + 80
 
       // ── Phase 1: click Subscribe Now ──────────────────────────────
 
@@ -225,14 +267,16 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         const tabTrans = q('tabTransactions')
         if (tabDash)  delete tabDash.dataset.active
         if (tabTrans) tabTrans.dataset.active = 'true'
-        setTimeout(() => show(q('screenSubscribe')), 80)
+        after(() => show(q('screenSubscribe')), 80)
       }, 1700)
 
-      // ── Phase 2: click code input ──────────────────────────────────
+      // ── Phase 2: 打开基金下拉框 ────────────────────────────────────
+      // 本段（2100–7100ms）替换了原「输入 Fund Access Code」流程。
+      // 起止时刻保持不变，因此 Phase 5 及之后的时间戳无需调整。
 
       after(() => {
         cursor.style.transition = 'none'
-        cursor.style.transform  = `translate(${cx - 100}px,${cy + 60}px)`
+        cursor.style.transform  = `translate(${enterX}px,${enterY}px)`
         cursor.style.opacity    = '0'
         requestAnimationFrame(() => {
           cursor.style.transition = 'opacity 0.3s'
@@ -249,45 +293,88 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         cursor.style.transition = 'transform 0.08s'
         cursor.style.transform  = `translate(${cx}px,${cy}px) scale(0.78)`
       }, 2820)
+
+      // 展开下拉：整体一次性淡入
       after(() => {
-        const el = q('codeInput')
-        if (el) el.dataset.active = 'true'
+        const sel  = q('fundSelect')
+        const drop = q('fundDropdown')
+        if (sel) sel.dataset.active = 'true'
+        if (drop) {
+          drop.style.display = ''
+          requestAnimationFrame(() => { drop.style.opacity = '1' })
+        }
       }, 2860)
 
       after(() => {
         cursor.style.transition = 'transform 0.15s'
         cursor.style.transform  = `translate(${cx}px,${cy}px) scale(1)`
       }, 2940)
-      after(() => { cursor.style.transition = 'opacity 0.35s'; cursor.style.opacity = '0' }, 3080)
 
-      // ── Phase 3: type 6 dots ───────────────────────────────────────
-
-      after(() => {
-        const ph = q('codePlaceholder')
-        const dt = q('codeDots')
-        if (ph) ph.style.display = 'none'
-        if (dt) { dt.style.display = ''; dt.style.opacity = '1' }
-      }, 3300)
-
-      // last dot lands at 3300 + 8*200 = 4900ms
-      for (let i = 1; i <= 8; i++) {
-        after(() => {
-          const dt = q('codeDots')
-          if (dt) dt.textContent += '●'
-        }, 3300 + i * 200)
-      }
-
-      // ── Phase 4: verifying → verified ─────────────────────────────
+      // ── Phase 3: 移到目标基金并悬停 ───────────────────────────────
+      // 下拉此时才可见，选项坐标必须在回调内实测（展开前 rect 为 0）
 
       after(() => {
-        const el = q('codeInput')
-        if (el) delete el.dataset.active
-      }, 5200)
+        const opt = q(`fundOption${SELECTED_FUND_INDEX}`)
+        if (!opt) return
+        const OR  = relRect(opt)
+        const ox  = OR.x + OR.w * 0.62
+        const oy  = OR.y + OR.h / 2
+        cursor.dataset.ox = String(ox)
+        cursor.dataset.oy = String(oy)
+        cursor.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'
+        cursor.style.transform  = `translate(${ox}px,${oy}px)`
+      }, 3400)
+
+      after(() => {
+        const opt = q(`fundOption${SELECTED_FUND_INDEX}`)
+        if (opt) opt.dataset.hover = 'true'
+      }, 4000)
+
+      // ── Phase 4: 选中 → 加载基金档案 ──────────────────────────────
+
+      after(() => {
+        const ox = cursor.dataset.ox, oy = cursor.dataset.oy
+        cursor.style.transition = 'transform 0.08s'
+        cursor.style.transform  = `translate(${ox}px,${oy}px) scale(0.78)`
+      }, 4120)
+
+      // 落选：收起下拉、填入基金名
+      after(() => {
+        const sel   = q('fundSelect')
+        const ph    = q('fundSelectPlaceholder')
+        const val   = q('fundSelectValue')
+        const drop  = q('fundDropdown')
+        if (ph)  ph.style.display = 'none'
+        if (val) { val.style.display = ''; val.textContent = FUND_OPTIONS[SELECTED_FUND_INDEX] }
+        if (drop) {
+          drop.style.opacity = '0'
+          after(() => { drop.style.display = 'none' }, 180)
+        }
+        if (sel) delete sel.dataset.active
+        FUND_OPTIONS.forEach((_, i) => {
+          const opt = q(`fundOption${i}`)
+          if (opt) delete opt.dataset.hover
+        })
+      }, 4220)
+
+      after(() => {
+        const ox = cursor.dataset.ox, oy = cursor.dataset.oy
+        // 一条过渡同时管 transform 与 opacity，避免下面的淡出把它覆盖掉
+        cursor.style.transition = 'transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease'
+        cursor.style.transform  = `translate(${ox}px,${oy}px) scale(1)`
+      }, 4320)
+
+      // 淡出时轻微缩小，读作"抬手离开"而非凭空消失（不重设 transition）
+      after(() => {
+        const ox = cursor.dataset.ox, oy = cursor.dataset.oy
+        cursor.style.opacity   = '0'
+        cursor.style.transform = `translate(${ox}px,${oy}px) scale(0.82)`
+      }, 4600)
 
       after(() => {
         const badge = q('verifyBadge')
         if (badge) { badge.style.opacity = '1'; badge.dataset.state = 'verifying' }
-      }, 5400)
+      }, 4220)
 
       after(() => {
         const badge   = q('verifyBadge')
@@ -295,8 +382,8 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         const text    = q('verifyText')
         if (badge)   badge.dataset.state   = 'verified'
         if (spinner) spinner.dataset.check = 'true'
-        if (text)    text.textContent      = 'Verified'
-      }, 6700)
+        if (text)    text.textContent      = 'Success'
+      }, 5900)
 
       // ── In-place: fade skeleton out, fade real data in ───────────
       after(() => {
@@ -304,7 +391,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         const dataSect    = q('dataSection')
         const actionBtn   = q('actionBtn')
         if (skelSection) skelSection.style.opacity = '0'
-        setTimeout(() => {
+        after(() => {
           if (skelSection) skelSection.style.display = 'none'
           if (dataSect) {
             dataSect.style.display = ''
@@ -318,7 +405,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
             requestAnimationFrame(() => {
               requestAnimationFrame(() => {
                 rows.forEach((row, i) => {
-                  setTimeout(() => {
+                  after(() => {
                     row.style.transition = 'opacity 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1), filter 0.4s ease'
                     row.style.opacity = '1'
                     row.style.transform = 'scale(1)'
@@ -329,11 +416,12 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
             })
           }
           if (actionBtn) { actionBtn.style.display = ''; actionBtn.textContent = 'Submit Application'; actionBtn.dataset.active = 'true' }
-          setTimeout(() => {
+          after(() => {
             const scrollEl  = q('subscribeBody')
             const amountRow = q('amountRow')
             if (!scrollEl || !amountRow) return
-            const elemTop  = amountRow.getBoundingClientRect().top - scrollEl.getBoundingClientRect().top + scrollEl.scrollTop
+            // rect 差为视觉像素，scrollTop/clientHeight 为布局像素 → 先除回布局坐标系
+            const elemTop  = (amountRow.getBoundingClientRect().top - scrollEl.getBoundingClientRect().top) / scaleOf() + scrollEl.scrollTop
             const target   = elemTop - scrollEl.clientHeight / 2 + amountRow.clientHeight / 2
             const start    = scrollEl.scrollTop
             const distance = target - start
@@ -343,21 +431,20 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
             const step     = (now) => {
               const p = Math.min((now - t0) / duration, 1)
               scrollEl.scrollTop = start + distance * ease(p)
-              if (p < 1) requestAnimationFrame(step)
+              if (p < 1) raf(step)
             }
-            requestAnimationFrame(step)
+            raf(step)
           }, 100)
         }, 350)
-      }, 7100)
+      }, 6300)
 
       // ── Phase 5: cursor from right → click USD 200,000 ───────────
       after(() => {
         const qb = q('quickBtn200')
         if (!qb) return
-        const wr = wrap.getBoundingClientRect()
-        const br = qb.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(qb)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         // appear from bottom-right
         cursor.style.transition = 'none'
         cursor.style.transform  = `translate(${bx + 100}px,${by + 80}px)`
@@ -366,50 +453,47 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
           cursor.style.transition = 'opacity 0.3s'
           cursor.style.opacity    = '1'
         })
-      }, 9200)
+      }, 8400)
 
       after(() => {
         const qb = q('quickBtn200')
         if (!qb) return
-        const wr = wrap.getBoundingClientRect()
-        const br = qb.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(qb)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transition = 'transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)'
         cursor.style.transform  = `translate(${bx}px,${by}px)`
-      }, 9450)
+      }, 8650)
 
       after(() => {
         cursor.style.transition = 'transform 0.08s'
         const qb = q('quickBtn200')
         if (!qb) return
-        const wr = wrap.getBoundingClientRect()
-        const br = qb.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(qb)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transform  = `translate(${bx}px,${by}px) scale(0.78)`
-      }, 9950)
+      }, 9150)
       after(() => {
         const qb = q('quickBtn200')
         if (qb) qb.dataset.pressed = 'true'
-      }, 9990)
+      }, 9190)
       after(() => {
         cursor.style.transition = 'transform 0.15s'
         const qb = q('quickBtn200')
         if (!qb) return
-        const wr = wrap.getBoundingClientRect()
-        const br = qb.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(qb)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transform  = `translate(${bx}px,${by}px) scale(1)`
-      }, 10080)
+      }, 9280)
       after(() => {
         const qb  = q('quickBtn200')
         const az  = q('amountZero')
         if (qb) { delete qb.dataset.pressed; qb.dataset.selected = 'true' }
         if (az) { az.style.transition = 'color 0.3s'; az.style.color = '#111827'; az.style.fontWeight = '600'; az.textContent = '200,000.00' }
-      }, 10150)
-      after(() => { cursor.style.transition = 'opacity 0.35s'; cursor.style.opacity = '0' }, 10280)
+      }, 9350)
+      after(() => { cursor.style.transition = 'opacity 0.35s'; cursor.style.opacity = '0' }, 9480)
 
       // ── Scroll to Submit button ───────────────────────────────────
       after(() => {
@@ -425,19 +509,18 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         const step     = (now) => {
           const p = Math.min((now - t0) / duration, 1)
           scrollEl.scrollTop = start + distance * ease(p)
-          if (p < 1) requestAnimationFrame(step)
+          if (p < 1) raf(step)
         }
-        requestAnimationFrame(step)
-      }, 10500)
+        raf(step)
+      }, 9700)
 
       // ── Phase 6: cursor clicks Submit ────────────────────────────
       after(() => {
         const sb = q('actionBtn')
         if (!sb) return
-        const wr = wrap.getBoundingClientRect()
-        const br = sb.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(sb)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transition = 'none'
         cursor.style.transform  = `translate(${bx + 80}px,${by - 60}px)`
         cursor.style.opacity    = '0'
@@ -445,55 +528,52 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
           cursor.style.transition = 'opacity 0.3s'
           cursor.style.opacity    = '1'
         })
-      }, 11900)
+      }, 11100)
 
       after(() => {
         const sb = q('actionBtn')
         if (!sb) return
-        const wr = wrap.getBoundingClientRect()
-        const br = sb.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(sb)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'
         cursor.style.transform  = `translate(${bx}px,${by}px)`
-      }, 12150)
+      }, 11350)
 
       after(() => {
         cursor.style.transition = 'transform 0.08s'
         const sb = q('actionBtn')
         if (!sb) return
-        const wr = wrap.getBoundingClientRect()
-        const br = sb.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(sb)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transform = `translate(${bx}px,${by}px) scale(0.78)`
-      }, 12600)
+      }, 11800)
       after(() => {
         const sb = q('actionBtn')
         if (sb) sb.dataset.pressed = 'true'
-      }, 12640)
+      }, 11840)
       after(() => {
         cursor.style.transition = 'transform 0.15s'
         const sb = q('actionBtn')
         if (!sb) return
-        const wr = wrap.getBoundingClientRect()
-        const br = sb.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(sb)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transform = `translate(${bx}px,${by}px) scale(1)`
-      }, 12740)
+      }, 11940)
       after(() => {
         const sb = q('actionBtn')
         if (sb) delete sb.dataset.pressed
         cursor.style.transition = 'opacity 0.35s'
         cursor.style.opacity = '0'
-      }, 12820)
+      }, 12020)
 
       // ── Transition to success screen ─────────────────────────────
       after(() => {
         const formBody = q('formBody')
         if (formBody) formBody.style.opacity = '0'
-        setTimeout(() => {
+        after(() => {
           if (formBody) formBody.style.display = 'none'
           const successSect = q('successSection')
           if (successSect) {
@@ -505,16 +585,15 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
           const scrollEl = q('subscribeBody')
           if (scrollEl) scrollEl.scrollTop = 0
         }, 380)
-      }, 13000)
+      }, 12200)
 
       // ── Phase 7: cursor clicks Dashboard nav ─────────────────────
       after(() => {
         const tabDash = q('tabDashboard')
         if (!tabDash) return
-        const wr = wrap.getBoundingClientRect()
-        const br = tabDash.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(tabDash)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transition = 'none'
         cursor.style.transform  = `translate(${bx + 60}px,${by + 50}px)`
         cursor.style.opacity    = '0'
@@ -522,49 +601,46 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
           cursor.style.transition = 'opacity 0.3s'
           cursor.style.opacity    = '1'
         })
-      }, 14500)
+      }, 13700)
 
       after(() => {
         const tabDash = q('tabDashboard')
         if (!tabDash) return
-        const wr = wrap.getBoundingClientRect()
-        const br = tabDash.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(tabDash)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transition = 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)'
         cursor.style.transform  = `translate(${bx}px,${by}px)`
-      }, 14750)
+      }, 13950)
 
       after(() => {
         cursor.style.transition = 'transform 0.08s'
         const tabDash = q('tabDashboard')
         if (!tabDash) return
-        const wr = wrap.getBoundingClientRect()
-        const br = tabDash.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(tabDash)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transform = `translate(${bx}px,${by}px) scale(0.78)`
-      }, 15200)
+      }, 14400)
       after(() => {
         const tabDash  = q('tabDashboard')
         const tabTrans = q('tabTransactions')
         if (tabDash)  tabDash.dataset.active = 'true'
         if (tabTrans) delete tabTrans.dataset.active
-      }, 15240)
+      }, 14440)
       after(() => {
         cursor.style.transition = 'transform 0.15s'
         const tabDash = q('tabDashboard')
         if (!tabDash) return
-        const wr = wrap.getBoundingClientRect()
-        const br = tabDash.getBoundingClientRect()
-        const bx = br.left - wr.left + br.width  / 2
-        const by = br.top  - wr.top  + br.height / 2
+        const R = relRect(tabDash)
+        const bx = R.x + R.w / 2
+        const by = R.y + R.h / 2
         cursor.style.transform = `translate(${bx}px,${by}px) scale(1)`
-      }, 15320)
+      }, 14520)
       after(() => {
         cursor.style.transition = 'opacity 0.35s'
         cursor.style.opacity    = '0'
-      }, 15420)
+      }, 14620)
 
       // ── Switch back to Dashboard with updated Transactions ────────
       after(() => {
@@ -576,7 +652,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         show(q('screenDashboard'))
         const kycBar = q('kycBar')
         if (kycBar) { kycBar.style.display = 'none' }
-      }, 15560)
+      }, 14760)
 
       after(() => {
         const txFilled = q('transactionsFilled')
@@ -584,16 +660,15 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => { txFilled.style.opacity = '1' })
         })
-      }, 15720)
+      }, 14920)
 
       // ── Park cursor beside status badge as visual guide ──────────
       after(() => {
         const s = q('txStatusBadge')
         if (!s) return
-        const wr = wrap.getBoundingClientRect()
-        const br = s.getBoundingClientRect()
-        const cx = br.right - wr.left + 36
-        const cy = br.top   - wr.top  + br.height / 2 + 30
+        const R  = relRect(s)
+        const cx = R.x + R.w + 36
+        const cy = R.y + R.h / 2 + 30
         cursor.style.transition = 'none'
         cursor.style.transform  = `translate(${cx + 24}px,${cy}px)`
         cursor.style.opacity    = '0'
@@ -602,7 +677,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
           cursor.style.transform  = `translate(${cx}px,${cy}px)`
           cursor.style.opacity    = '1'
         })
-      }, 16400)
+      }, 15600)
 
       // ── Status cycling ───────────────────────────────────────────
       const animateTxStatus = (label, bg, color, subText, at) => {
@@ -640,11 +715,13 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         }, at + 380)
       }
 
-      animateTxStatus('Pending Payment',    '#eff6ff', '#3b82f6', 'Upload payment confirmation',  16800)
-      animateTxStatus('Registering Shares', '#f3f4f6', '#6b7280', 'Processing your subscription', 17600)
-      animateTxStatus('Completed',          '#dcfce7', '#16a34a', 'Subscription confirmed',        18400)
+      // 时间戳单独提出来：写成函数参数的形式容易在整体平移时被漏掉（曾漏过一次）
+      const TX_STATUS_AT = [16000, 16800, 17600]
+      animateTxStatus('Pending Payment',    '#eff6ff', '#3b82f6', 'Upload payment confirmation',  TX_STATUS_AT[0])
+      animateTxStatus('Registering Shares', '#f3f4f6', '#6b7280', 'Processing your subscription', TX_STATUS_AT[1])
+      animateTxStatus('Completed',          '#dcfce7', '#16a34a', 'Subscription confirmed',       TX_STATUS_AT[2])
 
-      after(() => { cursor.style.transition = 'opacity 0.4s ease'; cursor.style.opacity = '0' }, 18800)
+      after(() => { cursor.style.transition = 'opacity 0.4s ease'; cursor.style.opacity = '0' }, 18000)
 
       // ── Cards update after Completed ─────────────────────────────
       after(() => {
@@ -656,7 +733,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
           txTabBdg.style.display = 'flex'
           txTabBdg.style.transform = 'scale(0.3)'
           txTabBdg.style.opacity = '0'
-          setTimeout(() => {
+          after(() => {
             txTabBdg.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease'
             txTabBdg.style.transform = 'scale(1)'
             txTabBdg.style.opacity = '1'
@@ -672,10 +749,10 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
         if (portCurr) {
           portCurr.style.display = 'flex'
           portCurr.style.opacity = '0'
-          setTimeout(() => { portCurr.style.transition = 'opacity 0.3s'; portCurr.style.opacity = '1' }, 80)
+          after(() => { portCurr.style.transition = 'opacity 0.3s'; portCurr.style.opacity = '1' }, 80)
         }
         // After fade-out: swap to filled content
-        setTimeout(() => {
+        after(() => {
           if (txPending) txPending.style.display = 'none'
           const txNoPend = q('txNoPending')
           if (txNoPend) { txNoPend.style.display = ''; requestAnimationFrame(() => requestAnimationFrame(() => { txNoPend.style.opacity = '1' })) }
@@ -695,7 +772,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
           }
 
         }, 300)
-      }, 18900)
+      }, 18100)
 
       // ── Badge ghost floats (live-stream effect) ──────────────────
       after(() => {
@@ -734,7 +811,8 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
           // FLIP row 0 back to original position, then animate down
           if (flipRow0) {
             const lastTop = flipRow0.getBoundingClientRect().top
-            const diff = lastTop - firstTop
+            // diff 作为 translateY 写入被缩放的元素内部，需除回布局坐标系
+            const diff = (lastTop - firstTop) / scaleOf()
             if (diff > 0) {
               flipRow0.style.transition = 'none'
               flipRow0.style.transform = `translateY(${-diff}px)`
@@ -780,7 +858,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
             bdg.style.transition = 'transform 0.12s ease-in, opacity 0.1s'
             bdg.style.transform  = 'scale(0.65)'
             bdg.style.opacity    = '0.4'
-            setTimeout(() => {
+            after(() => {
               bdg.textContent      = label
               bdg.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.15s'
               bdg.style.transform  = 'scale(1)'
@@ -788,10 +866,26 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
             }, 130)
           }, gi * STEP)
         })
-      }, 20050)
+      }, 19250)
 
     })
-  }, [q, after, resetAll, replayRef])
+  }, [q, after, resetAll, replayRef, raf])
+
+  // demo 是 1000x560 的固定尺寸桌面界面，窄屏下整体等比缩小而非重排布局。
+  // 缩放写在 CSS 变量里，viewport 自身尺寸也跟着收，避免底部留白。
+  useEffect(() => {
+    const el = viewportRef.current
+    const host = el?.parentElement
+    if (!host) return
+    const update = () => {
+      const s = Math.min(1, host.clientWidth / 1000)
+      el.style.setProperty('--demo-scale', String(s))
+    }
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(host)
+    return () => ro.disconnect()
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -807,11 +901,13 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
     return () => {
       observer.disconnect()
       timers.current.forEach(clearTimeout)
+      rafIds.current.forEach(cancelAnimationFrame)
     }
   }, [playDemo])
 
 
   return (
+    <div className={styles.viewport} ref={viewportRef}>
     <div className={styles.wrap} ref={wrapRef}>
       <div className={styles.frame}>
 
@@ -831,7 +927,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
             <div className={styles.screen} data-demo="screenDashboard">
               <div className={styles.kycBar} data-demo="kycBar" style={{ transition: 'opacity 0.4s' }}>
                 <span className={styles.kycEmoji}>🎉</span>
-                <span className={styles.kycText}>Your profile has been successfully verified! Start trading funds now.</span>
+                <span className={styles.kycText}>Your profile has been successfully verified!</span>
                 <span className={styles.kycClose}>✕</span>
               </div>
 
@@ -874,7 +970,8 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
                           <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v7M1.5 5l3 3 3-3" stroke="#15803d" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
                           Subscription
                         </span>
-                        <p className={styles.txFundCell}>NuBright Fund SPC - Demo SP - Class A</p>
+                        {/* 基金名与 FUND_OPTIONS[SELECTED_FUND_INDEX] 一致，仅此处附份额类别 */}
+                        <p className={styles.txFundCell}>NuBright Fixed Income SP - Class A</p>
                       </div>
                       <div className={styles.txCellDay}>15 Feb 2026</div>
                       <div className={styles.txCellAmount}>USD 200,000.00</div>
@@ -897,10 +994,10 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
                 <div className={styles.card}>
                   <p className={styles.cardTitle}>NAV</p>
                   <div className={styles.navEmptyState} data-demo="navEmpty">
-                    <p className={styles.navEmptyText}>Enter Fund Access Code to view fund profile</p>
+                    <p className={styles.navEmptyText}>Search for a fund to view its profile</p>
                     <div className={styles.navInput}>
                       <img src={iconSecurity} alt="" width="16" height="16" style={{ flexShrink: 0 }} />
-                      <span className={styles.navInputPlaceholder}>Fund Access Code</span>
+                      <span className={styles.navInputPlaceholder}>Search Fund</span>
                     </div>
                   </div>
                   <div data-demo="navFilled" style={{ display: 'none', opacity: 0, transition: 'opacity 0.4s' }}>
@@ -910,9 +1007,9 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
                     </div>
                     {(() => {
                       const navRows = [
-                        { name: 'NuBright Global Macro SP',          date: 'As of 15 Mar 2026', value: '$1,024.73826541', change: '+4.17%',  pos: true  },
+                        { name: 'NuBright Fixed Income SP - Class A', date: 'As of 15 Mar 2026', value: '$1,024.73826541', change: '+4.17%',  pos: true  },
                         { name: 'NuBright Asia Pacific Offshore SP',  date: 'As of 28 Feb 2026', value: '$987.46213809',   change: '-2.38%',  pos: false },
-                        { name: 'NuBright Fixed Income SP',           date: 'As of 31 Jan 2026', value: '$1,156.92047381', change: '+8.63%',  pos: true  },
+                        { name: 'NuBright Global Macro SP',           date: 'As of 31 Jan 2026', value: '$1,156.92047381', change: '+8.63%',  pos: true  },
                         { name: 'NuBright Multi-Asset Balanced SP',   date: 'As of 14 Apr 2026', value: '$1,003.18764520', change: '+3.52%',  pos: true  },
                         { name: 'NuBright Absolute Return Class A SP',date: 'As of 01 May 2026', value: '$1,289.50413762', change: '+15.84%', pos: true  },
                       ]
@@ -1015,16 +1112,48 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
                   <div className={styles.formSection}>
 
                     <div className={styles.formRow}>
-                      <span className={styles.formLabel}>Fund Access Code</span>
+                      <span className={styles.formLabel}>Select Fund</span>
                       <div className={styles.codeInputCol}>
                         <div className={styles.codeInputRow}>
-                          <div className={styles.codeInput} data-demo="codeInput">
-                            <span className={styles.codeInputPlaceholder} data-demo="codePlaceholder">
-                              Enter Fund Access Code
-                            </span>
-                            <span className={styles.codeDots} data-demo="codeDots" style={{ display: 'none' }} />
-                            <img src={iconEyeOff} alt="" width="14" height="14" style={{ flexShrink: 0 }} />
+                          <div className={styles.fundSelectWrap}>
+                            <div className={styles.codeInput} data-demo="fundSelect">
+                              <span className={styles.codeInputPlaceholder} data-demo="fundSelectPlaceholder">
+                                Select a fund
+                              </span>
+                              <span
+                                className={styles.fundSelectValue}
+                                data-demo="fundSelectValue"
+                                style={{ display: 'none' }}
+                              />
+                              <svg
+                                className={styles.fundSelectChevron}
+                                width="12" height="12" viewBox="0 0 12 12"
+                                fill="none" aria-hidden="true"
+                              >
+                                <path d="M3 4.5L6 7.5L9 4.5" stroke="#64748d" strokeWidth="1.3"
+                                      strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            </div>
+
+                            <div className={styles.fundDropdown} data-demo="fundDropdown" style={{ display: 'none' }}>
+                              <div className={styles.fundGroupLabel}>Available to Subscribe</div>
+                              {FUND_OPTIONS.map((fund, i) => (
+                                <div
+                                  key={fund}
+                                  className={styles.fundOption}
+                                  data-demo={`fundOption${i}`}
+                                >
+                                  {fund}
+                                </div>
+                              ))}
+                              {/* 纯展示：光标不会点它，用于传达"列表之外的基金可另行申请" */}
+                              <div className={styles.fundDropdownFooter} data-demo="fundDropdownFooter">
+                                <span className={styles.fundFooterPlus} aria-hidden="true">+</span>
+                                New Fund
+                              </div>
+                            </div>
                           </div>
+
                           <div className={styles.verifyBadge} data-demo="verifyBadge" style={{ opacity: 0 }}>
                             <span className={styles.verifySpinner} data-demo="verifySpinner">
                               {Array.from({ length: 12 }).map((_, i) => (
@@ -1032,7 +1161,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
                               ))}
                               <img src={iconCheck} alt="" className={styles.spinnerCheck} />
                             </span>
-                            <span data-demo="verifyText" className={styles.verifyText}>Verifying...</span>
+                            <span data-demo="verifyText" className={styles.verifyText}>Loading...</span>
                           </div>
                         </div>
                       </div>
@@ -1058,7 +1187,8 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
                       <div className={styles.dataRow}>
                         <span className={styles.formLabel}>Fund Name</span>
                         <div className={styles.fundNameRow}>
-                          <span className={styles.dataValue}>NuBright Fund SPC - Demo SP</span>
+                          {/* 与 FUND_OPTIONS[SELECTED_FUND_INDEX] 保持一致 */}
+                          <span className={styles.dataValue}>NuBright Fixed Income SP</span>
                           <span className={styles.detailsLink}>Details</span>
                         </div>
                       </div>
@@ -1176,6 +1306,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
 
       {/* 虚拟光标 */}
       <div className={styles.cursor} ref={cursorRef} />
+    </div>
     </div>
   )
 }

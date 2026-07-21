@@ -107,9 +107,10 @@
 
 .cardBtn:active { transform: translateY(0); }
 
+/* 高度由内部 demo 的缩放决定（见 InvestorPortalDemoStyle2 的 .viewport），
+   不再写死 560px，否则窄屏缩放后底部会留出空白 */
 .uiPlaceholder {
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  height: 560px;
   margin-top: var(--space-12);
   overflow: hidden;
 }
@@ -164,5 +165,47 @@
 @media (max-width: 768px) {
   .features {
     grid-template-columns: 1fr;
+  }
+
+  /* 收窄卡片内边距，把宽度让给 demo —— 它是等比缩放的，
+     容器每宽 1px，画面就大 1px，窄屏下这点间距比留白更有价值 */
+  .card {
+    padding: var(--space-4) var(--space-4) 0;
+  }
+
+  /* 顶部留白本是为绝对定位的重播按钮让位（top 16 + 高 36 = 52px）。
+     窄屏下 demo 已缩小，按钮和留白同步收小才不显空。 */
+  .replayBtn {
+    top: var(--space-2);
+    right: var(--space-2);
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 7px;
+    border-width: 1.2px;
+  }
+
+  .uiPlaceholder {
+    margin-top: var(--space-8);
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: var(--space-2) var(--space-2) 0;
+  }
+
+  .replayBtn {
+    top: 6px;
+    right: 6px;
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
+    border-radius: 6px;
+    border-width: 1px;
+  }
+
+  .uiPlaceholder {
+    margin-top: var(--space-6);
   }
 }
