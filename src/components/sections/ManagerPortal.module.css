@@ -32,17 +32,17 @@
 .title {
   font-size: clamp(32px, 4.5vw, 56px);
   font-weight: var(--fw-heading);
-  letter-spacing: -1px;
+  letter-spacing: -0.02em;
   line-height: 1.1;
   color: var(--color-text-heading);
   margin-bottom: var(--space-4);
 }
 
 .headerSub {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: var(--fw-light);
-  color: var(--color-text-body);
-  line-height: 1.6;
+  color: var(--color-text-heading);
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -115,8 +115,41 @@
   color: var(--color-text-body);
 }
 
+/* 中等宽度（481–768）：功能卡单列，卡内 = 图 2 列 | 文字 2 列。
+   用 grid 1fr:1fr（对齐全站 4 列网格），文字左缘正好落在中线(col2/3)。 */
 @media (max-width: 768px) {
   .features {
     grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
+  .feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 0;
+  }
+  .featureImg {
+    margin-bottom: 0;
+    /* 图文间距用图片右 margin（在其 2 列内），不影响列边界 → 文字仍贴中线 */
+    margin-right: var(--space-6);
+  }
+  /* 字号随宽度缩放：宽屏放大(文字变高贴近高图)、窄屏缩小(贴近矮图)，
+     让文字容器高度尽量接近图片高度 */
+  .featureTitle {
+    font-size: clamp(20px, 2.8vw, 30px);
+  }
+  .featureBody {
+    font-size: clamp(14px, 2vw, 22px);
+  }
+}
+
+/* 很窄（≤480）：回到图上、文字下堆叠 */
+@media (max-width: 480px) {
+  .feature {
+    grid-template-columns: 1fr;
+  }
+  .featureImg {
+    margin-right: 0;
+    margin-bottom: var(--space-5);
   }
 }

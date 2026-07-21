@@ -1,12 +1,12 @@
 import { useEffect, useRef, useCallback } from 'react'
 import ReactECharts from 'echarts-for-react'
 import styles from './InvestorPortalDemoStyle2.module.css'
-import img1 from '../../assets/inverstor portal-ui-dashboard-1.png'
-import img2 from '../../assets/inverstor portal-ui-dashboard-2.png'
+import img1 from '../../assets/inverstor portal-ui-dashboard-1.webp'
+import img2 from '../../assets/inverstor portal-ui-dashboard-2.webp'
 import iconSecurity from '../../assets/code-security.svg'
 import iconEyeOff from '../../assets/eye-off.svg'
 import iconCheck from '../../assets/check.svg'
-import imgSuccess from '../../assets/inverstor portal-ui-success.png'
+import imgSuccess from '../../assets/inverstor portal-ui-success.webp'
 
 const EC_COLORS = ['#7c3aed', '#3b82f6', '#0ea5e9', '#14b8a6', '#22c55e']
 const EC_FUND_DATA = [

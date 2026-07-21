@@ -1,12 +1,12 @@
 import styles from './OurSpirits.module.css'
 import { useTranslation } from 'react-i18next'
 import { useScrollAnimation } from '../../hooks/useScrollAnimation'
-import spirits1Img from '../../assets/spirits1.png'
-import spirits2Img from '../../assets/spirits2.png'
-import spirits3Img from '../../assets/spirtis3.png'
-import gradient1Img from '../../assets/spirits1-grad.png'
-import gradient2Img from '../../assets/spirits2-grad.png'
-import gradient3Img from '../../assets/spirits3-grad.png'
+import spirits1Img from '../../assets/spirits1.webp'
+import spirits2Img from '../../assets/spirits2.webp'
+import spirits3Img from '../../assets/spirtis3.webp'
+import gradient1Img from '../../assets/spirits1-grad.webp'
+import gradient2Img from '../../assets/spirits2-grad.webp'
+import gradient3Img from '../../assets/spirits3-grad.webp'
 
 const ITEMS = [
   { key: 's1', image: spirits1Img, variant: 'pink', reverse: true, gradient: gradient1Img },

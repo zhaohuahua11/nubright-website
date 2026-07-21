@@ -19,7 +19,7 @@ export default function AboutHero() {
         <div className={styles.heroGridCol} />
       </div>
       <div className={styles.heroInner}>
-        <p className={styles.eyebrow}><Badge variant="neutral">{t('aboutHero.badge')}</Badge></p>
+        <p className={styles.eyebrow}><Badge variant="label">{t('aboutHero.badge')}</Badge></p>
         <h1 className={`${styles.heroHeading} animate-on-enter`}>
           {t('aboutHero.heading')}
         </h1>

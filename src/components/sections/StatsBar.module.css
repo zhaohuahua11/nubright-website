@@ -60,6 +60,11 @@
 @media (max-width: 640px) {
   .inner {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
+    gap: var(--space-16) 0; /* 行间距加大，列间距 0 */
+  }
+  /* 数字变 2 行后整块变高、会把 hero 撑高 → 贴底的刻度尺相对按钮下移。
+     把上边距减掉多出来那一行的高度(~66px)，抵消撑高，保持按钮↔刻度间距与 4 列时一致。 */
+  .bar {
+    margin-top: 54px;
   }
 }

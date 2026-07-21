@@ -131,3 +131,23 @@
 .btnPrimary:active {
   transform: translateY(0);
 }
+
+/* ---- 移动端：四项都保留，靠缩小尺寸塞下（语言框后期会删，届时更宽松）---- */
+@media (max-width: 480px) {
+  .inner {
+    height: 52px;
+  }
+  .logo img {
+    width: 62px;
+    height: auto;
+  }
+  .btnGhost {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  .btnPrimary {
+    font-size: 12px;
+    padding: 6px 10px;
+    margin-left: 6px;
+  }
+}

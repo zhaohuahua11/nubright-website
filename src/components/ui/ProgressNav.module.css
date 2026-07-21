@@ -54,6 +54,11 @@
   gap: var(--space-6);
 }
 
+/* bare 模式只有一个「回到顶部」，居中而非两端对齐 */
+.bandInnerCenter {
+  justify-content: center;
+}
+
 .bandVisible {
   opacity: 1;
   pointer-events: auto;
@@ -75,4 +80,47 @@
 
 .bandLabel:hover {
   color: var(--color-text-heading);
+}
+
+/* 宽屏显示长句，短名待命 */
+.labelShort {
+  display: none;
+}
+
+/* ≤1200px：三段长句实测约需 1062px，而可用宽 = W - 2×4vw = 0.92W，
+   1200 是留出可见间隔后的临界点。阈值按英文（最长的一版文案）定，
+   中文短得多、会提前切换到短名，属于安全侧。 */
+@media (max-width: 1200px) {
+  .labelLong {
+    display: none;
+  }
+  .labelShort {
+    display: inline;
+  }
+  .bandInner {
+    gap: var(--space-4);
+  }
+}
+
+/* ≤560px：连 "Chapter N ·" 也省掉，只留短名 */
+@media (max-width: 560px) {
+  .labelNum,
+  .labelSep,
+  .labelArrow {
+    display: none;
+  }
+  .bandInner {
+    gap: var(--space-3);
+    padding: 4px var(--container-padding);
+  }
+  .bandLabel {
+    font-size: 10px;
+  }
+}
+
+/* 触屏没有 hover，这条永远不会被触发 → 直接不渲染，省掉一层固定定位 */
+@media (hover: none) {
+  .band {
+    display: none;
+  }
 }

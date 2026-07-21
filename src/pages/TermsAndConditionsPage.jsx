@@ -1,5 +1,6 @@
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import ProgressNav from '../components/ui/ProgressNav'
 import styles from './DataProtectionPolicyPage.module.css'
 
 const TOC = [
@@ -20,6 +21,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
   return (
     <>
       <Navbar onContactClick={onContactClick} />
+      <ProgressNav bare />
 
       <main className={styles.main}>
         <div className={styles.container}>
@@ -55,7 +57,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>2.1</span>
                 <div>
-                  <p><strong>Definitions</strong></p>
+                  <p className={styles.subhead}>Definitions</p>
                   <p>In these Terms, the following terms shall have the meanings ascribed below:</p>
                   <p><strong>"Agreement"</strong> means the administration agreement between NFSL and the Client (including all of its schedules, annexes and attachments and these Terms), as amended in accordance with its terms from time to time.</p>
                   <p><strong>"Affiliate"</strong> means, with respect to any entity, any other entity that directly or indirectly Controls, is Controlled by, or is under common Control with such entity. For purposes hereof, "Control" shall mean ownership of 50% or more of voting securities or equity interests, or the power to direct management policies through contractual arrangements or otherwise.</p>
@@ -82,7 +84,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>2.2</span>
                 <div>
-                  <p><strong>Interpretation</strong></p>
+                  <p className={styles.subhead}>Interpretation</p>
                   <p>In this Agreement, unless the context otherwise requires: any reference to a Clause, Section, or Schedule refers to the relevant provision of these Terms; references to any document include such document as amended, supplemented, substituted, or novated from time to time; references to Hong Kong statutes include all amendments, re-enactments, or successor provisions; the singular includes the plural (and vice versa); headings are for convenience only; references to persons include natural persons, corporations, and legal entities; references to "writing" include electronic communications if legally enforceable; references to "days" mean calendar days unless specified as business days; and no party shall be deemed to have committed Gross Negligence, willful misconduct, or fraud unless finally adjudicated as such by a non-appealable court judgment.</p>
                 </div>
               </div>
@@ -114,7 +116,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>4.1</span>
                 <div>
-                  <p><strong>Services Provided</strong></p>
+                  <p className={styles.subhead}>Services Provided</p>
                   <p>NFSL shall provide the following services:</p>
                   <ol className={styles.alphaList}>
                     <li>The services that NFSL is obliged to provide are limited to those as specified in the Agreement.</li>
@@ -125,7 +127,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>4.2</span>
                 <div>
-                  <p><strong>Exclusions</strong></p>
+                  <p className={styles.subhead}>Exclusions</p>
                   <p>NFSL's role is strictly administrative. Unless expressly agreed in writing, the following are excluded from NFSL's services or responsibilities:</p>
                   <ol className={styles.alphaList}>
                     <li><strong>Regulated Activities:</strong> NFSL does not (i) conduct investment management, advisory, or discretionary services; (ii) engage in fund distribution, marketing, or licensed intermediation; or (iii) monitor compliance or assume responsibility for the Client's regulatory compliance.</li>
@@ -139,7 +141,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>4.3</span>
                 <div>
-                  <p><strong>Anti-Money Laundering and Counter-Terrorist Financing</strong></p>
+                  <p className={styles.subhead}>Anti-Money Laundering and Counter-Terrorist Financing</p>
                   <p>NFSL is required to operate know-your-client procedures in accordance with applicable AML/CFT legislation in Hong Kong (the "Administrator AML Regime"). Before accepting appointment, and on a periodic basis thereafter, NFSL will satisfy its obligations as to identifying and/or verifying the identity of the Client, any person acting on behalf of the Client and the ultimate beneficial owner(s) of the Client.</p>
                   <p>When the Client is an investment fund and appoints NFSL to provide comprehensive registrar and transfer agent services, the following provisions apply:</p>
                   <ol className={styles.alphaList}>
@@ -157,7 +159,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>4.4</span>
                 <div>
-                  <p><strong>Performance Standards</strong></p>
+                  <p className={styles.subhead}>Performance Standards</p>
                   <ol className={styles.alphaList}>
                     <li><strong>Compliance with Instructions:</strong> NFSL shall provide services in accordance with the Client's Proper Instructions. NFSL reserves the right to refuse any instruction that it reasonably believes would violate applicable laws. Where legally permitted, NFSL shall provide the Client written notice of such refusal within ten (10) days.</li>
                     <li><strong>Audit &amp; Reviews:</strong> NFSL shall submit to periodic operational and financial reviews by the Client or its appointed independent auditors at mutually agreed intervals, upon not less than thirty (30) days' prior written notice.</li>
@@ -169,7 +171,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>4.5</span>
                 <div>
-                  <p><strong>Sub-Delegation</strong></p>
+                  <p className={styles.subhead}>Sub-Delegation</p>
                   <p>NFSL may sub-delegate all or any part of its powers, duties and obligations under the Agreement to any of its Affiliates or reputable third parties (each a "Sub-Administrator"), provided that:</p>
                   <ol className={styles.alphaList}>
                     <li>no such sub-delegation shall relieve NFSL of its primary liability to Client for the proper performance of the delegated duties; and</li>
@@ -185,7 +187,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>5.1</span>
                 <div>
-                  <p><strong>Proper Instructions and Timely Cooperation</strong></p>
+                  <p className={styles.subhead}>Proper Instructions and Timely Cooperation</p>
                   <p>NFSL shall not be required to perform any of the following services unless it receives the relevant Proper Instructions:</p>
                   <ol className={styles.alphaList}>
                     <li>initiating and/or approving wire transfers of money for or on behalf of the Client;</li>
@@ -199,14 +201,14 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>5.2</span>
                 <div>
-                  <p><strong>Removal of Authorised Representatives</strong></p>
+                  <p className={styles.subhead}>Removal of Authorised Representatives</p>
                   <p>The Client may revoke authority of an Authorised Representative who is not an Operator by providing NFSL with a written revocation notice and certified copy of the Operator's approving resolution, with such revocation becoming effective immediately upon NFSL's receipt of complete documentation.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>5.3</span>
                 <div>
-                  <p><strong>Information Provision</strong></p>
+                  <p className={styles.subhead}>Information Provision</p>
                   <p>The Client shall ensure NFSL receives all necessary information and documentation in an accurate, complete and timely manner, and shall procure that such information and documentation:</p>
                   <ol className={styles.alphaList}>
                     <li>are in a format and structure compliant with NFSL's then-current operational requirements;</li>
@@ -218,21 +220,21 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>5.4</span>
                 <div>
-                  <p><strong>Pricing and Valuation Support</strong></p>
+                  <p className={styles.subhead}>Pricing and Valuation Support</p>
                   <p>Where valuation of unlisted securities or hard-to-value investments is required, the Client shall provide NFSL with pricing and valuation methodologies in respect of such assets, which must be reasonable and in line with IFRS, GAAP, or other industry-accepted accounting standards. The Client shall remain solely responsible for compliance with applicable valuation standards and shall promptly notify NFSL of any material changes to such methodologies.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>5.5</span>
                 <div>
-                  <p><strong>Document Amendments</strong></p>
+                  <p className={styles.subhead}>Document Amendments</p>
                   <p>The Client acknowledges that the Client's Constitutional Documents are highly relevant to proper performance of duties by NFSL. If the Client proposes to amend its Constitutional Documents, the Client shall submit to NFSL draft amendments promptly (and in any event within ten (10) days from such amendment taking effect). No amendment that affects NFSL's duties, rights, or liabilities shall be effective without NFSL's prior written consent.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>5.6</span>
                 <div>
-                  <p><strong>Notification of Changes</strong></p>
+                  <p className={styles.subhead}>Notification of Changes</p>
                   <p>Client shall promptly (and in any event within ten (10) days from the relevant change taking effect) notify NFSL in writing of any changes to:</p>
                   <ol className={styles.alphaList}>
                     <li>its legal or regulatory status (including changes in its licensing, registration, or tax classification);</li>
@@ -246,7 +248,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>5.7</span>
                 <div>
-                  <p><strong>Notification of ML/TF and Regulatory Issues</strong></p>
+                  <p className={styles.subhead}>Notification of ML/TF and Regulatory Issues</p>
                   <p>Client shall promptly (and in any event within five (5) days or a shorter period expressly specified below from becoming aware of relevant event) notify NFSL in writing upon becoming aware of any actual or suspected events, including but not limited to:</p>
                   <ol className={styles.alphaList}>
                     <li>any material changes to an investor's profile that would trigger enhanced due diligence;</li>
@@ -259,7 +261,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>5.8</span>
                 <div>
-                  <p><strong>Use of NFSL's Name</strong></p>
+                  <p className={styles.subhead}>Use of NFSL's Name</p>
                   <p>The Client shall not use NFSL's name, logo, or trademarks in any offering documents, marketing materials, or other fund-related communications without NFSL's prior written consent. Any unauthorized use shall entitle NFSL to require immediate cessation and/or seek injunctive relief.</p>
                 </div>
               </div>
@@ -271,28 +273,28 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>6.1</span>
                 <div>
-                  <p><strong>Fee Structure</strong></p>
+                  <p className={styles.subhead}>Fee Structure</p>
                   <p>The Client shall pay NFSL the fees as set forth in the Agreement or such other amounts as may be mutually agreed in writing by the parties from time to time. All fees are exclusive of any applicable taxes, levies, or duties.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>6.2</span>
                 <div>
-                  <p><strong>Invoicing and Payment</strong></p>
+                  <p className={styles.subhead}>Invoicing and Payment</p>
                   <p>Unless otherwise specified in the Agreement, NFSL will issue invoices to the Client for services rendered on a monthly basis. All invoices shall be payable in full within thirty (30) days of the invoice date. Late payments shall bear interest at the rate of one and one-half percent (1.5%) per month, or the maximum rate permitted by applicable law, whichever is lower, calculated from the due date until the date of actual payment.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>6.3</span>
                 <div>
-                  <p><strong>No Set-off</strong></p>
+                  <p className={styles.subhead}>No Set-off</p>
                   <p>All amounts due to NFSL shall be paid in full without set-off, counterclaim, deduction or withholding, save as required by law.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>6.4</span>
                 <div>
-                  <p><strong>Currency and Exchange</strong></p>
+                  <p className={styles.subhead}>Currency and Exchange</p>
                   <p>All invoices shall be issued in United States Dollars (USD). Where payment is made in Hong Kong Dollars (HKD), the exchange rate shall be the higher of:</p>
                   <ol className={styles.alphaList}>
                     <li>HKD 7.85 per USD; or</li>
@@ -303,7 +305,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>6.5</span>
                 <div>
-                  <p><strong>Disputed Charges</strong></p>
+                  <p className={styles.subhead}>Disputed Charges</p>
                   <p>Any dispute regarding charges must be notified in writing within ten (10) days of receipt of invoice. Undisputed amounts remain payable in accordance with this Clause. Notwithstanding the foregoing, NFSL may, acting reasonably and in good faith, consider out-of-time disputes.</p>
                 </div>
               </div>
@@ -315,7 +317,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>7.1</span>
                 <div>
-                  <p><strong>Termination for Cause</strong></p>
+                  <p className={styles.subhead}>Termination for Cause</p>
                   <p>Either party may terminate the Agreement immediately upon written notice if any of the following events occurs:</p>
                   <ol className={styles.alphaList}>
                     <li>If the Client is a fund and such fund has not commenced operations within twenty-four (24) months of the Effective Date, or where the parties mutually agree in writing that the anticipated commencement of operations has become uncertain;</li>
@@ -330,7 +332,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>7.2</span>
                 <div>
-                  <p><strong>Post-Termination Data Handling</strong></p>
+                  <p className={styles.subhead}>Post-Termination Data Handling</p>
                   <ol className={styles.alphaList}>
                     <li>Within ninety (90) days of termination, NFSL shall transfer all business data and documents ("Client Materials") to the Client in mutually agreed electronic formats; and destroy original physical documents unless otherwise requested by the Client.</li>
                     <li>NFSL shall retain electronic copies of Client Materials for two (2) years from the Termination Date ("Retention Period"), after which such copies may be securely destroyed.</li>
@@ -357,14 +359,14 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>9.1</span>
                 <div>
-                  <p><strong>Standard of Care</strong></p>
+                  <p className={styles.subhead}>Standard of Care</p>
                   <p>NFSL shall perform its obligations under the Agreement with the degree of skill, care, diligence, and professionalism reasonably expected of a fund administrator in Hong Kong providing comparable services under the Proper Instructions. Notwithstanding the foregoing: (a) NFSL does not guarantee the services will be error-free or fit for any particular purpose beyond compliance with generally accepted Hong Kong fund administration standards; and (b) NFSL makes no representations as to the accuracy of any third-party data or tools used in service delivery.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>9.2</span>
                 <div>
-                  <p><strong>Liability Scope</strong></p>
+                  <p className={styles.subhead}>Liability Scope</p>
                   <ol className={styles.alphaList}>
                     <li>NFSL's liability under this Agreement shall be limited to Losses that are directly and proximately caused by its own Gross Negligence, willful misconduct, or fraud in the performance of its obligations hereunder;</li>
                     <li>NFSL shall in no event be liable for any matter expressly excluded under the definition of "Losses" or for any Losses arising from circumstances beyond its reasonable control; and to the fullest extent permitted by applicable law, nothing in this Agreement shall operate to exclude or limit liability for any matter which cannot be lawfully excluded or limited under the laws of Hong Kong;</li>
@@ -376,7 +378,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>9.3</span>
                 <div>
-                  <p><strong>Liability Cap</strong></p>
+                  <p className={styles.subhead}>Liability Cap</p>
                   <p>NFSL's aggregate liability to the Client for any loss or damage arising out of or in connection with its services shall be limited to the greater of:</p>
                   <ol className={styles.alphaList}>
                     <li>The total fees paid by the Client to NFSL under the Agreement in the 12 months preceding the event giving rise to the claim; or</li>
@@ -387,14 +389,14 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>9.4</span>
                 <div>
-                  <p><strong>Claims Period</strong></p>
+                  <p className={styles.subhead}>Claims Period</p>
                   <p>Except in the case of fraud, any claim under the Agreement must be commenced within twelve (12) months from the date the claiming party became aware, or ought reasonably to have become aware, of the facts giving rise to the claim, and in any event within twenty-four (24) months from the occurrence of the event giving rise to the claim.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>9.5</span>
                 <div>
-                  <p><strong>Client Indemnity</strong></p>
+                  <p className={styles.subhead}>Client Indemnity</p>
                   <p>The Client shall indemnify, defend, and hold harmless each of the Indemnified Persons from and against all claims, losses, damages, costs (including reasonable legal fees), and liabilities arising out of or related to:</p>
                   <ol className={styles.alphaList}>
                     <li>The Client's breach of the Agreement (including failure to provide accurate, complete, and timely data or valid Proper Instructions);</li>
@@ -409,7 +411,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>9.6</span>
                 <div>
-                  <p><strong>Mitigation &amp; Duty to Notify</strong></p>
+                  <p className={styles.subhead}>Mitigation &amp; Duty to Notify</p>
                   <ol className={styles.alphaList}>
                     <li>NFSL shall use commercially reasonable efforts to mitigate Losses upon becoming aware of any claim or circumstance that may give rise to indemnification hereunder;</li>
                     <li>The Client must notify NFSL in writing of any other claims or potential breaches of this Agreement within ten (10) days from becoming aware.</li>
@@ -424,7 +426,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>10.1</span>
                 <div>
-                  <p><strong>Definition of Confidential Information</strong></p>
+                  <p className={styles.subhead}>Definition of Confidential Information</p>
                   <ol className={styles.alphaList}>
                     <li>"Confidential Information" means all non-public information (whether commercial, technical, operational, or financial) disclosed by or on behalf of a party (the "Disclosing Party") to the other party (the "Recipient"), including but not limited to: (i) fund structure, investors, or investment strategies; (ii) any Personal Data as defined in the Hong Kong Personal Data (Privacy) Ordinance or sensitive information relating to investors, beneficiaries, or other natural persons; and (iii) any information expressly classified by the Disclosing Party as confidential.</li>
                     <li>Information shall not be deemed confidential if it: (i) is lawfully obtained from a third party without breach of contractual confidentiality restrictions; (ii) is independently developed by the Recipient (with documented proof); or (iii) becomes publicly available without breach of the Agreement.</li>
@@ -434,7 +436,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>10.2</span>
                 <div>
-                  <p><strong>Obligations of the Recipient</strong></p>
+                  <p className={styles.subhead}>Obligations of the Recipient</p>
                   <p>The Recipient shall:</p>
                   <ol className={styles.alphaList}>
                     <li>Use Confidential Information solely for the purposes of performing its obligations under the Agreement and meeting requirements imposed by applicable laws or regulatory authorities;</li>
@@ -446,7 +448,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>10.3</span>
                 <div>
-                  <p><strong>Data Protection Compliance</strong></p>
+                  <p className={styles.subhead}>Data Protection Compliance</p>
                   <ol className={styles.alphaList}>
                     <li>All processing of Personal Data shall be governed by the parties' data protection policy and conducted in accordance with applicable data protection laws of the jurisdiction where the relevant party is domiciled or operates, including Hong Kong PDPO.</li>
                     <li>By entering into this Agreement, the Client acknowledges that it has read and understands NFSL's Data Protection Policy, which is given to the Client or made available on NFSL's website.</li>
@@ -456,7 +458,7 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>10.4</span>
                 <div>
-                  <p><strong>Breach Notification &amp; Mitigation</strong></p>
+                  <p className={styles.subhead}>Breach Notification &amp; Mitigation</p>
                   <ol className={styles.alphaList}>
                     <li>In the event of any actual or suspected unauthorized access, disclosure, or loss of Confidential Information (including Personal Data), the Recipient shall: (i) promptly notify the Disclosing Party; and (ii) take commercially reasonable steps to mitigate harm and prevent further breaches.</li>
                     <li>Specific procedures for investigation, remediation, and regulatory reporting shall be conducted pursuant to applicable laws.</li>
@@ -471,14 +473,14 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.1</span>
                 <div>
-                  <p><strong>Sanctions</strong></p>
+                  <p className={styles.subhead}>Sanctions</p>
                   <p>Each party represents that it is not listed on, or owned or controlled by any person listed on, any applicable sanctions list, or located, organized, or resident in a comprehensively sanctioned jurisdiction. Each party shall comply with applicable financial sanctions and export control laws in connection with performance of the Agreement, and NFSL may suspend performance where it reasonably believes such performance would cause a violation thereof.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.2</span>
                 <div>
-                  <p><strong>Amendment</strong></p>
+                  <p className={styles.subhead}>Amendment</p>
                   <ol className={styles.alphaList}>
                     <li>NFSL may amend these Terms by providing at least thirty (30) days' prior written notice, delivered through simultaneous posting of the revised Terms on NFSL's official website and email notification to your designated contact address. The amendments shall automatically take effect upon expiration of the notice period unless you submit a written objection letter prior to the effective date.</li>
                     <li>Notwithstanding Clause 11.2(a), any amendments to: (i) the Scope of Services; (ii) the Fees and Payment Terms; or (iii) any material obligations under the Agreement, shall require the prior written mutual agreement of the parties.</li>
@@ -488,35 +490,35 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.3</span>
                 <div>
-                  <p><strong>Assignment</strong></p>
+                  <p className={styles.subhead}>Assignment</p>
                   <p>If we merge with or transfer our business to a successor firm (the "Successor Firm"), the Agreement shall not automatically terminate. NFSL will notify the Client in advance of the proposed merge or business transfer. The Client may terminate the Agreement by giving an objection letter within thirty (30) days from prior notification if the Client reasonably believes that the continued engagement of the Successor Firm involves material credit or operational risks.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.4</span>
                 <div>
-                  <p><strong>No Partnership or Agency</strong></p>
+                  <p className={styles.subhead}>No Partnership or Agency</p>
                   <p>Nothing in the Agreement shall create a partnership, joint venture, or agency relationship between the parties. Each party is an independent contractor.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.5</span>
                 <div>
-                  <p><strong>Third-party Rights Exclusion</strong></p>
+                  <p className={styles.subhead}>Third-party Rights Exclusion</p>
                   <p>No person who is not a party to the Agreement shall have any third party rights under the Contracts (Rights of Third Parties) Ordinance (Cap. 623) to enforce any term of the Agreement, except for the Indemnified Persons.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.6</span>
                 <div>
-                  <p><strong>Counterparts</strong></p>
+                  <p className={styles.subhead}>Counterparts</p>
                   <p>The Agreement may be executed in any number of counterparts (including by electronic signature or PDF transmission), each of which shall be deemed an original, but all of which together shall constitute one and the same instrument. Electronic signatures shall comply with the Hong Kong Electronic Transactions Ordinance (Cap. 553) or other applicable laws.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.7</span>
                 <div>
-                  <p><strong>Notice</strong></p>
+                  <p className={styles.subhead}>Notice</p>
                   <p>All notices, consents, or approvals required under the Agreement shall be in writing and delivered:</p>
                   <ol className={styles.alphaList}>
                     <li>by hand (deemed received upon delivery);</li>
@@ -528,35 +530,35 @@ export default function TermsAndConditionsPage({ onContactClick }) {
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.8</span>
                 <div>
-                  <p><strong>Non-Solicitation</strong></p>
+                  <p className={styles.subhead}>Non-Solicitation</p>
                   <p>During the term and for twelve (12) months thereafter, neither party shall, without the other party's prior written consent, solicit for employment any employee of the other party who was directly and materially involved in the provision or receipt of NFSL's services hereunder.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.9</span>
                 <div>
-                  <p><strong>Severability</strong></p>
+                  <p className={styles.subhead}>Severability</p>
                   <p>If any provision is held invalid, the remainder shall continue in full force. The invalid provision shall be replaced by a valid one reflecting the original intent.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.10</span>
                 <div>
-                  <p><strong>Waiver</strong></p>
+                  <p className={styles.subhead}>Waiver</p>
                   <p>No failure or delay in exercising any right shall operate as a waiver unless expressly agreed in writing.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.11</span>
                 <div>
-                  <p><strong>Survival Clauses</strong></p>
+                  <p className={styles.subhead}>Survival Clauses</p>
                   <p>The following Clauses shall survive termination: Clauses 6, 7.2, 10, 11.5, and 11.12.</p>
                 </div>
               </div>
               <div className={styles.clause}>
                 <span className={styles.clauseNum}>11.12</span>
                 <div>
-                  <p><strong>Language</strong></p>
+                  <p className={styles.subhead}>Language</p>
                   <p>The Agreement is executed in English. Any translations are for convenience only, and the English version shall prevail in case of conflict.</p>
                 </div>
               </div>

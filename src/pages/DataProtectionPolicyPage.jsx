@@ -1,11 +1,13 @@
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import ProgressNav from '../components/ui/ProgressNav'
 import styles from './DataProtectionPolicyPage.module.css'
 
 export default function DataProtectionPolicyPage({ onContactClick }) {
   return (
     <>
       <Navbar onContactClick={onContactClick} />
+      <ProgressNav bare />
 
       <main className={styles.main}>
         <div className={styles.container}>

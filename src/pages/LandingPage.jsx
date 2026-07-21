@@ -44,7 +44,7 @@ export default function LandingPage({ onContactClick, onDemoClick }) {
         </div>
         <div className={styles.heroInner}>
           <span className={styles.heroBadge}>{t('hero.badge')}</span>
-          <h1 className={`text-display-2xl ${styles.heroHeading} animate-on-enter`}>
+          <h1 className={`${styles.heroHeading} animate-on-enter`}>
             {t('hero.heading').split('\n').map((line, i, arr) => (
               <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
             ))}

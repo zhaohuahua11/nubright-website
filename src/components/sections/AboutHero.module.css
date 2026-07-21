@@ -92,7 +92,7 @@
   font-size: clamp(46px, 6.7vw, 64px);
   font-weight: var(--fw-heading);
   line-height: 1.05;
-  letter-spacing: -1.2px;
+  letter-spacing: -0.02em;
   color: var(--color-text-heading);
   white-space: pre-line;
 }

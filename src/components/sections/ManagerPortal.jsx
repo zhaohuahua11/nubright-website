@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next'
 import styles from './ManagerPortal.module.css'
 import Badge from '../ui/Badge'
 import { useScrollAnimation } from '../../hooks/useScrollAnimation'
-import f1Img from '../../assets/manager-f1.png'
-import f2Img from '../../assets/manager-f2.png'
-import f3Img from '../../assets/manager-f3.png'
+import f1Img from '../../assets/manager-f1.webp'
+import f2Img from '../../assets/manager-f2.webp'
+import f3Img from '../../assets/manager-f3.webp'
 
 const FEATURES = [
   { key: 'f1', img: f1Img },
@@ -37,8 +37,10 @@ export default function ManagerPortal({ embedded = false }) {
               <div className={styles.featureImg}>
                 <img src={img} alt="" className={styles.featureIllus} />
               </div>
-              <h3 className={styles.featureTitle}>{t(`managerPortal.${key}.title`)}</h3>
-              <p className={styles.featureBody}>{t(`managerPortal.${key}.body`)}</p>
+              <div className={styles.featureText}>
+                <h3 className={styles.featureTitle}>{t(`managerPortal.${key}.title`)}</h3>
+                <p className={styles.featureBody}>{t(`managerPortal.${key}.body`)}</p>
+              </div>
             </div>
           ))}
         </div>

@@ -2,7 +2,9 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding: calc(var(--section-padding-y) * 0.8) 0 calc(var(--section-padding-y) * 1.8);
+  /* 顶部留白仍随视口缩放；底部改为固定值，作为“刻度区”高度——
+     刻度尺(绝对定位、贴底、固定 520px)相对内容的位置由此恒定，不再随 vw 漂移。 */
+  padding: calc(var(--section-padding-y) * 0.8) 0 216px;
   text-align: center;
 }
 
@@ -85,16 +87,23 @@
   font-size: 12px;
   font-weight: 400;
   color: var(--color-text-label);
-  background: var(--color-bg-subtle);
+  background: #fff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-1-5) var(--space-4);
 }
 
 .heroHeading {
-  font-size: clamp(52px, 7.5vw, 72px);
+  /* 永远两行、永远不溢出：每句强制一行(nowrap)，字号按容器可用宽度精确计算，
+     让最长行(“Architected with care.”)刚好塞下；大屏封顶 72px。
+     9.4 = 该字体下「最长行宽 ÷ 字号」实测 9.11 + 约 3% 余量。 */
+  font-size: min(72px, calc((100vw - var(--container-padding) - var(--container-padding)) / 9.4));
+  /* 原来自 text-display-2xl（已从 h1 移除以夺回字号控制权）；字距改 em 随字号缩放 */
+  font-weight: 420;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   color: var(--color-text-heading);
-  white-space: pre;
+  white-space: nowrap;
 }
 
 .heroSub {
@@ -178,4 +187,13 @@
   padding: var(--space-10);
   border: 1px dashed var(--color-border);
   border-radius: var(--radius-md);
+}
+
+
+
+/* ---- ≤720px：小球/读数/扫描已隐藏，这句刻度读数说明也一并隐藏 ---- */
+@media (max-width: 720px) {
+  .rulerCaption {
+    display: none;
+  }
 }

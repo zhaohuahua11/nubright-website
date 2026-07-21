@@ -12,8 +12,11 @@ const SECTIONS = [
  * 顶部进度条：随滚动填充的彩色细条。
  * 鼠标靠近进度条时，进度条下方浮出灰色背景条 + 三段文案，点击平滑滚动到对应模块。
  * 条的位置贴在导航栏真实底边（实测），标记默认隐藏；用鼠标 Y 判定"靠近"，不阻挡内容点击。
+ *
+ * `bare`：用于没有分段模块的页面（条款、隐私政策）。进度是线性的，
+ * 悬停灰条里不放章节跳转，只放一个「回到顶部」。
  */
-export default function ProgressNav() {
+export default function ProgressNav({ bare = false }) {
   const { t } = useTranslation()
   const [progress, setProgress] = useState(0) // 0..1
   const [markers, setMarkers] = useState([]) // [{ id, key, pos }]
@@ -39,6 +42,12 @@ export default function ProgressNav() {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight
       const p = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0
 
+      // bare：没有分段模块，直接用线性进度
+      if (bare) {
+        setProgress(p)
+        return
+      }
+
       // 各模块的滚动位置（断点）
       const secFracs = []
       const ms = []
@@ -56,7 +65,8 @@ export default function ProgressNav() {
       const btns = bandRef.current ? bandRef.current.querySelectorAll('button') : []
       btns.forEach((b) => {
         const r = b.getBoundingClientRect()
-        targets.push((r.left + r.width / 2) / window.innerWidth)
+        // 触屏下灰条 display:none，量不到宽度 ⇒ 不参与重映射，下面自动退回线性进度
+        if (r.width > 0) targets.push((r.left + r.width / 2) / window.innerWidth)
       })
 
       // 分段重映射：滚到某模块 ⇒ 填充推进到对应标签处（非线性，让进度与文案大致对齐）
@@ -89,9 +99,10 @@ export default function ProgressNav() {
       window.removeEventListener('mousemove', onMove)
       clearTimeout(t)
     }
-  }, [])
+  }, [bare])
 
-  if (markers.length === 0) return null
+  // bare 模式不依赖分段模块，照常渲染
+  if (!bare && markers.length === 0) return null
 
   const go = (id) => {
     const el = document.getElementById(id)
@@ -104,10 +115,23 @@ export default function ProgressNav() {
         <div className={styles.fill} style={{ width: `${progress * 100}%` }} />
       </div>
       <div ref={bandRef} className={`${styles.band} ${near ? styles.bandVisible : ''}`} style={{ top: navH }}>
-        <div className={styles.bandInner}>
-          {markers.map((m, i) => (
+        <div className={`${styles.bandInner} ${bare ? styles.bandInnerCenter : ''}`}>
+          {bare ? (
+            <button
+              type="button"
+              className={styles.bandLabel}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              {t('footer.backToTop')}
+            </button>
+          ) : markers.map((m, i) => (
             <button key={m.id} type="button" className={styles.bandLabel} onClick={() => go(m.id)}>
-              Chapter {i + 1} · {t(`bridges.${m.key}`)}{i < markers.length - 1 ? ' →' : ''}
+              <span className={styles.labelNum}>Chapter {i + 1}</span>
+              <span className={styles.labelSep} aria-hidden="true"> · </span>
+              {/* 长句 / 短名同时在 DOM 里，由断点决定显示哪个，避免监听 resize */}
+              <span className={styles.labelLong}>{t(`bridges.${m.key}`)}</span>
+              <span className={styles.labelShort}>{t(`bridgesShort.${m.key}`)}</span>
+              {i < markers.length - 1 && <span className={styles.labelArrow} aria-hidden="true"> →</span>}
             </button>
           ))}
         </div>

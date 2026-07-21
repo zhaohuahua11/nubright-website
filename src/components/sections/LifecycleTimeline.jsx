@@ -99,61 +99,45 @@ export default function LifecycleTimeline() {
           <p className={`${styles.headerSub} animate-on-enter`}>{t('timeline.sub')}</p>
         </header>
 
-        {/* Step numbers */}
-        <div className={styles.numRow}>
-          {STAGES.map(s => (
-            <div key={s.num} className={styles.numCell}>
-              <span className={styles.stepNum}>{t('timeline.phase')} {s.num}</span>
-              <h3 className={styles.stepTitle}>
-                <Lines text={t(`timeline.${s.key}.title`)} />
-              </h3>
-            </div>
-          ))}
-        </div>
-
-        {/* Segmented gradient progress bar */}
-        <div className={styles.barTrack}>
-          <div className={styles.barSeg} data-stage="1" />
-          <div className={styles.barSeg} data-stage="2" />
-          <div className={styles.barSeg} data-stage="3" />
-          <div className={styles.barSeg} data-stage="4" />
-        </div>
-
-        {/* Ruler tick strip — same grid as the bar so ticks + separators align */}
-        <div className={styles.ruler}>
-          <div className={styles.rulerSeg} />
-          <div className={styles.rulerSeg} />
-          <div className={styles.rulerSeg} />
-          <div className={styles.rulerSeg} />
-        </div>
-
-        {/* Content columns */}
-        <div className={styles.columns}>
+        {/* Chapter grid: each chapter is a vertical unit (header → gradient seg →
+            ruler seg → content), aligned across chapters via subgrid. On ≤768px it
+            wraps to 2 columns so the whole structure splits into stacked halves,
+            each half keeping its own segment of the gradient bar. */}
+        <div className={styles.grid}>
           {STAGES.map((stage, i) => (
-            <div key={stage.num} className={styles.col} data-stage={i + 1}>
-              <p className={styles.colQuote}><span>{`“${t(`timeline.${stage.key}.quote`)}”`}</span></p>
-              <ul className={styles.items}>
-                {stage.items.map((item, j) => {
-                  const label = t(`timeline.${stage.key}.${item.itemKey}`)
-                  return (
-                    <li key={j} className={styles.item}>
-                      <span className={styles.itemIcon}>
-                        <img src={item.icon} width="18" height="18" alt="" />
-                      </span>
-                      <div className={styles.itemContent}>
-                        <span>{label}</span>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
+            <div key={stage.num} className={styles.chapter} data-stage={i + 1}>
+              <div className={styles.numCell}>
+                <span className={styles.stepNum}>{t('timeline.phase')} {stage.num}</span>
+                <h3 className={styles.stepTitle}>
+                  <Lines text={t(`timeline.${stage.key}.title`)} />
+                </h3>
+              </div>
+              <div className={styles.barSeg} data-stage={i + 1} />
+              <div className={styles.rulerSeg} />
+              <div className={styles.col} data-stage={i + 1}>
+                <p className={styles.colQuote}><span>{`“${t(`timeline.${stage.key}.quote`)}”`}</span></p>
+                <ul className={styles.items}>
+                  {stage.items.map((item, j) => {
+                    const label = t(`timeline.${stage.key}.${item.itemKey}`)
+                    return (
+                      <li key={j} className={styles.item}>
+                        <span className={styles.itemIcon}>
+                          <img src={item.icon} width="18" height="18" alt="" />
+                        </span>
+                        <div className={styles.itemContent}>
+                          <span>{label}</span>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
 
         {/* Scope boundary statement */}
         <p className={styles.boundary}>
-          <span className={styles.boundaryLabel}>{t('timeline.boundaryLabel')}</span>
           {t('timeline.boundary')}
         </p>
 

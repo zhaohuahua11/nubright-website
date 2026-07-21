@@ -118,3 +118,12 @@
   height: 30px;
   padding: 0 10px;
 }
+
+/* ---- 移动端：导航栏语言框缩小以腾出空间 ---- */
+@media (max-width: 480px) {
+  .trigger {
+    font-size: 13px;
+    padding: 0 20px 0 8px;
+    height: 30px;
+  }
+}

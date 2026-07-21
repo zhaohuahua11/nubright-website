@@ -63,20 +63,30 @@
 }
 
 .headerSub {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: var(--fw-light);
-  color: var(--color-text-body);
-  line-height: 1.6;
+  color: var(--color-text-heading);
+  line-height: 1.5;
   margin: 0;
 }
 
-/* ── Step number row ── */
-.numRow {
+/* ── Chapter grid: 4 columns of chapter-units. Each unit stacks
+   header → gradient seg → ruler seg → content across 4 shared subgrid rows,
+   so the layers stay aligned across chapters. Wraps to 2 cols on ≤768. ── */
+.grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-bottom: var(--space-3);
+  grid-auto-rows: auto;
+  align-items: stretch;
 }
 
+.chapter {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+}
+
+/* ── Step number cell (header) ── */
 .numCell {
   display: flex;
   flex-direction: column;
@@ -84,6 +94,7 @@
   text-align: center;
   gap: 2px;
   padding: 0 var(--space-1);
+  margin-bottom: var(--space-3);
 }
 
 .stepNum {
@@ -121,10 +132,12 @@
   height: 12px;
   border-radius: 0;
   position: relative;
+  /* 4px 段间隙用左右各 2px margin 实现（原来靠 grid gap） */
+  margin: 0 2px;
 }
 
-.barSeg:first-child { margin-left: 0; }
-.barSeg:last-child  { margin-right: 0; }
+.chapter:first-child .barSeg { margin-left: 0; }
+.chapter:last-child .barSeg  { margin-right: 0; }
 
 .barSeg[data-stage="1"] { background: linear-gradient(90deg, #FFC662 0%, #FF562E 100%); }
 .barSeg[data-stage="2"] { background: linear-gradient(90deg, #FF562E 0%, #FF99ED 100%); }
@@ -167,10 +180,12 @@
   mask-image: linear-gradient(90deg, transparent 0 1%, black 1% 99%, transparent 99% 100%);
   opacity: 0.3;
   pointer-events: none;
+  /* 顶部间距(原 .ruler margin-top) + 左右 2px 段间隙 */
+  margin: var(--space-0-5) 2px 0;
 }
 
-.rulerSeg:first-child { margin-left: 0; }
-.rulerSeg:last-child  { margin-right: 0; }
+.chapter:first-child .rulerSeg { margin-left: 0; }
+.chapter:last-child .rulerSeg  { margin-right: 0; }
 
 /* ── Scope boundary statement — thin full-width gray band ── */
 .boundary {
@@ -419,53 +434,61 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .columns {
-    grid-template-columns: 1fr 1fr;
-    row-gap: var(--space-10);
-  }
-
-  .numRow {
+  /* 折成 2 列：4 个章节自动分成上下两组，每组保留自己那半段渐变条+刻度。 */
+  .grid {
     grid-template-columns: 1fr 1fr;
   }
 
-  .barTrack {
+  /* 下面一组（ch3/ch4）与上面一组之间留出间距 */
+  .chapter:nth-child(n + 3) .numCell {
+    margin-top: var(--space-10);
+  }
+
+  /* 每组 2 段渐变/刻度：外侧(band 边缘)margin 归零，仅组内 2 段间保留 4px */
+  .chapter:nth-child(odd) .barSeg,
+  .chapter:nth-child(odd) .rulerSeg {
+    margin-left: 0;
+  }
+  .chapter:nth-child(even) .barSeg,
+  .chapter:nth-child(even) .rulerSeg {
+    margin-right: 0;
+  }
+  /* band 右缘那段不显示连接凸块 */
+  .chapter:nth-child(even) .barSeg::after {
     display: none;
   }
 
-  .ruler {
-    display: none;
+  /* 中间槽两列各 4px 内边距 */
+  .chapter:nth-child(odd) .col {
+    padding-right: var(--space-1);
   }
-
-  .col {
-    border-right: none;
-    padding-right: 0;
-  }
-
-  .col + .col {
-    padding-left: 0;
-  }
-
-  .col:nth-child(odd) {
-    padding-right: var(--space-6);
-  }
-
-  .col:nth-child(even) {
-    padding-left: var(--space-6);
+  .chapter:nth-child(even) .col {
+    padding-left: var(--space-1);
   }
 }
 
 @media (max-width: 480px) {
-  .columns,
-  .numRow {
+  /* 更窄：每章单独一列堆叠 */
+  .grid {
     grid-template-columns: 1fr;
   }
 
-  .col:nth-child(odd) {
-    border-right: none;
-    padding-right: 0;
+  .chapter:nth-child(n + 2) .numCell {
+    margin-top: var(--space-10);
   }
 
-  .col:nth-child(even) {
-    padding-left: 0;
+  .chapter .barSeg,
+  .chapter .rulerSeg {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .chapter .barSeg::after {
+    display: none;
+  }
+  /* 单列下取消 2 列用的奇右/偶左内边距，改为左右对称 4px（(0,3,0) 优先级压过 ≤768 规则） */
+  .chapter:nth-child(odd) .col,
+  .chapter:nth-child(even) .col {
+    padding-left: var(--space-1);
+    padding-right: var(--space-1);
   }
 }

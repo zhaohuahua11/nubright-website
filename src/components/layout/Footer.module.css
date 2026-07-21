@@ -36,7 +36,7 @@
 .inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-6) var(--container-padding) var(--space-12);
+  padding: var(--space-10) var(--container-padding) var(--space-20);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: start;
@@ -47,7 +47,7 @@
 }
 
 .logo {
-  width: 120px;
+  width: 220px;
   height: auto;
   display: block;
   margin-bottom: var(--space-3);
@@ -78,96 +78,214 @@
   grid-column: 1 / 3;
   font-size: 13px;
   font-weight: var(--fw-light);
-  color: var(--color-text-body);
-  line-height: 1.7;
+  color: var(--color-text-heading);
+  line-height: 1.5;
 }
 
 .backToTop {
-  grid-column: 4;
   background: none;
   border: none;
   cursor: pointer;
   font-size: 13px;
   font-weight: var(--fw-light);
-  color: var(--color-text-body);
+  color: var(--color-text-heading);
   padding: 0;
   text-align: left;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
 .backToTop:hover {
-  color: var(--color-text-heading);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 底部条：桌面端 Terms/Data 分列第 3、4 列（分隔符隐藏） */
+.legalGroup {
+  grid-column: 3 / 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.legalSep {
+  display: none;
+  font-size: 13px;
+  color: var(--color-text-body);
 }
 
 .colInfo {
-  grid-column: 3;
+  grid-column: 4;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  padding-top: 24px;
+  padding-top: 32px;
 }
 
 .colHeading {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 550;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-text-heading);
-  margin-bottom: var(--space-2);
+  margin-bottom: 0;
 }
 
 .address {
   font-size: 13px;
   font-weight: var(--fw-light);
-  color: var(--color-text-body);
+  color: var(--color-text-heading);
   line-height: 1.3;
   font-style: normal;
   margin-bottom: var(--space-1);
+  max-width: 180px;
 }
 
 .contactItem {
   font-size: 13px;
   font-weight: var(--fw-light);
+  color: var(--color-text-heading);
+  line-height: 1.2;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.contactRowAddress {
+  align-items: flex-start;
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
   color: var(--color-text-body);
-  line-height: 1.7;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.contactRow:hover .copyBtn,
+.copyBtn:focus-visible {
+  opacity: 1;
+}
+
+.copyBtn:hover {
+  color: var(--color-text-heading);
 }
 
 .colLegal {
-  grid-column: 4;
+  grid-column: 3;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-2);
-  padding-top: 24px;
+  padding-top: 32px;
 }
 
 .legalLink {
   font-size: 13px;
   font-weight: var(--fw-light);
-  color: var(--color-text-body);
-  line-height: 1.7;
+  color: var(--color-text-heading);
+  line-height: 1.2;
+  text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
 .legalLink:hover {
   color: var(--color-text-heading);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 @media (max-width: 768px) {
+  /* 上半：Logo 占左半 | 联系方式 + Back to Top 占右半 */
   .inner {
+    display: grid;
     grid-template-columns: 1fr 1fr;
+    column-gap: 0;
+    row-gap: var(--space-6);
+    padding: var(--space-10) var(--container-padding);
   }
 
+  /* 右列须与 50% 网格线齐平，因此列间不留 gap，改由左列 padding 留白 */
   .colBrand {
-    grid-column: 1 / 3;
+    grid-column: 1;
+    grid-row: 1;
+    padding-right: var(--space-8);
   }
+
+  .logo { max-width: 100%; }
 
   .colInfo {
-    grid-column: 1;
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 0;
   }
 
   .colLegal {
     grid-column: 2;
-    align-items: flex-end;
+    grid-row: 2;
+    padding-top: 0;
+    align-items: flex-start;
   }
+
+  /* 地址在窄屏不再限宽，减少碎行 */
+  .address {
+    max-width: none;
+  }
+
+  /* 底部：© 占左半 | Terms · Data 占右半（并排 + 分隔符） */
+  .bottomBar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    column-gap: 0;
+  }
+
+  .copyright {
+    grid-column: 1;
+    padding-right: var(--space-8);
+  }
+
+  .legalGroup {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+  }
+
+  .legalSep {
+    display: inline;
+    margin: 0 var(--space-2);
+  }
+}
+
+/* ≤600px 手机：2 列会挤散（地址碎行、分隔符落单）→ 回到单列堆叠 */
+@media (max-width: 600px) {
+  .inner {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-8);
+  }
+  .colBrand { grid-column: 1; grid-row: 1; }
+  .colInfo  { grid-column: 1; grid-row: 2; }
+  .colLegal { grid-column: 1; grid-row: 3; }
+
+  .bottomBar {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-3);
+    justify-items: start;
+  }
+  .copyright  { grid-column: 1; }
+  .legalGroup { grid-column: 1; }
 }

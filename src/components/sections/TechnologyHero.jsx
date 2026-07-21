@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import LoopSymbol from '../ui/LoopSymbol'
 import DotGrid from '../ui/DotGrid'
+import Badge from '../ui/Badge'
 import { useScrollAnimation } from '../../hooks/useScrollAnimation'
 import styles from './TechnologyHero.module.css'
 
@@ -15,7 +16,7 @@ export default function TechnologyHero() {
       <DotGrid skipRef={heroTextRef} />
       <div className={styles.heroInner}>
         <div className={styles.heroText} ref={heroTextRef}>
-          <span className={styles.heroBadge}>{t('technologyHero.badge')}</span>
+          <span className={styles.heroBadge}><Badge variant="label">{t('technologyHero.badge')}</Badge></span>
           <h1 className={`${styles.heroHeading} animate-on-enter`}>
             {t('technologyHero.line1')}<br />{t('technologyHero.line2')}
           </h1>

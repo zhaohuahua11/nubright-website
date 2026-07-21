@@ -227,15 +227,16 @@
   100% { opacity: 1; left: 15%; bottom: 270px; transform: rotate(2400deg); }
 }
 
-/* 窄屏时刻度过密会糊成一团，先隐藏，后面再定制 */
+/* 窄屏：不再隐藏刻度尺；把刻度线宽减半（2px→1px）缓解密集糊团。
+   扫描光带与小球（依赖鼠标）在窄屏仍隐藏。 */
 @media (max-width: 720px) {
-  .ruler {
-    display: none;
-  }
   .sweep {
     display: none;
   }
   .roller {
     display: none;
+  }
+  .rowSvg line {
+    stroke-width: 1;
   }
 }
