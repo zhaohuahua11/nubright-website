@@ -1,9 +1,8 @@
 /* ═══════════════════════════════════════════════════
-   Demo 1 — Stripe Style
-   Applied via: :root (default) + html[data-theme="stripe"]
+   站点唯一主题（原 Stripe Style）
+   多主题切换已于 2026-07-21 移除，carta / handdrawn 一并删除
    ═══════════════════════════════════════════════════ */
-:root,
-html[data-theme="stripe"] {
+:root {
   /* ── Brand Colors ── */
   --color-purple:         #533afd;
   --color-heading:        #061b31;

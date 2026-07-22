@@ -18,11 +18,18 @@
   width: 100%;
   max-width: 520px;
   padding: var(--space-8);
+  /* 内容约 620px 高，矮屏（iPhone SE 667px）放不下。
+     不限高的话底部提交按钮会被切掉且滚不到——overlay 是 flex 居中、无溢出。
+     dvh 排除移动端浏览器工具栏，不支持的旧浏览器回退到 vh。 */
+  max-height: calc(100vh - var(--space-12));
+  max-height: calc(100dvh - var(--space-12));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: var(--space-8);
 }
@@ -33,10 +40,11 @@
   color: var(--color-text-heading);
   letter-spacing: -0.22px;
   line-height: 1.1;
-  margin-bottom: var(--space-1);
 }
 
+/* 间距挂在副标题上：contact 版没有副标题时不会留出多余空隙 */
 .title {
+  margin-top: var(--space-1);
   font-size: 11px;
   font-weight: 400;
   color: var(--color-text-body);
@@ -99,7 +107,8 @@
   font-family: var(--font-sans);
   font-feature-settings: var(--font-features-default);
   font-size: 14px;
-  font-weight: var(--fw-light);
+  /* 用户输入可能是中文。CJK 走 PingFang/雅黑 回退，350 会细到发虚，故固定 400。 */
+  font-weight: 400;
   color: var(--color-text-heading);
   background: var(--color-white);
   border: 1px solid var(--color-border);
@@ -113,6 +122,8 @@
 }
 
 .input::placeholder {
+  /* 占位符保持轻，跟已填入的内容拉开对比 */
+  font-weight: var(--fw-light);
   color: var(--color-text-body);
   opacity: 0.6;
 }
@@ -178,20 +189,23 @@
   align-items: center;
   text-align: center;
   padding: var(--space-8) 0 var(--space-4);
-  gap: var(--space-4);
+  /* 间距逐项给，不用统一 gap：标题和说明是一组，按钮要单独拉开 */
+  gap: 0;
 }
 
 .success .submit {
   align-self: center;
+  margin-top: var(--space-6);
 }
 
 .successIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  width: 80px;
+  height: auto;
 }
 
 .successTitle {
+  margin-top: var(--space-4);
   font-size: 22px;
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
@@ -199,14 +213,49 @@
 }
 
 .successBody {
+  margin-top: var(--space-2);
   font-size: 14px;
   color: var(--color-text-body);
   line-height: 1.6;
-  max-width: 340px;
+  /* 两句话刚好比一行长一点点，定宽会把末尾一个词甩到第二行。
+     balance 让浏览器把两行匀开（正好断在句号处）。 */
+  max-width: 360px;
+  text-wrap: balance;
 }
 
 @media (max-width: 480px) {
   .row {
     grid-template-columns: 1fr;
+  }
+
+  .overlay {
+    padding: var(--space-3);
+  }
+
+  .modal {
+    padding: var(--space-5);
+    max-height: calc(100vh - var(--space-6));
+    max-height: calc(100dvh - var(--space-6));
+  }
+
+  .header {
+    margin-bottom: var(--space-5);
+  }
+
+  .label {
+    font-size: 20px;
+  }
+
+  .form {
+    gap: var(--space-4);
+  }
+
+  /* iOS Safari 会在聚焦小于 16px 的输入框时自动放大整页，且退出后常回不到原位 */
+  .input {
+    font-size: 16px;
+  }
+
+  .textarea {
+    min-height: 88px;
   }
 }

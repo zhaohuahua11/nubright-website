@@ -43,7 +43,9 @@
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.5;
-  margin: 0;
+  /* 限宽居中，不限宽会横跨整个容器、一行近百字符 */
+  max-width: 760px;
+  margin: 0 auto;
 }
 
 .wip {

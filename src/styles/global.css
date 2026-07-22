@@ -1,7 +1,5 @@
 @import './tokens.css';
 @import './themes/theme-stripe.css';
-@import './themes/theme-carta.css';
-@import './themes/theme-handdrawn.css';
 
 /* ── Font Registration ── */
 @font-face {
@@ -30,6 +28,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 72px; /* sticky 导航高度，锚点滚动时留出 */
+  /* 始终为滚动条预留槽位。弹窗打开时 body 会设 overflow:hidden，
+     否则滚动条消失、视口变宽，整页连同 fixed 的导航栏一起右移一下。 */
+  scrollbar-gutter: stable;
 }
 
 body {

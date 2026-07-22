@@ -139,15 +139,11 @@
     }
   },
   "contact": {
-    "label": "Get in Touch",
-    "title": "Let's talk about your fund.",
-    "lastName": {
-      "label": "Last Name",
-      "placeholder": "Your last name"
-    },
-    "firstName": {
-      "label": "First Name",
-      "placeholder": "Your first name"
+    "label": "Schedule a Conversation",
+    "title": "",
+    "fullName": {
+      "label": "Full Name",
+      "placeholder": "Your full name"
     },
     "email": {
       "label": "Email",
@@ -155,52 +151,20 @@
     },
     "phone": {
       "label": "Phone Number",
-      "placeholder": "+1 (XXX) XXX-XXXX"
+      "placeholder": "+852 XXXX XXXX"
     },
     "company": {
-      "label": "Fund / Company / Organization",
-      "placeholder": "Fund name or company"
+      "label": "Investment Manager / Fund",
+      "placeholder": "Investment manager or fund name"
     },
     "message": {
-      "label": "Message",
-      "placeholder": "Tell us about your fund and what you're looking for..."
+      "label": "Anything you'd like us to know?",
+      "placeholder": "Schedule a Conversation / Book a live walkthrough"
     },
-    "submit": "Submit",
-    "successTitle": "Message received.",
+    "submit": "Send Message",
+    "successTitle": "We’ve got your message",
     "successBody": "Thank you for reaching out. We'll be in touch shortly.",
-    "successBtn": "Close"
-  },
-  "demo": {
-    "label": "Request a Demo",
-    "title": "Please complete this form and one of our representatives will contact you soon to schedule a demo.",
-    "lastName": {
-      "label": "Last Name",
-      "placeholder": "Your last name"
-    },
-    "firstName": {
-      "label": "First Name",
-      "placeholder": "Your first name"
-    },
-    "email": {
-      "label": "Work Email",
-      "placeholder": "you@company.com"
-    },
-    "phone": {
-      "label": "Phone Number",
-      "placeholder": "+1 (XXX) XXX-XXXX"
-    },
-    "company": {
-      "label": "Fund / Company / Organization",
-      "placeholder": "Fund name or company"
-    },
-    "message": {
-      "label": "What would you like to see?",
-      "placeholder": "Tell us what features or workflows you'd like us to walk you through..."
-    },
-    "submit": "Submit",
-    "successTitle": "Request received.",
-    "successBody": "Thank you! One of our representatives will contact you soon to schedule your demo.",
-    "successBtn": "Close"
+    "successBtn": "Got it"
   },
   "statsBar": {
     "yearsExp": "Active Funds Under Administration",

@@ -8,8 +8,14 @@
 }
 
 /* 第一座桥：在刻度底部与灰底之间留一段白色间距（margin 在背景之外，不影响 hero） */
+/* 只用在 Services 前那条 bridge 上，与上方 Hero 拉开更大距离 */
 .gapTop {
-  margin-top: var(--space-20);
+  margin-top: var(--space-32);
+}
+
+/* 与紧随其后的模块贴合，不留 80px 下外边距 */
+.noGapBottom {
+  margin-bottom: 0;
 }
 
 .link {

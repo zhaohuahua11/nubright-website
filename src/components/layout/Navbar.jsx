@@ -1,15 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import Select from '../ui/Select'
 import styles from './Navbar.module.css'
 
 export default function Navbar({ onContactClick }) {
-  const { t, i18n } = useTranslation()
-
-  const LANG_OPTIONS = [
-    { value: 'en', label: 'English' },
-    { value: 'zh-Hant', label: '繁體中文' },
-  ]
+  const { t } = useTranslation()
 
   return (
     <nav className={styles.nav}>
@@ -21,12 +15,6 @@ export default function Navbar({ onContactClick }) {
         <div className={styles.links} />
 
         <div className={styles.actions}>
-          <Select
-            value={i18n.language}
-            onChange={(val) => i18n.changeLanguage(val)}
-            options={LANG_OPTIONS}
-            size="md"
-          />
           <a
             href="https://portal.nubright.com"
             target="_blank"

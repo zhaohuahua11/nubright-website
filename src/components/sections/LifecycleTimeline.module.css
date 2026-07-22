@@ -67,7 +67,10 @@
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.5;
-  margin: 0;
+  /* 限宽居中，与 ManagerPortal 的同款区块头保持一致；
+     不限宽时会横跨整个 1214px 容器，一行近百字符，无法阅读 */
+  max-width: 760px;
+  margin: 0 auto;
 }
 
 /* ── Chapter grid: 4 columns of chapter-units. Each unit stacks

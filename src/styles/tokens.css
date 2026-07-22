@@ -54,9 +54,3 @@
   --fw-heading: 350;
 }
 
-/* CJK fallback fonts (PingFang SC, Microsoft YaHei) render too thin at 300/350.
-   Bump to Regular/Medium when the page language is Traditional Chinese. */
-html[lang="zh-Hant"] {
-  --fw-light:   400;
-  --fw-heading: 500;
-}

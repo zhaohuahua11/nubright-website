@@ -28,14 +28,15 @@
 /* 只包住文字的磨砂容器：半透明白底 + 背景模糊，压在刻度上也清晰 */
 .rulerCaptionText {
   display: inline-block;
-  padding: 2px 12px;
+  /* 纵向内边距加大，让白色底衬更完整地托住文字（原 2px 太贴，刻度线几乎挨着字） */
+  padding: 9px 17px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: var(--fw-light);
-  color: var(--color-text-body);
+  color: var(--color-text-heading);
 }
 
 /* 用背景色遮条盖住 hero 内的中间 3 条竖线（L1/L2/L3）。

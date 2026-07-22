@@ -16,6 +16,10 @@ const FUND_OPTIONS = [
 ]
 const SELECTED_FUND_INDEX = 1
 
+// 全片速度系数：>1 加快，<1 放慢。所有时间戳都经 after() 换算，改这一个数即可整体调速。
+// 注意 CSS 过渡时长（0.4s / 0.55s 等）不随之缩放，加得太多会让动作重叠，建议不超过 1.4。
+const SPEED = 1.2
+
 const EC_COLORS = ['#7c3aed', '#3b82f6', '#0ea5e9', '#14b8a6', '#22c55e']
 const EC_FUND_DATA = [
   { value: 2736840.25, name: 'Fund0' },
@@ -68,7 +72,7 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
     wrapRef.current?.querySelector(`[data-demo="${key}"]`), [])
 
   const after = useCallback((fn, ms) => {
-    const id = setTimeout(fn, ms)
+    const id = setTimeout(fn, ms / SPEED)
     timers.current.push(id)
     return id
   }, [])

@@ -1,5 +1,10 @@
 .hero {
-  padding: var(--section-padding-y) 0;
+  /* 上方 ChapterBridge 有 80px(--space-20) 的下外边距，点阵画布是本 section 的
+     背景(inset:0)，够不到那段外边距，会露出一条无点空白。
+     故上提 80px 让背景接上 bridge 底边，再把 padding-top 补回同样的量，
+     内容位置保持不变。 */
+  margin-top: calc(var(--space-20) * -1);
+  padding: calc(var(--section-padding-y) + var(--space-20)) 0 var(--section-padding-y);
   position: relative;
   overflow: hidden;
 }

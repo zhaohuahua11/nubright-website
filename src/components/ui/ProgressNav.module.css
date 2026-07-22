@@ -39,6 +39,10 @@
   background: var(--color-bg-subtle);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+  /* 轻微投影，让浮出的灰条读作"悬在页面之上"而非嵌在页面里。
+     负扩散(-4px)把阴影收回顶边以内 —— 本条 z-index(101) 高于导航栏(100)，
+     且导航栏背景是半透明的，阴影一旦上溢就会糊在导航栏底边上。 */
+  box-shadow: 0 6px 12px -4px rgba(6, 27, 49, 0.10);
   opacity: 0;
   pointer-events: none;
 }
@@ -47,7 +51,8 @@
 .bandInner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 4px var(--container-padding);
+  /* 纵向内边距移到按钮上，让点击区覆盖整行高度而不撑高灰条 */
+  padding: 0 var(--container-padding);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -66,7 +71,9 @@
 
 .bandLabel {
   flex: 0 0 auto;
-  padding: 0;
+  /* 文字周围留一圈点击区，避免必须精确点在字形上；
+     两端用负 margin 抵消，保证文字视觉位置不变 */
+  padding: 5px 10px;
   border: none;
   background: transparent;
   font-size: 11px;
@@ -77,6 +84,9 @@
   cursor: pointer;
   transition: color var(--duration-fast) var(--ease-out);
 }
+
+.bandLabel:first-child { margin-left: -10px; }
+.bandLabel:last-child  { margin-right: -10px; }
 
 .bandLabel:hover {
   color: var(--color-text-heading);

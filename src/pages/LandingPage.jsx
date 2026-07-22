@@ -13,12 +13,10 @@ import ChapterBridge from '../components/ui/ChapterBridge'
 import ProgressNav from '../components/ui/ProgressNav'
 import styles from './LandingPage.module.css'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
-import { useTheme } from '../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 
 export default function LandingPage({ onContactClick, onDemoClick }) {
   const heroRef = useScrollAnimation()
-  const { theme } = useTheme()
   const { t } = useTranslation()
 
   return (
@@ -28,7 +26,6 @@ export default function LandingPage({ onContactClick, onDemoClick }) {
 
       {/* Hero */}
       <section className={styles.hero} ref={heroRef}>
-        {/* {theme === 'stripe' && <AuroraBg veilShape="ellipse" />} */}
         {/* 只在 hero 内盖住中间 3 条竖线（L1/L2/L3），两侧 L0/L4 保留显示 */}
         <div className={styles.heroGridMask} aria-hidden="true">
           <div className={styles.heroGridMaskCols}>
@@ -64,7 +61,7 @@ export default function LandingPage({ onContactClick, onDemoClick }) {
       </section>
 
       {/* 章节桥：hero 结尾 → Our Services */}
-      <ChapterBridge href="#our-services" gapTop>{t('bridges.services')}</ChapterBridge>
+      <ChapterBridge href="#our-services" gapTop noGapBottom>{t('bridges.services')}</ChapterBridge>
 
       {/* Our Services */}
       <LifecycleTimeline />
