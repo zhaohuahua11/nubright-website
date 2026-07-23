@@ -196,11 +196,10 @@
     grid-template-columns: 1fr;
   }
 
-  /* 收窄卡片内边距，把宽度让给 demo —— 它是等比缩放的，
-     容器每宽 1px，画面就大 1px，窄屏下这点间距比留白更有价值 */
+  /* 768 以下：卡片左/上/右 padding 全设 0，demo 铺满整块宽度
+     （demo 等比缩放，容器每宽 1px 画面就大 1px） */
   .card {
-    /* 顶部取左右两倍 */
-    padding: var(--space-8) var(--space-4) 0;
+    padding: 0;
   }
 
   /* 顶部留白本是为绝对定位的重播按钮让位（top 16 + 高 36 = 52px）。
@@ -217,10 +216,7 @@
 }
 
 @media (max-width: 480px) {
-  .card {
-    /* 顶部取左右两倍 */
-    padding: var(--space-4) var(--space-2) 0;
-  }
+  /* padding:0 沿用 ≤768 的规则，这里不再覆盖 */
 
   /* 移动端特点正文放大一档（16→18） */
   .featureBody {
