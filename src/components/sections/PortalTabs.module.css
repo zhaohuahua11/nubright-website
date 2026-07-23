@@ -1,16 +1,6 @@
 .section {
-  border-top: 1px solid var(--color-border);
-  /* 顶边线只保留右半：正中 50% 处硬切——左半透明、右半实色，无过渡。
-     用 border-image 横向渐变替换实色，border-image-slice:1。 */
-  border-image: linear-gradient(
-    to right,
-    transparent 0,
-    transparent 50%,
-    var(--color-border) 50%,
-    var(--color-border) 100%
-  ) 1;
-  /* 下边框去掉：它与紧随的 CTASection .wrapper 上边框会叠成双线。
-     交界处的分隔线由 CTASection 那条 border-top 提供。 */
+  /* 顶边线整根去掉：半线在循环动画切到下方时显得突兀。
+     下边框此前也已去掉（与 CTASection .wrapper 上边框会叠成双线）。 */
 }
 
 .container {

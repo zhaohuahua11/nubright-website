@@ -36,6 +36,13 @@
   .sectionGridCol:not(:last-child) {
     border-right: none;
   }
+  /* 窄屏：连最外两根(L0/L4)也隐藏，整块无竖线 */
+  .sectionGridCol:first-child {
+    border-left: none;
+  }
+  .sectionGridCol:last-child {
+    border-right: none;
+  }
 }
 
 .container {

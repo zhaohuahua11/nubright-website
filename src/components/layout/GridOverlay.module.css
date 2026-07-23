@@ -38,4 +38,11 @@
   .col:not(:last-child) {
     border-right: none;
   }
+  /* 窄屏：连最外两根(L0/L4)也隐藏，整块无竖线 */
+  .col:first-child {
+    border-left: none;
+  }
+  .col:last-child {
+    border-right: none;
+  }
 }

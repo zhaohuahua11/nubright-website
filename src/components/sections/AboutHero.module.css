@@ -78,6 +78,13 @@
   .heroGridCol:not(:last-child) {
     border-right: none;
   }
+  /* 窄屏：连最外两根(L0/L4)也隐藏，整块无竖线 */
+  .heroGridCol:first-child {
+    border-left: none;
+  }
+  .heroGridCol:last-child {
+    border-right: none;
+  }
 }
 
 .heroInner {
