@@ -882,7 +882,10 @@ export default function InvestorPortalDemoStyle2({ replayRef }) {
     const host = el?.parentElement
     if (!host) return
     const update = () => {
-      const s = Math.min(1, host.clientWidth / 1000)
+      // ≤1200：卡片 padding 已归 0，demo 放大铺满整块（允许 >1 倍）；
+      // >1200：桌面维持原样——封顶 1 倍、卡片留白里居中。
+      const raw = host.clientWidth / 1000
+      const s = window.innerWidth <= 1200 ? raw : Math.min(1, raw)
       el.style.setProperty('--demo-scale', String(s))
     }
     update()
