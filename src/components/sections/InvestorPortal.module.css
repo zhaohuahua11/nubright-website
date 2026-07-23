@@ -191,15 +191,17 @@
   color: var(--color-text-heading);
 }
 
+/* 1200 以下：卡片左/上/右 padding 全设 0，demo 铺满整块宽度
+   （demo 等比缩放，容器每宽 1px 画面就大 1px） */
+@media (max-width: 1200px) {
+  .card {
+    padding: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .features {
     grid-template-columns: 1fr;
-  }
-
-  /* 768 以下：卡片左/上/右 padding 全设 0，demo 铺满整块宽度
-     （demo 等比缩放，容器每宽 1px 画面就大 1px） */
-  .card {
-    padding: 0;
   }
 
   /* 顶部留白本是为绝对定位的重播按钮让位（top 16 + 高 36 = 52px）。
