@@ -1,6 +1,22 @@
 .section {
-  /* 顶边线整根去掉：半线在循环动画切到下方时显得突兀。
-     下边框此前也已去掉（与 CTASection .wrapper 上边框会叠成双线）。 */
+  /* 左右排版(>768)时：顶边线只保留右半——正中 50% 硬切，左半透明。
+     下边框此前已去掉（与 CTASection .wrapper 上边框会叠成双线）。 */
+  border-top: 1px solid var(--color-border);
+  border-image: linear-gradient(
+    to right,
+    transparent 0,
+    transparent 50%,
+    var(--color-border) 50%,
+    var(--color-border) 100%
+  ) 1;
+}
+
+/* 循环图换行到下方(≤768 堆叠)时，半根线显得突兀 → 整根不显示 */
+@media (max-width: 768px) {
+  .section {
+    border-top: none;
+    border-image: none;
+  }
 }
 
 .container {
