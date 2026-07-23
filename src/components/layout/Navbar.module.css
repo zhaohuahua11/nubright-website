@@ -89,7 +89,8 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: 0;
+  /* 两个按钮的间距统一走 gap，不再靠 btnPrimary 的 margin-left（更稳、移动端好调） */
+  gap: var(--space-4);
   justify-self: end;
 }
 
@@ -137,7 +138,6 @@
 .btnPrimary {
   font-size: var(--fs-sm);
   font-weight: var(--fw-regular);
-  margin-left: var(--space-4);
   color: var(--color-btn-primary-text);
   background: var(--color-btn-primary-bg);
   border: 1px solid var(--color-btn-primary-bg);
@@ -165,17 +165,20 @@
   .inner {
     height: 52px;
   }
-  /* 导航栏在此档降到 52px 高，76px 宽 ≈ 31px 高，上下各留 10.5px */
+  /* 导航栏在此档降到 52px 高，88px 宽 ≈ 36px 高，上下各留 8px */
   .logo img {
-    width: 76px;
+    width: 88px;
+  }
+  /* 移动端两个按钮拉开距离：ghost 无可见边框，太近时箭头会贴着深色按钮 */
+  .actions {
+    gap: 18px;
   }
   .btnGhost {
-    font-size: var(--fs-2xs);
-    padding: 6px 8px;
+    font-size: var(--fs-xs);
+    padding: 6px 4px;
   }
   .btnPrimary {
-    font-size: var(--fs-2xs);
+    font-size: var(--fs-xs);
     padding: 6px 10px;
-    margin-left: 6px;
   }
 }

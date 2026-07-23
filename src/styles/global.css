@@ -28,6 +28,10 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 72px; /* sticky 导航高度，锚点滚动时留出 */
+  /* 禁用移动端(尤其 Android Chrome)的自动文本放大。
+     否则真机会把导航按钮等文字撑大，与 DevTools 模拟不一致、按钮挤在一起。 */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   /* 始终为滚动条预留槽位。弹窗打开时 body 会设 overflow:hidden，
      否则滚动条消失、视口变宽，整页连同 fixed 的导航栏一起右移一下。 */
   scrollbar-gutter: stable;

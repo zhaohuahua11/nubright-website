@@ -10,7 +10,7 @@ const STATS = [
 ]
 
 function StatItem({ raw, prefix, suffix, label }) {
-  const { ref, display } = useCountUp(raw, 1400)
+  const { ref, display } = useCountUp(raw, 700)
   return (
     <div ref={ref} className={styles.stat}>
       <span className={`${styles.value} tabular-nums`}>{prefix}{display}{suffix}</span>

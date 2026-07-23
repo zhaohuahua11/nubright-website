@@ -222,6 +222,11 @@
     padding: var(--space-4) var(--space-2) 0;
   }
 
+  /* 移动端特点正文放大一档（16→18） */
+  .featureBody {
+    font-size: var(--fs-lg);
+  }
+
   .replayBtn {
     top: 6px;
     right: 6px;

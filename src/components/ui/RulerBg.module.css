@@ -240,3 +240,10 @@
     stroke-width: 1;
   }
 }
+
+/* 更窄的屏幕：row5 是最密的一排（step=COL/60），1px 仍显糊团 → 单独再细一档 */
+@media (max-width: 480px) {
+  .row5 .rowSvg line {
+    stroke-width: 0.5;
+  }
+}

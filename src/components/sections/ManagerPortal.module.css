@@ -155,4 +155,9 @@
     margin-right: 0;
     margin-bottom: var(--space-5);
   }
+  /* 堆叠后宽度充足：正文放大一档，与 investor portal 对齐（≤768 的 clamp 在此被覆盖，
+     手机上原本被压到 14px） */
+  .featureBody {
+    font-size: var(--fs-lg);
+  }
 }

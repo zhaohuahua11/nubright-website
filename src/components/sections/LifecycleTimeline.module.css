@@ -197,11 +197,11 @@
   justify-content: center;
   gap: var(--space-3);
   margin: var(--space-8) 0 0;
-  padding: 3px var(--space-6);
+  padding: var(--space-4) var(--space-6);
   background: rgba(71, 85, 105, 0.12);
   font-size: var(--fs-sm);
   font-weight: var(--fw-light);
-  color: var(--color-text-body);
+  color: var(--color-text-heading);
   line-height: 1.5;
   text-align: center;
 }
@@ -481,5 +481,17 @@
   .chapter:nth-child(even) .col {
     padding-left: var(--space-1);
     padding-right: var(--space-1);
+  }
+
+  /* 单列下宽度充足，正文各放大一档（桌面 4 列窄栏维持原样）：
+     序号 13→14、引言 14→16、卡片行 14→16 */
+  .stepNum {
+    font-size: var(--fs-sm);
+  }
+  .colQuote {
+    font-size: var(--fs-md);
+  }
+  .item {
+    font-size: var(--fs-md);
   }
 }

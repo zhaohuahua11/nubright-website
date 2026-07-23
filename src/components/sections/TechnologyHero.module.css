@@ -9,6 +9,30 @@
   overflow: hidden;
 }
 
+/* 竖线遮罩：只盖 L1(第1列右边界) 与 L3(第3列右边界)，保留 L2/L0/L4 */
+.gridMask {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.gridMaskCols {
+  max-width: var(--container-max);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  box-sizing: border-box;
+}
+
+.gridMaskCols > span:nth-child(1),
+.gridMaskCols > span:nth-child(3) {
+  border-right: 2px solid var(--color-bg);
+}
+
 .heroInner {
   position: relative;
   z-index: 2;
