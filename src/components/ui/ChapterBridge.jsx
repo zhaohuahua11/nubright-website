@@ -19,8 +19,9 @@ export default function ChapterBridge({ href, children, gapTop = false, noGapBot
       <a href={href} onClick={onClick} className={styles.link}>
         <span ref={revealRef} className={styles.inner}>
           <span className={styles.prefix}>Next&nbsp;·</span>
-          <span className={styles.sentence}>{children}</span>
-          <span className={styles.arrow} aria-hidden="true">↓</span>
+          {/* 箭头放进句子里、跟在文字末尾，句子换行时它就贴着最后一个词走。
+              用不换行空格把箭头和末词绑住，避免箭头单独掉到下一行。 */}
+          <span className={styles.sentence}>{children}<span className={styles.arrow} aria-hidden="true">&nbsp;↓</span></span>
         </span>
       </a>
     </section>

@@ -25,7 +25,6 @@
     "heading": "From launch to wind-down.",
     "sub": "No handoffs. No gaps. No surprises. We serve both open-end and closed-end structures — with the same standard of thoroughness, from day one to the very end.",
     "phase": "# Chapter",
-    "boundaryLabel": "Statement",
     "boundary": "We DO NOT give investment advice. We DO NOT manage assets. We DO NOT provide legal or tax opinions. We calculate. We reconcile. We report.",
     "s1": {
       "title": "Fund Formation",
@@ -76,7 +75,7 @@
   },
   "investorPortal": {
     "badge": "Investor Portal",
-    "title": "24/7 access. One secure gateway. Full visibility.",
+    "title": "24/7 access.\nOne secure gateway. Full visibility.",
     "sub": "Investors get round-the-clock access to their portfolio data, documents, and capital activity.",
     "cardDesc": "Dedicated one-stop subscription/redemption application and information inquiry — Access portfolio holdings, fund NAVs, transaction records, periodic reports, and income details anytime, anywhere. Delivers a fully transparent, always-on investment service experience.",
     "cardBtn": "Book a Live Walkthrough",

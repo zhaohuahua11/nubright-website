@@ -51,7 +51,7 @@
 }
 
 .label {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   color: var(--color-text-body);
   line-height: 1.3;
@@ -66,5 +66,8 @@
      把上边距减掉多出来那一行的高度(~66px)，抵消撑高，保持按钮↔刻度间距与 4 列时一致。 */
   .bar {
     margin-top: 54px;
+    /* top 是纯视觉偏移、不占文档流，所以只有这块往下走，
+       hero 高度和底部刻度层都不动。改这个值即可微调 2 行时的位置。 */
+    top: 168px;
   }
 }

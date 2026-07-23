@@ -34,7 +34,7 @@
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  font-size: 14px;
+  font-size: var(--fs-sm);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
 }
@@ -85,8 +85,8 @@
 
 .heroBadge {
   display: inline-flex;
-  font-size: 12px;
-  font-weight: 400;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-regular);
   color: var(--color-text-label);
   background: #fff;
   border: 1px solid var(--color-border);
@@ -100,7 +100,7 @@
      9.4 = 该字体下「最长行宽 ÷ 字号」实测 9.11 + 约 3% 余量。 */
   font-size: min(72px, calc((100vw - var(--container-padding) - var(--container-padding)) / 9.4));
   /* 原来自 text-display-2xl（已从 h1 移除以夺回字号控制权）；字距改 em 随字号缩放 */
-  font-weight: 420;
+  font-weight: var(--fw-regular);
   line-height: 1.05;
   letter-spacing: -0.025em;
   color: var(--color-text-heading);
@@ -108,7 +108,7 @@
 }
 
 .heroSub {
-  font-size: 18px;
+  font-size: var(--fs-lg);
   font-weight: var(--fw-light);
   line-height: 1.5;
   color: var(--color-text-heading);
@@ -129,8 +129,8 @@
 .heroBtnPrimary {
   font-family: var(--font-sans);
   font-feature-settings: var(--font-features-default);
-  font-size: 16px;
-  font-weight: 400;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-regular);
   color: var(--color-btn-primary-text);
   background: var(--color-btn-primary-bg);
   border: 1px solid var(--color-btn-primary-bg);
@@ -153,8 +153,8 @@
 }
 
 .heroBtnGhost {
-  font-size: 16px;
-  font-weight: 400;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-regular);
   color: var(--color-text-heading);
   background: transparent;
   border: 1px solid var(--color-border);
@@ -181,7 +181,7 @@
 }
 
 .placeholderText {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   color: var(--color-text-body);
   font-style: italic;
   text-align: center;

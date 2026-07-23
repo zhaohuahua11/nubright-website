@@ -31,6 +31,13 @@
   border-right: 1px solid var(--color-grid-line);
 }
 
+/* 手机端只留最外两根竖线，与 GridOverlay 保持一致 */
+@media (max-width: 768px) {
+  .sectionGridCol:not(:last-child) {
+    border-right: none;
+  }
+}
+
 .container {
   position: relative;
   z-index: 1;
@@ -114,7 +121,7 @@
 /* 第二排（s2）：横构图，两人分居左右、线稿在中右侧。
    竖向容器 cover 后只保留中间一条，故把焦点右移到线稿区（不放大）。 */
 .row:nth-child(2) .image {
-  object-position: 78% 42%;
+  object-position: 70% 42%;
 }
 
 .textBox {
@@ -179,7 +186,7 @@
 
 .body {
   margin-top: auto;
-  font-size: 21px;
+  font-size: var(--fs-xl);
   font-weight: var(--fw-light);
   line-height: 1.45;
   color: var(--color-text-heading);
@@ -205,6 +212,11 @@
     min-height: 260px;
   }
 
+  /* 堆叠后正文占满整块宽度，21px 偏大，收一档 */
+  .body {
+    font-size: var(--fs-lg);
+  }
+
   /* 堆叠时：文字在上、图片在下 */
   .textBox,
   .rowReverse .textBox {
@@ -219,5 +231,12 @@
     /* 与上方文字相接：顶部两角改直角 */
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+  }
+}
+
+/* 手机窄屏：正文再收一档，18px 在 ~360px 宽下每行字太少、断行太碎 */
+@media (max-width: 480px) {
+  .body {
+    font-size: var(--fs-md);
   }
 }

@@ -24,8 +24,8 @@
   border: none;
   background: transparent;
   font-family: inherit;
-  font-size: 17px;
-  font-weight: var(--fw-light);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-regular);
   color: var(--color-text-body);
   cursor: pointer;
   transition: color var(--duration-fast) var(--ease-out);

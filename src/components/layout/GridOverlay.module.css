@@ -31,3 +31,11 @@
 .col:not(:last-child) {
   border-right: 1px dashed var(--grid-line-strong);
 }
+
+/* 手机端列宽只剩几十像素，五根线挤在一起像栅栏。只留最外两根，
+   平板（>768px）仍是完整四列网格。 */
+@media (max-width: 768px) {
+  .col:not(:last-child) {
+    border-right: none;
+  }
+}

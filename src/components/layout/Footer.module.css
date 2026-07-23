@@ -33,6 +33,13 @@
   border-right: 1px dashed var(--color-grid-line);
 }
 
+/* 手机端只留最外两根竖线，与 GridOverlay 保持一致 */
+@media (max-width: 768px) {
+  .gridCol:not(:last-child) {
+    border-right: none;
+  }
+}
+
 .inner {
   max-width: var(--container-max);
   margin: 0 auto;
@@ -76,7 +83,7 @@
 
 .copyright {
   grid-column: 1 / 3;
-  font-size: 13px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.5;
@@ -86,7 +93,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 13px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   padding: 0;
@@ -109,7 +116,7 @@
 
 .legalSep {
   display: none;
-  font-size: 13px;
+  font-size: var(--fs-xs);
   color: var(--color-text-body);
 }
 
@@ -123,7 +130,7 @@
 }
 
 .colHeading {
-  font-size: 12px;
+  font-size: var(--fs-2xs);
   font-weight: 550;
   line-height: 1.5;
   letter-spacing: 0.04em;
@@ -133,7 +140,7 @@
 }
 
 .address {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.3;
@@ -143,7 +150,7 @@
 }
 
 .contactItem {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.2;
@@ -193,7 +200,7 @@
 }
 
 .legalLink {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.2;

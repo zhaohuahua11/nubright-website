@@ -34,8 +34,15 @@
   flex-shrink: 0;
 }
 
+/* 导航栏高 58px，logo 是 473×194 的横构图，96px 宽 ≈ 39px 高，上下各留 9.5px */
+.logo img {
+  display: block;
+  width: 96px;
+  height: auto;
+}
+
 .logoText {
-  font-size: 15px;
+  font-size: var(--fs-sm);
   font-weight: 500;
   color: var(--color-text-heading);
   letter-spacing: -0.2px;
@@ -49,8 +56,8 @@
 }
 
 .link {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-regular);
   color: var(--color-text-heading);
   position: relative;
   padding-bottom: 2px;
@@ -76,7 +83,7 @@
 
 .linkActive {
   color: var(--color-text-heading);
-  font-weight: 400;
+  font-weight: var(--fw-regular);
 }
 
 .actions {
@@ -87,8 +94,8 @@
 }
 
 .btnGhost {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-regular);
   color: var(--color-text-heading);
   background: transparent;
   border: none;
@@ -105,10 +112,31 @@
   color: var(--color-text-body);
 }
 
+.externalIcon {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+  /* 图标右上角的斜箭头让重心偏上，几何居中时看着偏高，下移 1px 补偿 */
+  position: relative;
+  top: 1px;
+  flex: 0 0 auto;
+}
+
+/* 跳转地址未定，暂时禁用 */
+.btnGhost:disabled {
+  color: var(--color-text-body);
+  opacity: 0.45;
+  cursor: default;
+}
+
+.btnGhost:disabled:hover {
+  color: var(--color-text-body);
+}
+
 
 .btnPrimary {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-regular);
   margin-left: var(--space-4);
   color: var(--color-btn-primary-text);
   background: var(--color-btn-primary-bg);
@@ -137,16 +165,16 @@
   .inner {
     height: 52px;
   }
+  /* 导航栏在此档降到 52px 高，76px 宽 ≈ 31px 高，上下各留 10.5px */
   .logo img {
-    width: 62px;
-    height: auto;
+    width: 76px;
   }
   .btnGhost {
-    font-size: 12px;
+    font-size: var(--fs-2xs);
     padding: 6px 8px;
   }
   .btnPrimary {
-    font-size: 12px;
+    font-size: var(--fs-2xs);
     padding: 6px 10px;
     margin-left: 6px;
   }

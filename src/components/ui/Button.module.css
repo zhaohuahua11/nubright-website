@@ -5,7 +5,7 @@
   gap: var(--space-2);
   font-family: var(--font-sans);
   font-feature-settings: var(--font-features-default);
-  font-weight: 400;
+  font-weight: var(--fw-regular);
   line-height: 1;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -21,17 +21,17 @@
 
 /* Sizes */
 .size-md {
-  font-size: 16px;
+  font-size: var(--fs-md);
   padding: var(--space-2) var(--space-4);
 }
 
 .size-sm {
-  font-size: 14px;
+  font-size: var(--fs-sm);
   padding: 6px var(--space-4);
 }
 
 .size-lg {
-  font-size: 16px;
+  font-size: var(--fs-md);
   padding: 12px var(--space-6);
 }
 

@@ -27,16 +27,30 @@
 
 .inner {
   display: inline-flex;
-  align-items: center;
+  /* 句子可能折两行：baseline 让「Next ·」跟第一行对齐，
+     而不是吊在两行正中间（center 会那样）。箭头已并入句子末尾。 */
+  align-items: baseline;
   gap: var(--space-2);
-  font-size: 13px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   letter-spacing: 0.02em;
+  line-height: 1.5;
   color: var(--color-text-body);
 }
 
 .prefix {
   font-style: normal;
+}
+
+/* 窄屏：句子会折行，「Next ·」在左侧占一块、加上句子不规则换行，
+   整块左右边距不对称。去掉前缀、句子每行居中，视觉上就对称了。 */
+@media (max-width: 640px) {
+  .prefix {
+    display: none;
+  }
+  .sentence {
+    text-align: center;
+  }
 }
 
 .sentence {

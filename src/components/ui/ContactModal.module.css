@@ -35,7 +35,7 @@
 }
 
 .label {
-  font-size: 22px;
+  font-size: var(--fs-2xl);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   letter-spacing: -0.22px;
@@ -45,8 +45,8 @@
 /* 间距挂在副标题上：contact 版没有副标题时不会留出多余空隙 */
 .title {
   margin-top: var(--space-1);
-  font-size: 11px;
-  font-weight: 400;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-regular);
   color: var(--color-text-body);
   letter-spacing: normal;
 }
@@ -92,8 +92,8 @@
 }
 
 .fieldLabel {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-regular);
   color: var(--color-text-label);
 }
 
@@ -106,9 +106,9 @@
 .input {
   font-family: var(--font-sans);
   font-feature-settings: var(--font-features-default);
-  font-size: 14px;
+  font-size: var(--fs-sm);
   /* 用户输入可能是中文。CJK 走 PingFang/雅黑 回退，350 会细到发虚，故固定 400。 */
-  font-weight: 400;
+  font-weight: var(--fw-regular);
   color: var(--color-text-heading);
   background: var(--color-white);
   border: 1px solid var(--color-border);
@@ -142,8 +142,8 @@
 .submit {
   font-family: var(--font-sans);
   font-feature-settings: var(--font-features-default);
-  font-size: 15px;
-  font-weight: 400;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-regular);
   color: var(--color-btn-primary-text);
   background: var(--color-btn-primary-bg);
   border: 1px solid var(--color-btn-primary-bg);
@@ -172,7 +172,7 @@
 }
 
 .error {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   color: #e53e3e;
   line-height: 1.5;
 }
@@ -206,7 +206,7 @@
 
 .successTitle {
   margin-top: var(--space-4);
-  font-size: 22px;
+  font-size: var(--fs-2xl);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   letter-spacing: -0.22px;
@@ -214,7 +214,7 @@
 
 .successBody {
   margin-top: var(--space-2);
-  font-size: 14px;
+  font-size: var(--fs-sm);
   color: var(--color-text-body);
   line-height: 1.6;
   /* 两句话刚好比一行长一点点，定宽会把末尾一个词甩到第二行。
@@ -243,7 +243,7 @@
   }
 
   .label {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
 
   .form {
@@ -252,7 +252,7 @@
 
   /* iOS Safari 会在聚焦小于 16px 的输入框时自动放大整页，且退出后常回不到原位 */
   .input {
-    font-size: 16px;
+    font-size: var(--fs-md);
   }
 
   .textarea {

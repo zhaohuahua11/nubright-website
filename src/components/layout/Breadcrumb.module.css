@@ -18,14 +18,14 @@
 }
 
 .sep {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   color: var(--color-text-body);
   opacity: 0.5;
 }
 
 .link {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-regular);
   color: var(--color-text-body);
   transition: color var(--duration-fast) var(--ease-out);
 }
@@ -35,7 +35,7 @@
 }
 
 .current {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-regular);
   color: var(--color-text-heading);
 }

@@ -51,6 +51,19 @@
 
   /* ── Font Weight Scale ── */
   --fw-light:   350;
-  --fw-heading: 350;
+  --fw-regular: 400;
+  --fw-heading: 400;
+
+  /* ── Font Size Scale ──
+     正文/UI 字号统一走这套令牌，营销区块与共享组件不再散写 px。
+     hero 大标题的 clamp() 展示字号、demo 固定画布、法律页各自独立，不在此列。 */
+  --fs-2xs:  12px;  /* 徽标、页脚、微标签 */
+  --fs-xs:   13px;  /* 次要小字 */
+  --fs-sm:   14px;  /* 列表项、小正文 */
+  --fs-md:   16px;  /* 基准正文 */
+  --fs-lg:   18px;  /* 副标题、引言 */
+  --fs-xl:   20px;  /* 编辑体大正文 */
+  --fs-2xl:  22px;  /* 小节标题 */
+  --fs-3xl:  24px;  /* 卡片/栏目标题 */
 }
 

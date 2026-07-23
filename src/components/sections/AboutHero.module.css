@@ -73,6 +73,13 @@
   border-right: 1px solid var(--color-grid-line);
 }
 
+/* 手机端只留最外两根竖线，与 GridOverlay 保持一致 */
+@media (max-width: 768px) {
+  .heroGridCol:not(:last-child) {
+    border-right: none;
+  }
+}
+
 .heroInner {
   position: relative;
   z-index: 2;
@@ -98,10 +105,10 @@
 }
 
 .heroSub {
-  font-size: 17px;
+  font-size: var(--fs-lg);
   font-weight: var(--fw-light);
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--color-text-heading);
-  max-width: 600px;
+  max-width: 640px;
   white-space: pre-line;
 }

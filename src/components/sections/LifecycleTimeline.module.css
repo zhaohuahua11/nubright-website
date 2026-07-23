@@ -54,7 +54,7 @@
 }
 
 .headerTitle {
-  font-size: clamp(32px, 4.5vw, 48px);
+  font-size: clamp(32px, 4.5vw, 56px);
   font-weight: var(--fw-heading);
   color: var(--color-text-heading);
   letter-spacing: -0.5px;
@@ -63,7 +63,7 @@
 }
 
 .headerSub {
-  font-size: 18px;
+  font-size: var(--fs-lg);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.5;
@@ -101,14 +101,14 @@
 }
 
 .stepNum {
-  font-size: 11px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   color: var(--color-text-body);
   letter-spacing: 0.04em;
 }
 
 .stepTitle {
-  font-size: clamp(15px, 1.3vw, 18px);
+  font-size: var(--fs-2xl);
   font-weight: var(--fw-heading);
   color: var(--color-text-heading);
   line-height: 1.2;
@@ -117,7 +117,7 @@
 }
 
 .stepSub {
-  font-size: 13px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.5;
@@ -199,23 +199,11 @@
   margin: var(--space-8) 0 0;
   padding: 3px var(--space-6);
   background: rgba(71, 85, 105, 0.12);
-  font-size: 10px;
+  font-size: var(--fs-sm);
   font-weight: var(--fw-light);
   color: var(--color-text-body);
   line-height: 1.5;
   text-align: center;
-}
-
-.boundaryLabel {
-  flex-shrink: 0;
-  padding-right: var(--space-3);
-  border-right: 1px solid var(--color-border);
-  font-size: 9px;
-  font-weight: var(--fw-medium, 500);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text-body);
-  opacity: 0.7;
 }
 
 /* ── 4-column content grid ── */
@@ -284,7 +272,7 @@
   height: 92px;
   min-height: 0;
   box-sizing: border-box;
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: var(--fw-light);
   font-style: italic;
   color: var(--color-text-body);
@@ -298,7 +286,7 @@
 
 /* ── Column subtitle ── */
 .colSub {
-  font-size: 14px;
+  font-size: var(--fs-sm);
   font-weight: var(--fw-light);
   color: var(--color-text-body);
   line-height: 1.5;
@@ -337,7 +325,7 @@
   border-radius: var(--radius-md);
   min-height: 0;
   padding: 6px clamp(var(--space-3), 1.2vw, var(--space-4));
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: var(--fw-light);
   color: var(--color-text-heading);
   line-height: 1.4;
@@ -386,7 +374,7 @@
   overflow: hidden;
   margin: 0;
   padding-top: 0;
-  font-size: 12px;
+  font-size: var(--fs-2xs);
   font-weight: var(--fw-light);
   color: var(--color-text-body);
   line-height: 1.6;
