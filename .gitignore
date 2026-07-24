@@ -19,3 +19,8 @@ stripe-DESIGN-merged.md
 awesome-design-md-main/
 pnpm-lock.yaml
 pnpm-workspace.yaml
+
+# 会话临时截图/脚本（不入库）
+__*.png
+__*.mjs
+__*.html
