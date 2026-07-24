@@ -24,7 +24,7 @@
     "badge": "Our Services",
     "heading": "From launch to wind-down.",
     "sub": "No handoffs. No gaps. No surprises. We serve both open-end and closed-end structures — with the same standard of thoroughness, from day one to the very end.",
-    "phase": "# Chapter",
+    "phase": "Chapter",
     "boundary": "We DO NOT give investment advice. We DO NOT manage assets. We DO NOT provide legal or tax opinions. We calculate. We reconcile. We report.",
     "s1": {
       "title": "Fund Formation",
@@ -37,7 +37,7 @@
       "i5": "Establish fund accounting framework and chart of accounts"
     },
     "s2": {
-      "title": "Capital Formation",
+      "title": "Fund Administration",
       "sub": "With you, when you earn their trust.",
       "quote": "Raising capital is hard enough. We keep the back office out of your critical path.",
       "i1": "Clear and onboard investors with KYC/AML rigor",
