@@ -2,12 +2,24 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(6, 27, 49, 0.5);
-  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-6);
+}
+
+/* 暗底 + 模糊放在 ::before（弹窗的兄弟层，不在其祖先链上）。
+   若把 backdrop-filter 挂在 .overlay 上，iOS Safari 会把其后代 <input>
+   的光标水平位置算错（恒定左偏）。移到 ::before 后，输入框不再是被
+   过滤元素的后代，光标归位，模糊背景视觉不变。 */
+.overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgba(6, 27, 49, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .modal {
