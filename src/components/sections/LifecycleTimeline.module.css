@@ -449,12 +449,14 @@
     display: none;
   }
 
-  /* 中间槽两列各 4px 内边距 */
+  /* 中缝两列各 4px 内边距；band 外缘（最左列左侧、最右列右侧）padding 归 0 */
   .chapter:nth-child(odd) .col {
+    padding-left: 0;
     padding-right: var(--space-1);
   }
   .chapter:nth-child(even) .col {
     padding-left: var(--space-1);
+    padding-right: 0;
   }
 }
 
@@ -476,11 +478,11 @@
   .chapter .barSeg::after {
     display: none;
   }
-  /* 单列下取消 2 列用的奇右/偶左内边距，改为左右对称 4px（(0,3,0) 优先级压过 ≤768 规则） */
+  /* 单列下取消 2 列用的奇右/偶左内边距，左右 padding 归 0（(0,3,0) 优先级压过 ≤768 规则） */
   .chapter:nth-child(odd) .col,
   .chapter:nth-child(even) .col {
-    padding-left: var(--space-1);
-    padding-right: var(--space-1);
+    padding-left: 0;
+    padding-right: 0;
   }
 
   /* 单列下宽度充足，正文各放大一档（桌面 4 列窄栏维持原样）：
