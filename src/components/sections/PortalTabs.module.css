@@ -80,3 +80,15 @@
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* 手机端：tab 文字缩小并强制不换行（22px 在窄屏会折成两行）。
+   放在 .tab 基础规则之后，确保同特异性下覆盖生效。 */
+@media (max-width: 480px) {
+  .tabs {
+    gap: var(--space-6);
+  }
+  .tab {
+    font-size: var(--fs-md);
+    white-space: nowrap;
+  }
+}
