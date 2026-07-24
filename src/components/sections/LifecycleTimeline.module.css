@@ -492,6 +492,8 @@
   }
   .colQuote {
     font-size: var(--fs-md);
+    /* 单列无需跨列对齐 → 高度随内容自适应（原固定 92/132px 显空） */
+    height: auto;
   }
   .item {
     font-size: var(--fs-md);
