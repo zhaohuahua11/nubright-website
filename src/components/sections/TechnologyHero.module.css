@@ -73,6 +73,11 @@
   .heroText {
     grid-column: 1;
     padding-right: 0;
+    /* 堆叠时徽标/标题/副文整体居中 */
+    text-align: center;
+  }
+  .heroBadge {
+    align-self: center;
   }
   .heroVisual {
     grid-column: 1;
