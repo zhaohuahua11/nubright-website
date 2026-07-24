@@ -59,8 +59,9 @@
 /* ── Main card ── */
 .card {
   position: relative;
-  /* 与内部 demo 的 .frame 圆角统一（12px），且只圆上面两个角、下面直角 */
-  border-radius: 12px 12px 0 0;
+  /* 外层容器四角都圆（12px，与内部 demo .frame 的圆角大小一致）；
+     demo 下边的直角是 .frame 自身的事，外层不跟着切直角 */
+  border-radius: 12px;
   /* 顶部空档取左右的两倍：给 demo 上方多留呼吸感（左右仍是 space-8） */
   padding: var(--space-16) var(--space-8) 0;
   margin-bottom: var(--space-16);
