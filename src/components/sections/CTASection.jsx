@@ -4,7 +4,7 @@ import styles from './CTASection.module.css'
 import AuroraBg from '../ui/AuroraBg'
 
 export default function CTASection({ onContactClick }) {
-  const [dark, setDark] = useState(true)
+  const [dark, setDark] = useState(false)
   const { t } = useTranslation()
 
   return (
