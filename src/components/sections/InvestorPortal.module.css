@@ -22,7 +22,7 @@
 
 /* ── Header ── */
 .header {
-  margin-bottom: var(--space-24);
+  margin-bottom: var(--space-12);
   text-align: center;
 }
 
@@ -204,6 +204,11 @@
 @media (max-width: 768px) {
   .features {
     grid-template-columns: 1fr;
+  }
+
+  /* 手机端：header 与 demo 卡片的间距（桌面 48px → 手机 32px） */
+  .header {
+    margin-bottom: var(--space-8);
   }
 
   /* 顶部留白本是为绝对定位的重播按钮让位（top 16 + 高 36 = 52px）。
