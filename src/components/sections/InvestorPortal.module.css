@@ -199,6 +199,12 @@
   .card {
     padding: 0;
   }
+  /* demo 铺满后重播按钮不再压顶部 tab 栏 → 移到卡片右下角（demo 底部渐隐处） */
+  .replayBtn {
+    top: auto;
+    bottom: var(--space-4);
+    right: var(--space-4);
+  }
 }
 
 @media (max-width: 768px) {
@@ -211,11 +217,8 @@
     margin-bottom: var(--space-8);
   }
 
-  /* 顶部留白本是为绝对定位的重播按钮让位（top 16 + 高 36 = 52px）。
-     窄屏下 demo 已缩小，按钮和留白同步收小才不显空。 */
+  /* 定位由 ≤1200 统一放到右下角，这里只按窄屏缩小尺寸 */
   .replayBtn {
-    top: var(--space-2);
-    right: var(--space-2);
     width: 30px;
     height: 30px;
     font-size: var(--fs-sm);
@@ -233,8 +236,6 @@
   }
 
   .replayBtn {
-    top: 6px;
-    right: 6px;
     width: 26px;
     height: 26px;
     font-size: var(--fs-xs);
