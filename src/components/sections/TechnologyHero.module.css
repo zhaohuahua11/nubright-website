@@ -77,6 +77,10 @@
   .heroVisual {
     grid-column: 1;
   }
+  /* 循环图堆叠到下一行时，右侧 gutter 露出的点阵背景显得突兀 → 一并隐藏 */
+  .hero > canvas {
+    display: none;
+  }
 }
 
 @media (max-width: 600px) {
