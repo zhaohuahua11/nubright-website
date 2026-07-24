@@ -1,8 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import styles from './PortalTabs.module.css'
 import InvestorPortal from './InvestorPortal'
 import ManagerPortal from './ManagerPortal'
+// Manager tab 默认不激活，其三张配图要点开才加载 → 首次切换会现拉、有点卡。
+// 这里在 PortalTabs 挂载后预取进浏览器缓存，点开时直接命中。
+import managerF1 from '../../assets/manager-f1.webp'
+import managerF2 from '../../assets/manager-f2.webp'
+import managerF3 from '../../assets/manager-f3.webp'
 
 const TABS = [
   { id: 'investor', labelKey: 'investorPortal.badge' },
@@ -16,6 +21,14 @@ const TABS = [
 export default function PortalTabs({ onContactClick }) {
   const { t } = useTranslation()
   const [active, setActive] = useState('investor')
+
+  // 预取 Manager 三张配图（不阻塞、只是提前进缓存）
+  useEffect(() => {
+    for (const src of [managerF1, managerF2, managerF3]) {
+      const img = new Image()
+      img.src = src
+    }
+  }, [])
 
   return (
     <section className={styles.section}>
