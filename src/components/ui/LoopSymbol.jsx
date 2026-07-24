@@ -168,7 +168,7 @@ export default function LoopSymbol({
         <text
           x={f(CX - D)} y={CY}
           textAnchor="middle" dominantBaseline="middle"
-          fill="#061b31" fontSize={16} fontWeight={300}
+          fill="#061b31" fontSize={18} fontWeight={350}
           fontFamily="Inter, -apple-system, sans-serif"
         >
           {leftLabel}
@@ -178,7 +178,7 @@ export default function LoopSymbol({
         <text
           x={f(CX + D)} y={CY}
           textAnchor="middle" dominantBaseline="middle"
-          fill="#061b31" fontSize={16} fontWeight={300}
+          fill="#061b31" fontSize={18} fontWeight={350}
           fontFamily="Inter, -apple-system, sans-serif"
         >
           {rightLabel}
